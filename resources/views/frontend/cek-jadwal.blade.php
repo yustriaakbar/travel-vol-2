@@ -28,7 +28,6 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($jadwal as $jdwl => $value)
 										<tr>
 											<td>{{ $value->kota_asal }} - {{ $value->nama_jalan }}</td>
 											<td>{{ $value->kota_tujuan }}</td>
@@ -37,7 +36,6 @@
 											<td>Rp. {{ $value->harga }}</td>
 											<td><a href="" class=" btn btn-primary">Pilih</a></td>
 										</tr>
-										@endforeach
 									</tbody>
 								</table>
 								</div>

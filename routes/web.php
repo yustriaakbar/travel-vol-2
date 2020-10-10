@@ -25,4 +25,5 @@ Route::get('/cekjadwal', 'FrontendController@cekjadwal');
 Route::get('/tiket', 'FrontendController@tiket');
 
 //BACKEND
-Route::get('/dashboard', 'AdminController@index');
+Route::get('/dashboard', 'BackendController@index');
+Route::get('/jadwal', 'BackendController@jadwal');

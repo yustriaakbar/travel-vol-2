@@ -27,8 +27,8 @@
 									<div class="form-group">
 										<label for="exampleInputEmail1">Asal</label>
 										<!-- <div class="default-select" id="default-select"> -->
-										<select name="asal" class="form-control js-example-basic-single" required >
-											<option value="asal" selected disabled="">Pilih Asal</option>
+										<select name="asal" class="form-control js-example-basic-single" required>
+											<option value="" selected disabled="">Pilih Asal</option>
 											@foreach($jadwal as $jdwl => $value)
 											<option value="{{ $value->kd_asal }}">{{ $value->kota_asal }} - {{ $value->jalan_asal }}</option>
 											@endforeach
@@ -38,8 +38,8 @@
 									<div class="form-group">
 										<label for="exampleInputEmail1">Tujuan</label>
 										<!-- <div class="default-select" id="default-select"> -->
-										<select name="tujuan" class="form-control js-example-basic-single">
-											<option value="tujuan" selected disabled="">Pilih Tujuan</option>
+										<select name="tujuan" class="form-control js-example-basic-single" required>
+											<option value="" selected disabled="">Pilih Tujuan</option>
 											@foreach($jadwal as $jdwl => $value)
 											<option value="{{ $value->kd_tujuan }}">{{ $value->kota_tujuan }}</option>
 											@endforeach

@@ -22,8 +22,14 @@ Route::get('/', 'FrontendController@index');
 Route::get('/cektanggal', 'FrontendController@cektanggal');
 Route::get('/cektiket', 'FrontendController@cektiket');
 Route::get('/cekjadwal', 'FrontendController@cekjadwal');
-Route::get('/tiket', 'FrontendController@tiket');
+Route::get('/before-order', 'FrontendController@before_order');
+Route::get('/after-order', 'FrontendController@after_order');
 
 //BACKEND
 Route::get('/dashboard', 'BackendController@index');
 Route::get('/jadwal', 'BackendController@jadwal');
+Route::get('/tambah-jadwal', 'BackendController@tambah_jdwl');
+Route::post('/create_jdwl', 'BackendController@create_jdwl');
+Route::get('/edit-jadwal/{id}', 'BackendController@edit_jdwl');
+Route::post('/update_jdwl/{id}', 'BackendController@update_jdwl');
+Route::get('/delete_jdwl/{id}', 'BackendController@delete_jdwl');

@@ -3,11 +3,11 @@
 @section('content')
 <!-- Begin Page Content -->
 <div class="container-fluid">
-      <h1 class="h3 mb-2 text-gray-800">Data Tujuan</h1>
+      <h1 class="h3 mb-2 text-gray-800">Jadwal Travel</h1>
       <!-- DataTales Example -->
       <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <a href="{{url('/tambahjadwal')}}" class="btn btn-primary pull-right" >
+          <a href="{{url('/tambah-jadwal')}}" class="btn btn-primary pull-right" >
           Tambah Jadwal
           </a>
         </div>
@@ -34,8 +34,8 @@
                   <td>{{ $value->berangkat }}</td>
                   <td>{{ $value->tiba }}</td>
                   <td>{{ $value->harga }}</td>
-                  <td><a href="{{url('editjadwal/'.$value->kd_jadwal)}}" class="btn btn-secondary">Edit</a>
-                    <a href="{{$value->kd_jadwal}}" class="btn btn-danger">Hapus</a>
+                  <td><a href="{{url('edit-jadwal/'.$value->kd_jadwal)}}" class="btn btn-secondary">Edit</a>
+                    <button delete-id="{{$value->kd_jadwal}}" class="btn btn-danger btn-hapus">Hapus</button>
                     <a href="" class="btn btn-primary">View</a></td>
                 </td>
               </tr>
@@ -48,4 +48,37 @@
     <!-- /.container-fluid -->
   </div>
   <!-- /.container-fluid -->
+@endsection
+@section('js')
+<script type="text/javascript">
+  
+        {{--$(document).ready(function () {--}}
+
+        {{--    $('.btn-hapus').click(function (e) {--}}
+        {{--        e.preventDefault();--}}
+        {{--        var id = $(this).attr('delete-id');--}}
+        {{--        var url = "{{ url('delete_jdwl') }}" + '/' + id;--}}
+        {{--        $('#modal-notification').find('form').attr('action', url);--}}
+
+        {{--        $('#modal-notification').modal();--}}
+        {{--    })--}}
+
+        {{--})--}}
+
+
+
+            $('.btn-hapus').click(function (e) {
+
+                var r = confirm("Apakah anda yakin ingin menghapus Jadwal ?");
+                var id = $(this).attr('delete-id');
+
+                if(r== true)
+                {
+                    window.location.href = "{{ url('delete_jdwl') }}" + '/' + id;
+                } else{
+
+                }
+            })
+
+</script>
 @endsection

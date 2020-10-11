@@ -17,8 +17,9 @@ class FrontendController extends Controller
             ->join('tujuan as t', 't.kd_tujuan', '=', 'jdw.kd_tujuan')
             ->join('asal as a', 'a.kd_asal', '=', 'jdw.kd_asal')
             ->select('jdw.kd_tujuan as kd_tujuan', 't.kota_tujuan as kota_tujuan', 'jdw.kd_asal as kd_asal', 'a.kota_asal as kota_asal', 'a.nama_jalan as jalan_asal')
-            ->get();        
-        return view('frontend.cek-tanggal', compact('jadwal'));
+            ->get();
+        $asal = DB::table('asal')->get();           
+        return view('frontend.cek-tanggal', compact('jadwal', 'asal'));
     }
 
     public function cekjadwal(Request $request)
@@ -45,8 +46,13 @@ class FrontendController extends Controller
         return view('frontend.cek-tiket');
     }        
 
-    public function tiket()
+    public function before_order()
     {
-        return view('frontend.tiket');
+        return view('frontend.beli_step1');
     }
+
+    public function after_order()
+    {
+        return view('frontend.beli_step2');
+    }    
 }

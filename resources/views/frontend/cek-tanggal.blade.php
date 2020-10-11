@@ -29,8 +29,8 @@
 										<!-- <div class="default-select" id="default-select"> -->
 										<select name="asal" class="form-control js-example-basic-single" required>
 											<option value="" selected disabled="">Pilih Asal</option>
-											@foreach($jadwal as $jdwl => $value)
-											<option value="{{ $value->kd_asal }}">{{ $value->kota_asal }} - {{ $value->jalan_asal }}</option>
+											@foreach($asal as $asl => $value)
+											<option value="{{ $value->kd_asal }}">{{ $value->kota_asal }} - {{ $value->nama_jalan }}</option>
 											@endforeach
 										</select>
 										<!-- </div> -->

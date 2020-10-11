@@ -67,7 +67,7 @@
         <a class="nav-link" href="{{ url('/dashboard') }}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard </span></a>
-        <a class="nav-link" href="{{ url('/order') }}">
+ <!--   <a class="nav-link" href="{{ url('/order') }}">
           <i class="fas fa-list-alt"></i>
           <span>List Order</span></a>
         <a class="nav-link" href="{{ url('/daftartiket') }}">
@@ -75,21 +75,21 @@
           <span>List Tiket</span></a>
         <a class="nav-link" href="{{ url('/daftarkonfirmasi') }}">
           <i class="fa fa-mouse-pointer"></i>
-          <span>List Konfirmasi</span></a>
+          <span>List Konfirmasi</span></a> -->
         <a class="nav-link" href="{{ url('/jadwal') }}">
-          <i class="fas fa fa-clipboard-list"></i>
+          <i class="fas fa fa-clipboard-list"></i> 
           <span>Jadwal</span></a>
         <a class="nav-link" href="{{ url('/mobil') }}">
           <i class="fas fa fa-bus"></i>
           <span>Mobil Travel</span></a>
 
 
-        <a class="nav-link" href="{{ url('/daftarbank') }}">
+    <!--<a class="nav-link" href="{{ url('/daftarbank') }}">
           <i class="fas fa fa-link"></i>
           <span>Link Bank</span></a>
         <a class="nav-link" href="{{ url('/laporan') }}">
           <i class="fa fa fa-file"></i>
-          <span>Laporan</span></a>
+          <span>Laporan</span></a>-->
              <!-- Nav Item - Pages Collapse Menu -->
           <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">

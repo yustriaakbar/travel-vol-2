@@ -12,25 +12,26 @@
 							<div class="card-header">
 								<i class="fa fa-info-circle"></i> Keterengan Tiket
 							</div>
+							@foreach($jadwal as $jdw => $value)
 							<div class="card-body">
 								<ul>
-									<li>► Jurusan <b>Nganjuk</b></li>
-									<li>► Armada  <b>NGK1</b></li>
-									<li>► Plat BUS  <b>AG 1234 TRN</b></li>
-									<li>► Berangkat dari <b>Nganjuk - Jl. Ahmad Yani</b></li>
-									<li>► Turun di <b>Surabaya</b></li>
-									<li>► Harga tiket: <b>Rp. 100.000</b></li>
-									<li>► Berangkat hari <b>Senin, 20 Desember 2020</b></li>
-									<li>► Jam keberangkatan <b>pukul 12:00:00 WIB</b></li>
-									<li>► Jam Tiba <b>pukul 15:30:00 WIB</b></li>
-									<li>► Silahkan pilih kursi</li>
+									<li>► Jurusan <b>{{ $value->kota_asal }} - {{ $value->kota_tujuan }}</b></li>
+									<li>► Armada  <b>{{ $value->nama_mobil }}</b></li>
+									<li>► Plat BUS  <b>{{ $value->plat_mobil }}</b></li>
+									<li>► Berangkat dari <b>{{ $value->kota_asal }} - {{ $value->nama_jalan }}</b></li>
+									<li>► Turun di <b>{{ $value->kota_tujuan }}</b></li>
+									<li>► Harga tiket: <b>Rp. {{ $value->harga }}</b></li>
+									<li>► Berangkat hari <b>{{ $hari }}, {{ $tanggal }}</b></li>
+									<li>► Jam keberangkatan <b>pukul {{ $value->jam_berangkat }}</b></li>
+									<li>► Jam Tiba <b>pukul {{ $value->jam_tiba }}</b></li>
 								</ul>
 							</div>
+							@endforeach
 						</div>
 					</div>
 					<div class="col-lg-4">
-						<form action="" method="get">
-							<input type="hidden" name="tgl" value="">
+						<form action="{{url('after-order')}}" method="get">
+							<input type="hidden" name="tgl" value="{{ $tanggal }}">
 							<!-- Default Card Example -->
 							<div class="card mb-5" >
 								<div class="card-header">
@@ -40,17 +41,14 @@
 								<table class="">
 									<tr>
 										<td class='btn-group' width='139'>
-											<!--=================================================START 3A=========================================================-->
 											<label class='btn btn-default'>
 												<input name='kursi[]' value='1' id='1' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;1
 											</label>
-											<!--=================================================START 3A=========================================================-->
 											<label class='btn btn-default'>
 												<input name='kursi[]' value='2' id='2' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;2
 											</label>
 										</td>
 										<td class='btn-group' width='139'>
-											<!--=================================================START 3C=========================================================-->
 											<label class='btn btn-primary'>
 												<a value='' autocomplete='off' disabled='disabled'>SUPIR</a>
 											</label>
@@ -58,16 +56,14 @@
 									</tr>
 									<tr>
 										<td class='btn-group' width='139'>
-											<!--=================================================START 3A=========================================================-->
 											<label class='btn btn-default'>
 												<input name='kursi[]' value='3' id='3' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;3
-												</label>				<!--=================================================START 3B=========================================================-->
+												</label>
 												<label class='btn btn-default'>
 													<input name='kursi[]' value='4' id='4' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;4
 												</label>
 											</td>
 											<td class='btn-group' width='139'>
-												<!--=================================================START 3A=========================================================-->
 												<label class='btn btn-default'>
 													<input name='kursi[]' value='5' id='5' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;5
 												</label>
@@ -75,78 +71,49 @@
 										</tr>
 										<tr>
 											<td class='btn-group' width='139'>
-												<!--=================================================START 3A=========================================================-->
 												<label class='btn btn-default'>
 													<input name='kursi[]' value='6' id='6' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;6
-													</label>				<!--=================================================START 3B=========================================================-->
+													</label>
 													<label class='btn btn-default'>
 														<input name='kursi[]' value='7' id='7' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;7
 													</label>
 												</td>
 												<td class='btn-group' width='139'>
-													<!--=================================================START 3A=========================================================-->
 													<label class='btn btn-default'>
 														<input name='kursi[]' value='8' id='8' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;8
-													</label>
-													<label class='btn btn-default'>
-														<input name='kursi[]' value='9' id='9' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;9
 													</label>
 												</td>
 											</tr>
 											<tr>
 												<td class='btn-group' width='139'>
-													<!--=================================================START 3A=========================================================-->
 													<label class='btn btn-default'>
-														<input name='kursi[]' value='10' id='10' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;10
-														</label>				<!--=================================================START 3B=========================================================-->
+														<input name='kursi[]' value='9' id='9' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;9
+														</label>
 														<label class='btn btn-default'>
-															<input name='kursi[]' value='11' id='11' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;11
+															<input name='kursi[]' value='10' id='10' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;10
 														</label>
 													</td>
 													<td class='btn-group' width='139'>
-														<!--=================================================START 3A=========================================================-->
 														<label class='btn btn-default'>
-															<input name='kursi[]' value='12' id='12' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;12
+															<input name='kursi[]' value='11' id='11' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;11
 														</label>
 													</td>
 												</tr>
 												<tr>
 													<td class='btn-group' width='139'>
-														<!--=================================================START 3A=========================================================-->
 														<label class='btn btn-default'>
-															<input name='kursi[]' value='13' id='13' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;13
-															</label>				<!--=================================================START 3B=========================================================-->
+															<input name='kursi[]' value='12' id='12' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;12
+															</label>
+															<label class='btn btn-default'>
+																<input name='kursi[]' value='13' id='13' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;13
+															</label>
+														</td>
+														<td class='btn-group' width='139'>
 															<label class='btn btn-default'>
 																<input name='kursi[]' value='14' id='14' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;14
 															</label>
 														</td>
-														<td class='btn-group' width='139'>
-															<!--=================================================START 3A=========================================================-->
-															<label class='btn btn-default'>
-																<input name='kursi[]' value='15' id='15' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;15
-															</label>
-														</td>
 													</tr>
-													<tr>
-														<td class='btn-group' width='139'>
-															<!--=================================================START 3A=========================================================-->
-															<label class='btn btn-default'>
-																<input name='kursi[]' value='16' id='16' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;16
-																</label>				<!--=================================================START 3B=========================================================-->
-																<label class='btn btn-default'>
-																	<input name='kursi[]' value='17' id='17' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;17
-																</label>
-															</td>
-															<td class='btn-group' width='139'>
-																<!--=================================================START 3A=========================================================-->
-																<label class='btn btn-default'>
-																	<input name='kursi[]' value='18' id='18' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;18
-																</label>
-																<label class='btn btn-default'>
-																	<input name='kursi[]' value='19' id='19' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;19
-																</label>
-															</td>
-														</tr>
 													</table>
 													</center>
 												</div>

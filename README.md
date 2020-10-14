@@ -11,7 +11,7 @@
 
 1. Download source code dari github
 2. Ekstrak folder zip ke direktori xampp/htdocs
-3. Install composer dengan cara buka cmd, arahkan ke direktori xampp/htdocs/namaprojectlaravel, kemudian ketikkan perintah composer install
+3. Install depedency dengan cara buka cmd, arahkan ke direktori xampp/htdocs/namaprojectlaravel, kemudian ketikkan perintah composer install
 4. Setup database dengan cara copy file example.env, lalu rename file .env dan isikan database. 
 5. Kemudian buat database di phpmyadmin sesuai dengan nama database pada file .env yang sudah dibuat
 5. php artisan migrate

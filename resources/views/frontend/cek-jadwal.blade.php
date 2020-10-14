@@ -32,9 +32,13 @@
 											<td>{{ $value->kota_asal }} - {{ $value->nama_jalan }}</td>
 											<td>{{ $value->kota_tujuan }}</td>
 											<td>{{ $hari }}, {{ $tanggal }}[{{ $value->jam_berangkat }}]</td>
-											<td>19</td>
+											<td>{{ $value->kapasitas_mobil }}</td>
 											<td>Rp. {{ $value->harga }}</td>
-											<td><a href="" class=" btn btn-primary">Pilih</a></td>
+											<form action="{{url('before-order')}}" method="get">
+											<input type="hidden" name="jadwal" value="{{ $value->kd_jadwal }}">
+											<input type="hidden" name="tanggal" value="{{ $tanggal }}">
+											<td><button type="submit" class=" btn btn-primary">Pilih</button></td>
+											</form>
 										</tr>
 									</tbody>
 								</table>

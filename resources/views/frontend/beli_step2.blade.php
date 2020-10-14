@@ -73,10 +73,10 @@
 														<div class="form-group">
 															<label for="exampleInputEmail1">Pilih Bank </label>
 															<select class="form-control" name="bank" required>
-																<option value="" selected disabled="">Pilih Bank</option>
-																
-																<option value="">BNI</option>
-																
+															<option value="" selected disabled="">Pilih Bank</option>
+															@foreach($bank as $bnk => $value)
+															<option value="{{ $value->kd_bank }}">{{ $value->nama_bank }}</option>
+															@endforeach
 															</select>
 														</div>
 														<hr>

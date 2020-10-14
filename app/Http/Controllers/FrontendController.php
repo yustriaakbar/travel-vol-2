@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -35,6 +36,7 @@ class FrontendController extends Controller
         ? DB::table('jadwal as jdw')
         ->join('tujuan as t', 't.kd_tujuan', '=', 'jdw.kd_tujuan')
         ->join('asal as a', 'a.kd_asal', '=', 'jdw.kd_asal')
+        ->join('mobil as m', 'm.kd_mobil', '=', 'jdw.kd_mobil')
         ->where('t.kd_tujuan', $request->tujuan)->get()
         : [];
 
@@ -46,13 +48,28 @@ class FrontendController extends Controller
         return view('frontend.cek-tiket');
     }        
 
-    public function before_order()
+    public function before_order(Request $request)
     {
-        return view('frontend.beli_step1');
+
+        $date = $request->get('tanggal');
+        $hari = date('l', strtotime($date ));
+        $tanggal = date('d-m-Y', strtotime($date ));
+        $jadwal = DB::table('jadwal as jdw')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'jdw.kd_tujuan')
+            ->join('asal as a', 'a.kd_asal', '=', 'jdw.kd_asal')
+            ->join('mobil as m', 'm.kd_mobil', '=', 'jdw.kd_mobil')
+            ->where('kd_jadwal', $request->jadwal)
+            ->get();       
+        return view('frontend.beli_step1', compact('tanggal', 'hari', 'jadwal'));
     }
 
-    public function after_order()
-    {
-        return view('frontend.beli_step2');
+    public function after_order(Request $request)
+    { 
+        if (Auth::user()){
+        $bank = DB::table('bank')->get();
+        return view('frontend.beli_step2', compact('bank'));
+        }else{
+        return view('auth.login');
+        }
     }    
 }

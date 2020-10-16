@@ -1,5 +1,5 @@
 @extends('layouts.ui')
-@section('judul','CEK JADWAL')
+@section('judul','Cek Tanggal')
 @section('css')
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/datepicker/dcalendar.picker.css') }}">
 @endsection

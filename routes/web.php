@@ -24,6 +24,11 @@ Route::get('/cektiket', 'FrontendController@cektiket');
 Route::get('/cekjadwal', 'FrontendController@cekjadwal');
 Route::get('/before-order', 'FrontendController@before_order');
 Route::get('/after-order', 'FrontendController@after_order');
+Route::post('/checkout', 'FrontendController@order');
+Route::get('/payment/{id}', 'FrontendController@pay');
+Route::get('/konfirmasi', 'FrontendController@confirm');
+Route::get('/daftartiket', 'FrontendController@tiket');
+Route::get('/etiket', 'FrontendController@cetak');
 
 //BACKEND
 Route::get('/dashboard', 'BackendController@index');

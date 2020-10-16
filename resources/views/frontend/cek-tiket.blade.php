@@ -1,5 +1,5 @@
 @extends('layouts.ui')
-@section('judul','CEK TIKET')
+@section('judul','Cek Tiket')
 @section('content')
 		<section class="service-area section-gap relative">
 			<div class="overlay overlay-bg"></div>

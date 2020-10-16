@@ -1,7 +1,7 @@
 @extends('layouts.ui')
-@section('judul','Tiket Travel')
+@section('judul','Pilih Kursi')
 @section('content')
-
+@foreach($jadwal as $jdw => $value)
 		<section class="service-area section-gap relative">
 			<div class="overlay overlay-bg"></div>
 			<div class="container">
@@ -12,7 +12,7 @@
 							<div class="card-header">
 								<i class="fa fa-info-circle"></i> Keterengan Tiket
 							</div>
-							@foreach($jadwal as $jdw => $value)
+						
 							<div class="card-body">
 								<ul>
 									<li>► Jurusan <b>{{ $value->kota_asal }} - {{ $value->kota_tujuan }}</b></li>
@@ -26,12 +26,13 @@
 									<li>► Jam Tiba <b>pukul {{ $value->jam_tiba }}</b></li>
 								</ul>
 							</div>
-							@endforeach
+							
 						</div>
 					</div>
 					<div class="col-lg-4">
 						<form action="{{url('after-order')}}" method="get">
-							<input type="hidden" name="tgl" value="{{ $tanggal }}">
+							<input type="hidden" name="jadwal" value="{{ $value->kd_jadwal }}">
+							<input type="hidden" name="tanggal" value="{{ $tanggal }}">
 							<!-- Default Card Example -->
 							<div class="card mb-5" >
 								<div class="card-header">
@@ -136,7 +137,7 @@
 													</div>
 												</div>
 											</section>
-
+@endforeach
 @endsection
 @section('js')
 <script type="text/javascript">

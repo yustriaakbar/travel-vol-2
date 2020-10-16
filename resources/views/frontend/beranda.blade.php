@@ -1,5 +1,5 @@
 @extends('layouts.ui')
-@section('judul','TRAVEL')
+@section('judul','Tiket Travel')
 @section('content')
 		<section class="banner-area relative section-gap relative" id="home">
 			<div class="container">

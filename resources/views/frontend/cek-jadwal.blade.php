@@ -1,5 +1,5 @@
 @extends('layouts.ui')
-@section('judul','CEK JADWAL')
+@section('judul','Cek Jadwal')
 @section('css')
 @endsection
 @section('content')

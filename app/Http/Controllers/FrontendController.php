@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class FrontendController extends Controller
 {
@@ -50,7 +51,7 @@ class FrontendController extends Controller
 
     public function before_order(Request $request)
     {
-
+        if (Auth::user()){
         $date = $request->get('tanggal');
         $hari = date('l', strtotime($date ));
         $tanggal = date('d-m-Y', strtotime($date ));
@@ -61,15 +62,122 @@ class FrontendController extends Controller
             ->where('kd_jadwal', $request->jadwal)
             ->get();       
         return view('frontend.beli_step1', compact('tanggal', 'hari', 'jadwal'));
+        }else{
+        return view('auth.login');
+        }        
     }
 
     public function after_order(Request $request)
     { 
         if (Auth::user()){
+        $date = $request->get('tanggal');
+        $tanggal = date('d-m-Y', strtotime($date ));
+        $jadwal = DB::table('jadwal')
+            ->where('kd_jadwal', $request->jadwal)
+            ->get();        
+        $id = Auth::id();
+        $user = DB::table('users')
+        ->where('id', $id)->get();
         $bank = DB::table('bank')->get();
-        return view('frontend.beli_step2', compact('bank'));
+        $kursi = $request->get('kursi');
+        //dd($request->all());
+        return view('frontend.beli_step2', compact('bank', 'user', 'kursi', 'tanggal', 'jadwal'));
+        }else{
+        return view('auth.login');
+        }
+    }
+
+    public function order(Request $request)
+    { 
+        if (Auth::user()){
+        $id = Auth::id();
+        $user = DB::table('users')
+        ->where('id', $id)->get();
+        $random1 = Str::random(6);
+        $random2 = Str::random(6);
+        $order = DB::table('order')
+        ->insert([
+            'kd_order' => $random1,
+            'kd_tiket' => $random2,
+            'kd_jadwal' => $request->input('kd_jadwal'),
+            'id_user' => $request->input('user'),
+            'kd_bank' => $request->input('bank'),
+            'nama_pemesan_tiket' => $request->input('nama_pemesan'),
+            'tgl_beli_order' => $request->input('tgl_beli'),
+            'tgl_berangkat_order' => $request->input('tgl'),
+            'nama_penumpang' => $request->input('nama'),
+            'umur_penumpang' => $request->input('umur'),
+            'no_kursi_penumpang' => $request->input('kursi'),
+            'no_ktp_order' => $request->input('no_ktp'),
+            'no_tlp_order' => $request->input('hp'),
+            'alamat_order' => $request->input('alamat'),
+            'expired_order' => $request->input('expired'),
+            'status_order' => '1',          
+        ]);
+        //dd($request->all());
+        return redirect('payment');
         }else{
         return view('auth.login');
         }
     }    
+
+    public function pay($id)
+    { 
+        if (Auth::user()){
+        $id_user = Auth::id();
+        $order = DB::table('order as ord')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
+            ->leftjoin('mobil as m', 'm.kd_mobil', '=', 'ord.kd_jadwal')
+            ->join('bank as b', 'b.kd_bank', '=', 'ord.kd_bank')
+            ->where('id_order', $id)
+            ->where('id_user', $id_user)
+            ->get();
+        //dd($request->all());
+        return view('frontend.pembayaran', compact('order'));
+        }else{
+        return view('auth.login');
+        }
+    }
+
+    public function confirm(Request $request)
+    { 
+        if (Auth::user()){
+        $id = Auth::id();
+        $user = DB::table('users')
+        ->where('id', $id)->get();
+        $bank = DB::table('bank')->get();
+        $kursi = $request->get('kursi');
+        //dd($request->all());
+        return view('frontend.konfirmasi', compact('bank', 'user', 'kursi'));
+        }else{
+        return view('auth.login');
+        }
+    }
+
+    public function tiket()
+    { 
+        if (Auth::user()){
+        $id_user = Auth::id();
+        $order = DB::table('order as ord')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
+            ->leftjoin('tujuan as t', 't.kd_tujuan', '=', 'ord.kd_jadwal')
+            ->leftjoin('asal as a', 'a.kd_asal', '=', 'ord.kd_jadwal')
+            ->where('id_user', $id_user)
+            ->get();
+        return view('frontend.tiketmu', compact('order'));
+        }else{
+        return view('auth.login');
+        }
+    }
+
+    public function cetak(Request $request)
+    { 
+        if (Auth::user()){
+        //dd($request->all());
+        return view('frontend.e_tiket');
+        }else{
+        return view('auth.login');
+        }
+    }    
+
 }

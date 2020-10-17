@@ -13,19 +13,19 @@
 							<img class="card-img-top" src="{{ asset('frontend/img/qr_code.png') }}" alt="Card image cap" >
 							<div class="card-body" align="left">
 								<a href="{{ asset('frontend/img/qr_code.png') }}" class="card-link" download>Download QrCode</a>
-								<h5 class="card-title">Kode Order : 123456</h5>
-								<p>Nama : Yustria Akbar
-								 <br>Tanggal Pesan : 20 Desember 1998</br>
-									Status Pembayaran : 
+								<h5 class="card-title">Kode Order : {{ $value->kd_order }}</h5>
+								<p>Nama : {{ $value->nama_pemesan_tiket }}
+								 <br>Tanggal Pesan : {{ $value->tgl_beli_order }}</br>
+									Status Pembayaran :
+									@if($value->status_order =='1') 
 									<i class='btn-danger'>Belum bayar</i>
-
-									
 									<hr>
-									
 									<a href="{{url('payment/'.$value->id_order)}}" class="btn btn-primary">Cek Pembayaran</a>
-									<!--
+									@else($value->status_order =='2')
+									<i class='btn-success'>Lunas bayar</i>
+									<hr>
 									<a href="" class="btn btn-success pull-right" download>Cetak Tiket</a>
-									-->
+									@endif
 								</div>
 							</div>
 						</div>

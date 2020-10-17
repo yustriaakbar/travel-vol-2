@@ -75,10 +75,7 @@
           <span>List Tiket</span></a>
         <a class="nav-link" href="{{ url('/daftarkonfirmasi') }}">
           <i class="fa fa-mouse-pointer"></i>
-          <span>List Konfirmasi</span></a> -->
-        <a class="nav-link" href="{{ url('/jadwal') }}">
-          <i class="fas fa fa-clipboard-list"></i> 
-          <span>Jadwal</span></a>
+          <span>List Konfirmasi</span></a> -->         
         <a class="nav-link" href="{{ url('/mobil') }}">
           <i class="fas fa fa-bus"></i>
           <span>Mobil Travel</span></a>
@@ -90,8 +87,21 @@
         <a class="nav-link" href="{{ url('/laporan') }}">
           <i class="fa fa fa-file"></i>
           <span>Laporan</span></a>-->
-             <!-- Nav Item - Pages Collapse Menu -->
+
           <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+              <i class="fas fa-fw fa-users"></i>
+              <span>Manajemen Jadwal</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ url('/asal-tujuan') }}">Asal dan Tujuan</a>
+                <a class="collapse-item" href="{{ url('/jadwal') }}">Jadwal Travel</a>
+              </div>
+            </div>
+          </li>
+
+    <!--      <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
               <i class="fas fa-fw fa-users"></i>
               <span>Management User</span>
@@ -102,7 +112,7 @@
                 <a class="collapse-item" href="">List Admin</a>
               </div>
             </div>
-          </li>
+          </li>-->
         
       </li>
       <!-- Divider -->

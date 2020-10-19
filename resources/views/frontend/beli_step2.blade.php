@@ -9,7 +9,7 @@
 						<!-- Default Card Example -->
 						<form action="{{url('checkout')}}" method="post">
 							{{ csrf_field() }}
-						<input type="hidden" name="tgl" value="{{ $tanggal }}">
+						<input type="hidden" name="tgl" value="{{ $date }}">
 						<input type="hidden" name="expired" value="{{date('Y-m-d H:i:s', strtotime('+1 day'))}}">
 						<input type="hidden" name="tgl_beli" value="{{ date('Y-m-d H:i:s') }}">
 						@foreach($jadwal as $j => $value)
@@ -28,9 +28,9 @@
 									<div class="form-group">
 										<select name="umur" class="form-control js-example-basic-single" required>
 											<option value="" selected disabled="">Umur Penumpang</option>
-											
-											<option value="20">20 Tahun</option>
-											
+											@for ($i = 1; $i < 70; $i++)
+											<option value="{{ $i }}">{{ $i }} Tahun</option>
+											@endfor
 										</select>
 									</div>
 								</div>

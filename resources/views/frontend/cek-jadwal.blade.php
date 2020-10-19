@@ -31,12 +31,12 @@
 										<tr>
 											<td>{{ $value->kota_asal }} - {{ $value->nama_jalan }}</td>
 											<td>{{ $value->kota_tujuan }}</td>
-											<td>{{ $hari }}, {{ $tanggal }}[{{ $value->jam_berangkat }}]</td>
+											<td>{{\Carbon\Carbon::parse($date)->isoFormat('dddd, D MMMM Y') }} [{{ $value->jam_berangkat }}] </td>
 											<td>{{ $value->kapasitas_mobil }}</td>
-											<td>Rp. {{ $value->harga }}</td>
+											<td>@currency($value->harga)</td>
 											<form action="{{url('before-order')}}" method="get">
 											<input type="hidden" name="jadwal" value="{{ $value->kd_jadwal }}">
-											<input type="hidden" name="tanggal" value="{{ $tanggal }}">
+											<input type="hidden" name="tanggal" value="{{ $date }}">
 											<td><button type="submit" class=" btn btn-primary">Pilih</button></td>
 											</form>
 										</tr>

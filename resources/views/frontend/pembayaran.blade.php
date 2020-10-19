@@ -28,12 +28,12 @@
 											<tr>
 												<th scope="row">{{ $value->kd_tiket }}</th>
 												<td>{{ $value->kd_jadwal }} - {{ $value->plat_mobil }}</td>
-												<td>{{date('l', strtotime($value->tgl_berangkat_order ))}}, {{ $value->tgl_berangkat_order }}, {{ $value->jam_berangkat }}</td>
+												<td>{{\Carbon\Carbon::parse($value->tgl_berangkat_order)->isoFormat('dddd, D MMMM Y') }}, {{ $value->jam_berangkat }} </td>
 												<td>{{ $value->no_kursi_penumpang }}</td>
-												<td>Rp. {{ $value->harga }}</td>
+												<td>@currency($value->harga)</td>
 											</tr>
 										
-											<td colspan="5"> <b class="pull-right">Total Rp {{ $value->harga }}</b></td>
+											<td colspan="5"> <b class="pull-right">Total @currency($value->harga)</b></td>
 										</tbody>
 									</table>
 								</div>
@@ -49,8 +49,33 @@
 							<div class="card-body" align="center">
 								<h4>Segera Menyelesaikan Pembayaran Anda</h4><br>
 								<p>Batas waktu pembayaran Anda akan berakhir pada</p>
-								<h1><p id="expired"></p></h1>
-								<p>Sebelum {{ $value->expired_order }}</p>
+								<h1><p id="expired">
+								<script>
+								// Set the date we're counting down to
+								var countDownDate = new Date("{{ $value->expired_order }}").getTime();
+								// Update the count down every 1 second
+								var x = setInterval(function() {
+								// Get todays date and time
+								var now = new Date().getTime();
+								// Find the distance between now and the count down date
+								var distance = countDownDate - now;
+								// Time calculations for days, hours, minutes and seconds
+								var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+								var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+								var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+								var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+								// Output the result in an element with id="demo"
+								document.getElementById("expired").innerHTML = hours + " Jam : "
+								+ minutes + " Menit : " + seconds + " Detik ";
+								// If the count down is over, write some text
+								if (distance < 0) {
+								clearInterval(x);
+								document.getElementById("expired").innerHTML =  "Waktu Pembayaran Selesai";
+								}
+								}, 1000);
+								</script>									
+								</p></h1>
+								<p>Sebelum {{\Carbon\Carbon::parse($value->expired_order)->isoFormat('dddd, D MMMM Y') }}, {{\Carbon\Carbon::parse($value->expired_order)->toTimeString() }} </p>
 								<hr>
 								<div class="medium-title col-12 mb-20">
 									<h4><p>Silahkan transfer pembayaran ke nomor rekening berikut ini</p></h4>
@@ -95,7 +120,7 @@
 									<h4><b> <p>Sebesar</p></b></h4>
 								</div>
 								<div class="col-12 bigger-title text-orange">
-									<h3 ><p >Rp {{ $value->harga }}</p></h3>
+									<h3 ><p >@currency($value->harga)</p></h3>
 								</div>
 								<div class="col-14 mt-15 mb-15">
 									<hr>
@@ -132,29 +157,5 @@
 				document.execCommand("copy");
 				swal("Copy", "Berhasil Copy Nomo Rekening", "info");
 				}
-				</script>
-				<script>
-				// Set the date we're counting down to
-				var countDownDate = new Date("Oct 18, 2020 15:37:25").getTime();
-				// Update the count down every 1 second
-				var x = setInterval(function() {
-				// Get todays date and time
-				var now = new Date().getTime();
-				// Find the distance between now and the count down date
-				var distance = countDownDate - now;
-				// Time calculations for days, hours, minutes and seconds
-				var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-				// Output the result in an element with id="demo"
-				document.getElementById("expired").innerHTML = hours + " Jam : "
-				+ minutes + " Menit : " + seconds + " Detik ";
-				// If the count down is over, write some text
-				if (distance < 0) {
-				clearInterval(x);
-				document.getElementById("expired").innerHTML =  "Waktu Pembayaran Selesai";
-				}
-				}, 1000);
 				</script>
 @endsection

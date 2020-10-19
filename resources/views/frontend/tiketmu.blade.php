@@ -15,12 +15,12 @@
 								<a href="{{ asset('frontend/img/qr_code.png') }}" class="card-link" download>Download QrCode</a>
 								<h5 class="card-title">Kode Order : {{ $value->kd_order }}</h5>
 								<p>Nama : {{ $value->nama_pemesan_tiket }}
-								 <br>Tanggal Pesan : {{ $value->tgl_beli_order }}</br>
+								<br>Tanggal Pesan : {{\Carbon\Carbon::parse($value->tgl_beli_order)->isoFormat('dddd, D MMMM Y') }}, {{\Carbon\Carbon::parse($value->tgl_beli_order)->toTimeString() }}</br>
 									Status Pembayaran :
 									@if($value->status_order =='1') 
 									<i class='btn-danger'>Belum bayar</i>
 									<hr>
-									<a href="{{url('payment/'.$value->id_order)}}" class="btn btn-primary">Cek Pembayaran</a>
+									<a href="{{url('payment/'.$value->kd_order)}}" class="btn btn-primary">Cek Pembayaran</a>
 									@else($value->status_order =='2')
 									<i class='btn-success'>Lunas bayar</i>
 									<hr>

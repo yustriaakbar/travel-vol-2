@@ -5,6 +5,7 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class FrontendController extends Controller
 {
@@ -27,8 +28,6 @@ class FrontendController extends Controller
     public function cekjadwal(Request $request)
     {
         $date = $request->get('tanggal');
-        $hari = date('l', strtotime($date ));
-        $tanggal = date('d-m-Y', strtotime($date ));
         $postsInRange = $request->has('asal')
         ? DB::table('jadwal')
         ->where('kd_asal', $request->asal)->get()
@@ -41,7 +40,7 @@ class FrontendController extends Controller
         ->where('t.kd_tujuan', $request->tujuan)->get()
         : [];
 
-        return view('frontend.cek-jadwal', ['jadwal' => $postsInRange, 'jadwal' => $postsInRange1,], compact('tanggal', 'hari'));
+        return view('frontend.cek-jadwal', ['jadwal' => $postsInRange, 'jadwal' => $postsInRange1,], compact('date'));
     }
 
     public function cektiket()
@@ -53,15 +52,13 @@ class FrontendController extends Controller
     {
         if (Auth::user()){
         $date = $request->get('tanggal');
-        $hari = date('l', strtotime($date ));
-        $tanggal = date('d-m-Y', strtotime($date ));
         $jadwal = DB::table('jadwal as jdw')
             ->join('tujuan as t', 't.kd_tujuan', '=', 'jdw.kd_tujuan')
             ->join('asal as a', 'a.kd_asal', '=', 'jdw.kd_asal')
             ->join('mobil as m', 'm.kd_mobil', '=', 'jdw.kd_mobil')
             ->where('kd_jadwal', $request->jadwal)
             ->get();       
-        return view('frontend.beli_step1', compact('tanggal', 'hari', 'jadwal'));
+        return view('frontend.beli_step1', compact('date', 'jadwal'));
         }else{
         return view('auth.login');
         }        
@@ -71,7 +68,6 @@ class FrontendController extends Controller
     { 
         if (Auth::user()){
         $date = $request->get('tanggal');
-        $tanggal = date('d-m-Y', strtotime($date ));
         $jadwal = DB::table('jadwal')
             ->where('kd_jadwal', $request->jadwal)
             ->get();        
@@ -81,7 +77,7 @@ class FrontendController extends Controller
         $bank = DB::table('bank')->get();
         $kursi = $request->get('kursi');
         //dd($request->all());
-        return view('frontend.beli_step2', compact('bank', 'user', 'kursi', 'tanggal', 'jadwal'));
+        return view('frontend.beli_step2', compact('bank', 'user', 'kursi', 'jadwal', 'date'));
         }else{
         return view('auth.login');
         }
@@ -113,9 +109,9 @@ class FrontendController extends Controller
             'alamat_order' => $request->input('alamat'),
             'expired_order' => $request->input('expired'),
             'status_order' => '1',          
-        ]);
+        ]);        
         //dd($request->all());
-        return redirect('payment');
+        return redirect('payment/'.$random1);
         }else{
         return view('auth.login');
         }
@@ -129,10 +125,10 @@ class FrontendController extends Controller
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
             ->leftjoin('mobil as m', 'm.kd_mobil', '=', 'ord.kd_jadwal')
             ->join('bank as b', 'b.kd_bank', '=', 'ord.kd_bank')
-            ->where('id_order', $id)
+            ->where('kd_order', $id)
             ->where('id_user', $id_user)
             ->get();
-        //dd($request->all());
+        //$today = Carbon::now()->isoFormat('dddd, D MMMM Y');
         return view('frontend.pembayaran', compact('order'));
         }else{
         return view('auth.login');

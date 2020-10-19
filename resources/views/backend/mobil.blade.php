@@ -38,7 +38,7 @@
                   @endif
                   <td><a href="{{url('edit-mobil/'.$value->kd_mobil)}}" class="btn btn-secondary">Edit</a>
                     <button delete-id="{{$value->kd_mobil}}" class="btn btn-danger btn-hapus">Hapus</button>
-                    <a href="" class="btn btn-primary">View</a></td>
+                  </td>
                 </td>
               </tr>
                 @endforeach

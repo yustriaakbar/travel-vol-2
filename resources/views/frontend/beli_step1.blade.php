@@ -20,8 +20,8 @@
 									<li>► Plat BUS  <b>{{ $value->plat_mobil }}</b></li>
 									<li>► Berangkat dari <b>{{ $value->kota_asal }} - {{ $value->nama_jalan }}</b></li>
 									<li>► Turun di <b>{{ $value->kota_tujuan }}</b></li>
-									<li>► Harga tiket: <b>Rp. {{ $value->harga }}</b></li>
-									<li>► Berangkat hari <b>{{ $hari }}, {{ $tanggal }}</b></li>
+									<li>► Harga tiket: <b>@currency($value->harga)</b></li>
+									<li>► Berangkat hari <b>{{\Carbon\Carbon::parse($date)->isoFormat('dddd, D MMMM Y') }}</b></li>
 									<li>► Jam keberangkatan <b>pukul {{ $value->jam_berangkat }}</b></li>
 									<li>► Jam Tiba <b>pukul {{ $value->jam_tiba }}</b></li>
 								</ul>
@@ -32,7 +32,7 @@
 					<div class="col-lg-4">
 						<form action="{{url('after-order')}}" method="get">
 							<input type="hidden" name="jadwal" value="{{ $value->kd_jadwal }}">
-							<input type="hidden" name="tanggal" value="{{ $tanggal }}">
+							<input type="hidden" name="tanggal" value="{{ $date }}">
 							<!-- Default Card Example -->
 							<div class="card mb-5" >
 								<div class="card-header">

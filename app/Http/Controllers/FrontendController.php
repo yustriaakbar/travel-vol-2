@@ -91,8 +91,12 @@ class FrontendController extends Controller
         ->where('id', $id)->get();
         $random1 = Str::random(6);
         $random2 = Str::random(6);
-        $order = DB::table('order')
-        ->insert([
+        $data=$request->all();
+      
+        if(count($request->nama) > 0)
+        {
+        foreach($request->nama as $item=>$v){
+            $data2=array(
             'kd_order' => $random1,
             'kd_tiket' => $random2,
             'kd_jadwal' => $request->input('kd_jadwal'),
@@ -101,15 +105,19 @@ class FrontendController extends Controller
             'nama_pemesan_tiket' => $request->input('nama_pemesan'),
             'tgl_beli_order' => $request->input('tgl_beli'),
             'tgl_berangkat_order' => $request->input('tgl'),
-            'nama_penumpang' => $request->input('nama'),
-            'umur_penumpang' => $request->input('umur'),
-            'no_kursi_penumpang' => $request->input('kursi'),
+                'nama_penumpang'=>$request->nama[$item],
+                'umur_penumpang'=>$request->umur[$item],
+                'no_kursi_penumpang'=>$request->kursi[$item],
             'no_ktp_order' => $request->input('no_ktp'),
             'no_tlp_order' => $request->input('hp'),
             'alamat_order' => $request->input('alamat'),
             'expired_order' => $request->input('expired'),
-            'status_order' => '1',          
-        ]);        
+            'status_order' => '1',
+            );
+           
+        DB::table('order')->insert($data2);
+            }
+        }
         //dd($request->all());
         return redirect('payment/'.$random1);
         }else{
@@ -124,12 +132,23 @@ class FrontendController extends Controller
         $order = DB::table('order as ord')
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
             ->leftjoin('mobil as m', 'm.kd_mobil', '=', 'ord.kd_jadwal')
-            ->join('bank as b', 'b.kd_bank', '=', 'ord.kd_bank')
             ->where('kd_order', $id)
             ->where('id_user', $id_user)
             ->get();
+        $order1 = DB::table('order as ord')
+            ->join('bank as b', 'b.kd_bank', '=', 'ord.kd_bank')
+            ->where('kd_order', $id)
+            ->where('id_user', $id_user)
+            ->first();
+        $total = DB::table('order as ord')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
+            //->join('bank as b', 'b.kd_bank', '=', 'ord.kd_bank')
+            ->where('kd_order', $id)
+            ->where('id_user', $id_user)
+            ->sum('j.harga');
+
         //$today = Carbon::now()->isoFormat('dddd, D MMMM Y');
-        return view('frontend.pembayaran', compact('order'));
+        return view('frontend.pembayaran', compact('order', 'order1', 'total'));
         }else{
         return view('auth.login');
         }
@@ -159,6 +178,7 @@ class FrontendController extends Controller
             ->leftjoin('tujuan as t', 't.kd_tujuan', '=', 'ord.kd_jadwal')
             ->leftjoin('asal as a', 'a.kd_asal', '=', 'ord.kd_jadwal')
             ->where('id_user', $id_user)
+            ->groupBy('kd_order')
             ->get();
         return view('frontend.tiketmu', compact('order'));
         }else{

@@ -22,11 +22,11 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<input type="text" id="" class="form-control" id="" name="nama" placeholder="Kursi Nomor {{ $k }} Atas Nama" required>
-										<input type="hidden" name="kursi" value="{{ $k }}">
+										<input type="text" id="" class="form-control" id="" name="nama[]" placeholder="Kursi Nomor {{ $k }} Atas Nama" required>
+										<input type="hidden" name="kursi[]" value="{{ $k }}">
 									</div>
 									<div class="form-group">
-										<select name="umur" class="form-control js-example-basic-single" required>
+										<select name="umur[]" class="form-control js-example-basic-single" required>
 											<option value="" selected disabled="">Umur Penumpang</option>
 											@for ($i = 1; $i < 70; $i++)
 											<option value="{{ $i }}">{{ $i }} Tahun</option>

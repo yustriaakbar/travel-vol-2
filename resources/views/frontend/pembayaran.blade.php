@@ -1,7 +1,7 @@
 @extends('layouts.ui')
 @section('judul','Pembayaran')
 @section('content')
-@foreach($order as $ord => $value)
+
 		<section class="service-area section-gap relative">
 			<div class="overlay overlay-bg"></div>
 			<div class="container">
@@ -10,7 +10,7 @@
 						<!-- Default Card Example -->
 						<div class="card mb-5">
 							<div class="card-header" align="center">
-								<b><i class="fa fa-ticket"></i> KODE ORDER {{ $value->kd_order }}</b>
+								<b><i class="fa fa-ticket"></i> KODE ORDER {{ $order1->kd_order }}</b>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
@@ -25,6 +25,7 @@
 											</tr>
 										</thead>
 										<tbody>
+											@foreach($order as $ord => $value)
 											<tr>
 												<th scope="row">{{ $value->kd_tiket }}</th>
 												<td>{{ $value->kd_jadwal }} - {{ $value->plat_mobil }}</td>
@@ -32,14 +33,15 @@
 												<td>{{ $value->no_kursi_penumpang }}</td>
 												<td>@currency($value->harga)</td>
 											</tr>
-										
-											<td colspan="5"> <b class="pull-right">Total @currency($value->harga)</b></td>
+											@endforeach
+											<td colspan="5"> <b class="pull-right">Total @currency($total)</b></td>
 										</tbody>
 									</table>
 								</div>
 							</div>
 						</div>
 					</div>
+					
 					<div class="col-lg-8">
 						<!-- Default Card Example -->
 						<div class="card">
@@ -52,7 +54,7 @@
 								<h1><p id="expired">
 								<script>
 								// Set the date we're counting down to
-								var countDownDate = new Date("{{ $value->expired_order }}").getTime();
+								var countDownDate = new Date("{{ $order1->expired_order }}").getTime();
 								// Update the count down every 1 second
 								var x = setInterval(function() {
 								// Get todays date and time
@@ -75,40 +77,40 @@
 								}, 1000);
 								</script>									
 								</p></h1>
-								<p>Sebelum {{\Carbon\Carbon::parse($value->expired_order)->isoFormat('dddd, D MMMM Y') }}, {{\Carbon\Carbon::parse($value->expired_order)->toTimeString() }} </p>
+								<p>Sebelum {{\Carbon\Carbon::parse($order1->expired_order)->isoFormat('dddd, D MMMM Y') }}, {{\Carbon\Carbon::parse($order1->expired_order)->toTimeString() }} </p>
 								<hr>
 								<div class="medium-title col-12 mb-20">
 									<h4><p>Silahkan transfer pembayaran ke nomor rekening berikut ini</p></h4>
 								</div>
 								<div class="offset-lg-1 col-lg-10 offset-sm-0 col-sm-12">
 									<div class="row">
-									@if($value->kd_bank =='1') 
+									@if($order1->kd_bank =='1') 
 										<div class="col-md-3 col-4 mb-xs-10 pr-xs-0">
 											<img src="{{ asset('frontend/img/bank/bni-icon.jpg') }}" height="50" width="100" alt="Icon Bank" />
 										</div>
 										<div class="col-md-6 col-8 mb-xs-10 rekening-text">
-											<p ><input type="hidden" name="" id="myInput" value=""><h4 id="myInput">{{ $value->rekening_bank }} an {{ $value->nasabah_bank }}</h4></p>
+											<p ><input type="hidden" name="" id="myInput" value=""><h4 id="myInput">{{ $order1->rekening_bank }} an {{ $order1->nasabah_bank }}</h4></p>
 										</div>
-									@elseif($value->kd_bank =='2')
+									@elseif($order1->kd_bank =='2')
 										<div class="col-md-3 col-4 mb-xs-10 pr-xs-0">
 											<img src="{{ asset('frontend/img/bank/mandiri-icon.jpg') }}" height="50" width="100" alt="Icon Bank" />
 										</div>
 										<div class="col-md-6 col-8 mb-xs-10 rekening-text">
-											<p ><input type="hidden" name="" id="myInput" value=""><h4 id="myInput">{{ $value->rekening_bank }} an {{ $value->nasabah_bank }}</h4></p>
+											<p ><input type="hidden" name="" id="myInput" value=""><h4 id="myInput">{{ $order1->rekening_bank }} an {{ $order1->nasabah_bank }}</h4></p>
 										</div>
-									@elseif($value->kd_bank =='3')
+									@elseif($order1->kd_bank =='3')
 										<div class="col-md-3 col-4 mb-xs-10 pr-xs-0">
 											<img src="{{ asset('frontend/img/bank/bca-icon.jpg') }}" height="50" width="100" alt="Icon Bank" />
 										</div>
 										<div class="col-md-6 col-8 mb-xs-10 rekening-text">
-											<p ><input type="hidden" name="" id="myInput" value=""><h4 id="myInput">{{ $value->rekening_bank }} an {{ $value->nasabah_bank }}</h4></p>
+											<p ><input type="hidden" name="" id="myInput" value=""><h4 id="myInput">{{ $order1->rekening_bank }} an {{ $order1->nasabah_bank }}</h4></p>
 										</div>
-									@elseif($value->kd_bank =='4')
+									@elseif($order1->kd_bank =='4')
 										<div class="col-md-3 col-4 mb-xs-10 pr-xs-0">
 											<img src="{{ asset('frontend/img/bank/bri-icon.jpg') }}" height="50" width="100" alt="Icon Bank" />
 										</div>
 										<div class="col-md-6 col-8 mb-xs-10 rekening-text">
-											<p ><input type="hidden" name="" id="myInput" value=""><h4 id="myInput">{{ $value->rekening_bank }} an {{ $value->nasabah_bank }}</h4></p>
+											<p ><input type="hidden" name="" id="myInput" value=""><h4 id="myInput">{{ $order1->rekening_bank }} an {{ $order1->nasabah_bank }}</h4></p>
 										</div>
 									@endif
 										<div class="col-md-3 copy-link">
@@ -120,7 +122,7 @@
 									<h4><b> <p>Sebesar</p></b></h4>
 								</div>
 								<div class="col-12 bigger-title text-orange">
-									<h3 ><p >@currency($value->harga)</p></h3>
+									<h3 ><p >@currency($total)</p></h3>
 								</div>
 								<div class="col-14 mt-15 mb-15">
 									<hr>
@@ -147,7 +149,7 @@
 						</div>
 					</div>
 				</section>
-	@endforeach
+	
 @endsection
 @section('js')
 				<script>

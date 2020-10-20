@@ -12,24 +12,24 @@
 					    Konfirmasi Pembayaran
 					  </div>
 					  <div class="card-body">
-					    <form action="" method="post" enctype="multipart/form-data">
+					    <form action="{{url('create_confirm')}}" method="post" enctype="multipart/form-data">
+					    	{{ csrf_field() }} 
 									<div class="form-group">
 										<label for="exampleInputEmail1">Kode Order</label>
-										<input type="text" id="" class="form-control" id="" name="kd_order" value="" placeholder="Kode Tiket">
+										<input type="text" id="" class="form-control" id="" name="kd_order" value="{{ $order->kd_order }}" readonly>
 									</div>
 									<div class="form-group">
-										<label for="exampleInputEmail1">BANK Kamu</label>
-										<select class="form-control" name="bank_km">
+										<label for="exampleInputEmail1">Nama BANK</label>
+										<select class="form-control" name="nama_bank" required>
 											<option value="" selected disabled="">Pilih Bank</option>
-											<option value="BCA" >BCA</option>
-											<option value="Mandiri">Mandiri</option>
-											<option value="BNI">BNI</option>
-											<option value="BRI">BRI</option>
+											@foreach($bank as $bnk => $value)
+											<option value="{{ $value->kd_bank }}">{{ $value->nama_bank }}</option>
+											@endforeach
 										</select>
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1">Nomor Rekening</label>
-										<input type="number" class="form-control" name="nomrek" value="" placeholder="Nomor Rekening">
+										<input type="number" class="form-control" name="rek" value="" placeholder="Nomor Rekening">
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1">Nama Pengirim</label>
@@ -37,11 +37,11 @@
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1">Jumlah Pembayaran</label>
-										<input type="number" class="form-control" name="total" value="" placeholder="Total Harga" readonly>
+										<input type="text" class="form-control" name="total" value="@currency($total)" readonly>
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1">Upload Poto Transaksi</label>
-										<input type="file" class="form-control" name="userfile" required="">
+										<input type="file" class="form-control" name="photo" required="">
 									</div>
 									<button type="submit" class="btn btn-primary pull-right">Konfirmasi </button>
 								</form>

@@ -144,7 +144,7 @@
 										</div>
 									</div>
 								</div>
-								<a href="{{ url('/konfirmasi') }}" class="btn btn-primary pull-center">Konfirmasi Pembayaran </a>
+								<a href="{{ url('/konfirmasi/'.$order1->kd_order) }}" class="btn btn-primary pull-center">Konfirmasi Pembayaran </a>
 							</div>
 						</div>
 					</div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
+use File;
 
 class BackendController extends Controller
 {
@@ -211,7 +212,7 @@ class BackendController extends Controller
             'kapasitas_mobil' => $request->input('kapasitas_mobil'),
             'status' => $request->input('status'),
         ]);
-        //session()->flash('berhasil', "Berhasil Tambah Tujuan");
+        //session()->flash('berhasil', "Berhasil Tambah Mobil");
         return redirect('mobil');
     }
 
@@ -231,7 +232,7 @@ class BackendController extends Controller
             'kapasitas_mobil' => $request->input('kapasitas_mobil'),
             'status' => $request->input('status'),
         ]);
-        //session()->flash('berhasil', "Berhasil Update Tujuan");
+        //session()->flash('berhasil', "Berhasil Update Mobil");
         return redirect('mobil');
     }
 
@@ -240,7 +241,120 @@ class BackendController extends Controller
         $mobil = DB::table('mobil')
         ->where('kd_mobil', $id)
         ->delete();
-        //session()->flash('berhasil', "Berhasil Hapus Tujuan");
+        //session()->flash('berhasil', "Berhasil Hapus Mobil");
         return redirect('mobil');
+    }
+
+    public function bank()
+    {
+        $bank = DB::table('bank')->get();        
+        return view('backend.bank', compact('bank'));
+    }
+
+    public function tambah_bank()
+    {     
+        return view('backend.tambah_bank');
+    }
+
+    public function create_bank(Request $request)
+    {
+        $file = $request->file('logo');
+        $nama_file = time()."_".$file->getClientOriginalName();
+        $tujuan_upload = 'frontend/img/bank';
+        $file->move($tujuan_upload,$nama_file);
+        $create_bank = DB::table('bank')
+        ->insert([
+            'nasabah_bank' => $request->input('an'),
+            'nama_bank' => $request->input('nama'),
+            'rekening_bank' => $request->input('rekening'),
+            'photo' => $tujuan_upload . '/' . $nama_file,
+        ]);
+        //session()->flash('berhasil', "Berhasil Tambah Rekening Bank");
+        return redirect('daftarbank');
+    }
+
+    public function edit_bank($id)
+    {
+        $bank = DB::table('bank')->where('kd_bank', $id)->get();
+        return view('backend.edit_bank', compact('bank'));
+    }
+
+    public function update_bank(Request $request)
+    {
+        $logo = DB::table('bank')
+        ->where('kd_bank', $request->id)
+        ->first();
+        if ($request->hasFile('logo')) {
+            File::delete(''.$logo->photo);
+            $file = $request->file('logo');
+            $nama_file = time()."_".$file->getClientOriginalName();
+            $tujuan_upload = 'frontend/img/bank';
+            $file->move($tujuan_upload,$nama_file);
+            
+            $bank = DB::table('bank')
+            ->where('kd_bank', $request->id)
+            ->update([
+                'nasabah_bank' => $request->input('an'),
+                'nama_bank' => $request->input('nama'),
+                'rekening_bank' => $request->input('rekening'),
+                'photo' => $tujuan_upload . '/' . $nama_file,
+            ]);       
+        }else{
+            $bank = DB::table('bank')
+            ->where('kd_bank', $request->id)
+            ->update([
+                'nasabah_bank' => $request->input('an'),
+                'nama_bank' => $request->input('nama'),
+                'rekening_bank' => $request->input('rekening'),
+            ]);
+        }        
+        //session()->flash('berhasil', "Berhasil Update Rekening Bank");
+        return redirect('daftarbank');
+    }
+
+    public function delete_bank($id)
+    {
+        $logo = DB::table('bank')
+        ->where('kd_bank', $id)
+        ->first();
+        File::delete(''.$logo->photo);        
+        $bank = DB::table('bank')
+        ->where('kd_bank', $id)
+        ->delete();
+        //session()->flash('berhasil', "Berhasil Hapus Rekening Bank");
+        return redirect('daftarbank');
+    }
+
+    public function list_order()
+    {
+        $order = DB::table('order as ord')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
+            ->select('ord.kd_order as kd_order', 'ord.kd_jadwal as kd_jadwal', 'ord.tgl_berangkat_order as tgl_berangkat_order', 'j.jam_berangkat as jam_berangkat', 'ord.nama_pemesan_tiket as nama_pemesan_tiket', 'ord.tgl_beli_order as tgl_beli_order', 'ord.status_order as status_order')
+            ->selectRaw('count(kd_order) as tiket')
+            ->groupBy('kd_order')
+            ->get();
+        //dd($order);        
+        return view('backend.daftar_order', compact('order'));
+    }
+
+    public function view_order($id)
+    {
+        $order = DB::table('order as ord')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
+            ->select('ord.kd_order as kd_order', 'ord.kd_jadwal as kd_jadwal', 'ord.tgl_berangkat_order as tgl_berangkat_order', 'j.jam_berangkat as jam_berangkat', 'ord.nama_pemesan_tiket as nama_pemesan_tiket', 'ord.tgl_beli_order as tgl_beli_order', 'ord.status_order as status_order')
+            ->selectRaw('count(kd_order) as tiket')
+            ->groupBy('kd_order')
+            ->get();
+        //dd($order);        
+        return view('backend.view_order', compact('order'));
+    }
+
+    public function list_confirm()
+    {
+        $konfirmasi = DB::table('konfirmasi as konfirm')
+            ->join('bank as b', 'b.kd_bank', '=', 'konfirm.nama_bank')
+            ->get();
+        //dd($order);        
+        return view('backend.daftar_konfirmasi', compact('konfirmasi'));
     }
 }

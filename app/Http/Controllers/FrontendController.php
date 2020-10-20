@@ -142,7 +142,6 @@ class FrontendController extends Controller
             ->first();
         $total = DB::table('order as ord')
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
-            //->join('bank as b', 'b.kd_bank', '=', 'ord.kd_bank')
             ->where('kd_order', $id)
             ->where('id_user', $id_user)
             ->sum('j.harga');
@@ -154,19 +153,44 @@ class FrontendController extends Controller
         }
     }
 
-    public function confirm(Request $request)
+    public function confirm($id)
     { 
         if (Auth::user()){
-        $id = Auth::id();
-        $user = DB::table('users')
-        ->where('id', $id)->get();
-        $bank = DB::table('bank')->get();
-        $kursi = $request->get('kursi');
+        $id_user = Auth::id();
+        $total = DB::table('order as ord')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
+            ->where('kd_order', $id)
+            ->where('id_user', $id_user)
+            ->sum('j.harga');
+        $order = DB::table('order')
+            ->where('kd_order', $id)
+            ->where('id_user', $id_user)
+            ->first();
+        $bank = DB::table('bank')->get();        
         //dd($request->all());
-        return view('frontend.konfirmasi', compact('bank', 'user', 'kursi'));
+        return view('frontend.konfirmasi', compact('total', 'order', 'bank'));
         }else{
         return view('auth.login');
         }
+    }
+
+    public function create_cfrm(Request $request)
+    {
+        $file = $request->file('photo');
+        $nama_file = time()."_".$file->getClientOriginalName();
+        $tujuan_upload = 'frontend/img/bukti_transfer';
+        $file->move($tujuan_upload,$nama_file);
+        $create_bank = DB::table('konfirmasi')
+        ->insert([
+            'kd_order' => $request->input('kd_order'),
+            'nama_pengirim' => $request->input('nama'),
+            'nama_bank' => $request->input('nama_bank'),
+            'rekening' => $request->input('rek'),
+            'total' => $request->input('total'),
+            'bukti_transfer' => $tujuan_upload . '/' . $nama_file,
+        ]);
+        //session()->flash('berhasil', "Berhasil Tambah Rekening Bank");
+        return redirect('daftartiket');
     }
 
     public function tiket()

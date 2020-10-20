@@ -26,12 +26,15 @@ Route::get('/before-order', 'FrontendController@before_order');
 Route::get('/after-order', 'FrontendController@after_order');
 Route::post('/checkout', 'FrontendController@order');
 Route::get('/payment/{id}', 'FrontendController@pay');
-Route::get('/konfirmasi', 'FrontendController@confirm');
+Route::get('/konfirmasi/{id}', 'FrontendController@confirm');
+Route::post('/create_confirm', 'FrontendController@create_cfrm');
 Route::get('/daftartiket', 'FrontendController@tiket');
 Route::get('/etiket', 'FrontendController@cetak');
 
 //BACKEND
 Route::get('/dashboard', 'BackendController@index');
+Route::get('/daftarkonfirmasi', 'BackendController@list_confirm');
+//BACKEND JADWAL
 Route::get('/jadwal', 'BackendController@jadwal');
 Route::get('/tambah-jadwal', 'BackendController@tambah_jdwl');
 Route::post('/create_jdwl', 'BackendController@create_jdwl');
@@ -58,3 +61,13 @@ Route::post('/create_mobil', 'BackendController@create_mobil');
 Route::get('/edit-mobil/{id}', 'BackendController@edit_mobil');
 Route::post('/update_mobil/{id}', 'BackendController@update_mobil');
 Route::get('/delete_mobil/{id}', 'BackendController@delete_mobil');
+//BACKEND BANK
+Route::get('/daftarbank', 'BackendController@bank');
+Route::get('/tambah-bank', 'BackendController@tambah_bank');
+Route::post('/create_bank', 'BackendController@create_bank');
+Route::get('/edit-bank/{id}', 'BackendController@edit_bank');
+Route::post('/update_bank/{id}', 'BackendController@update_bank');
+Route::get('/delete_bank/{id}', 'BackendController@delete_bank');
+//BACKEND ORDER
+Route::get('/daftarorder', 'BackendController@list_order');
+Route::get('/vieworder/{id}', 'BackendController@view_order');

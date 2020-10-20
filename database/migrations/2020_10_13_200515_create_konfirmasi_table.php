@@ -15,13 +15,12 @@ class CreateKonfirmasiTable extends Migration
     {
         Schema::create('konfirmasi', function (Blueprint $table) {
             $table->bigIncrements('kd_konfirmasi');
-            $table->bigInteger('kd_order')->unsigned();
-            $table->foreign('kd_order')->references('id_order')->on('order');
-            $table->string('nama_pemesan');
+            $table->string('kd_order');
+            $table->string('nama_pengirim');
             $table->string('nama_bank');
-            $table->string('rekening_bank');
+            $table->string('rekening');
             $table->string('total');
-            $table->string('harga');
+            $table->string('photo');
         });
     }
 

@@ -67,24 +67,22 @@
         <a class="nav-link" href="{{ url('/dashboard') }}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard </span></a>
- <!--   <a class="nav-link" href="{{ url('/order') }}">
+        <a class="nav-link" href="{{ url('/daftarorder') }}">
           <i class="fas fa-list-alt"></i>
-          <span>List Order</span></a>
-        <a class="nav-link" href="{{ url('/daftartiket') }}">
+          <span>Daftar Order</span></a>
+ <!--       <a class="nav-link" href="{{ url('/daftartiket') }}">
           <i class="fas fa-qrcode"></i>
-          <span>List Tiket</span></a>
+          <span>List Tiket</span></a>-->
         <a class="nav-link" href="{{ url('/daftarkonfirmasi') }}">
           <i class="fa fa-mouse-pointer"></i>
-          <span>List Konfirmasi</span></a> -->         
+          <span>Daftar Konfirmasi</span></a>          
         <a class="nav-link" href="{{ url('/mobil') }}">
           <i class="fas fa fa-bus"></i>
           <span>Mobil Travel</span></a>
-
-
-    <!--<a class="nav-link" href="{{ url('/daftarbank') }}">
+        <a class="nav-link" href="{{ url('/daftarbank') }}">
           <i class="fas fa fa-link"></i>
-          <span>Link Bank</span></a>
-        <a class="nav-link" href="{{ url('/laporan') }}">
+          <span>Daftar Bank</span></a>
+   <!--     <a class="nav-link" href="{{ url('/laporan') }}">
           <i class="fa fa fa-file"></i>
           <span>Laporan</span></a>-->
 

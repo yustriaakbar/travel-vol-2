@@ -218,6 +218,89 @@ class FrontendController extends Controller
         }else{
         return view('auth.login');
         }
-    }    
+    }
+
+    public function profil()
+    {
+        if (Auth::user()){
+        $id_user = Auth::id();
+        $user = DB::table('users')
+            ->where('id', $id_user)
+            ->get();
+
+        return view('frontend.profile', compact('user'));
+        }else{
+        return view('auth.login');
+        }
+    }
+
+    public function change_password()
+    {
+        if (Auth::user()){
+        $id_user = Auth::id();
+        $user = DB::table('users')
+            ->where('id', $id_user)
+            ->get();
+            
+        return view('frontend.ganti_password', compact('user'));
+        }else{
+        return view('auth.login');
+        }
+    }
+
+    public function change_account()
+    {
+        if (Auth::user()){
+        $id_user = Auth::id();
+        $user = DB::table('users')
+            ->where('id', $id_user)
+            ->get();
+        return view('frontend.edit_profile', compact('user'));
+        }else{
+        return view('auth.login');
+        }
+    }
+
+    public function updateprofile(Request $request)
+    {
+        if (Auth::user()){
+        $id_user = Auth::id();
+        $user = DB::table('users')
+            ->where('id', $id_user)
+            ->get();
+       
+        if ($request->hasFile('photo')) {
+            
+            $file = $request->file('photo');
+            $nama_file = time()."_".$file->getClientOriginalName();
+            $tujuan_upload = 'frontend/img/profile';
+            $file->move($tujuan_upload,$nama_file);
+            
+            DB::table('users')
+            ->where('id', $id_user)
+            ->update([
+                'no_ktp' => $request->input('no_ktp'),
+                'name' => $request->input('nama'),
+                'email' => $request->input('email'),
+                'tlp' => $request->input('no_hp'),
+                'alamat' => $request->input('alamat'),                
+                'img' => $tujuan_upload . '/' . $nama_file,
+            ]);       
+        }else{
+            DB::table('users')
+            ->where('id', $id_user)
+            ->update([
+                'no_ktp' => $request->input('no_ktp'),
+                'name' => $request->input('nama'),
+                'email' => $request->input('email'),
+                'tlp' => $request->input('no_hp'),
+                'alamat' => $request->input('alamat'), 
+            ]);
+        }
+        return redirect('profile');
+        }else{
+        return view('auth.login');
+        }
+    } 
 
 }

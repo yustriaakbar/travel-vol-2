@@ -99,18 +99,18 @@
             </div>
           </li>
 
-    <!--      <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user" aria-expanded="true" aria-controls="collapseTwo">
               <i class="fas fa-fw fa-users"></i>
               <span>Management User</span>
             </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="user" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
               <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">List Pelanggan</a>
-                <a class="collapse-item" href="">List Admin</a>
+                <a class="collapse-item" href="{{ url('/pelanggan') }}">Daftar Pelanggan</a>
+                <a class="collapse-item" href="{{ url('/admin') }}">Daftar Admin</a>
               </div>
             </div>
-          </li>-->
+          </li>
         
       </li>
       <!-- Divider -->

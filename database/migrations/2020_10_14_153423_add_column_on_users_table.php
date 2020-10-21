@@ -17,7 +17,8 @@ class AddColumnOnUsersTable extends Migration
             $table->string('alamat')->nullable()->after('remember_token');
             $table->string('tlp')->nullable()->after('remember_token');
             $table->string('img')->nullable()->after('remember_token');
-            $table->string('status')->nullable()->after('remember_token');
+            $table->string('role')->nullable()->after('remember_token');
+            $table->string('no_ktp')->nullable()->after('remember_token');
         });
     }
 

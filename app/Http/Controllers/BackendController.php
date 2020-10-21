@@ -357,4 +357,21 @@ class BackendController extends Controller
         //dd($order);        
         return view('backend.daftar_konfirmasi', compact('konfirmasi'));
     }
+
+    public function list_pelanggan()
+    {
+        $pelanggan = DB::table('users')
+            ->where('role', 'pelanggan')
+            ->get();   
+        return view('backend.daftar_pelanggan', compact('pelanggan'));
+    }
+
+    public function list_admin()
+    {
+        $admin = DB::table('users')
+            ->where('role', 'admin')
+            ->get();   
+        return view('backend.daftar_admin', compact('admin'));
+    }
+
 }

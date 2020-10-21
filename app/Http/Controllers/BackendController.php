@@ -339,14 +339,36 @@ class BackendController extends Controller
 
     public function view_order($id)
     {
-        $order = DB::table('order as ord')
-            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
-            ->select('ord.kd_order as kd_order', 'ord.kd_jadwal as kd_jadwal', 'ord.tgl_berangkat_order as tgl_berangkat_order', 'j.jam_berangkat as jam_berangkat', 'ord.nama_pemesan_tiket as nama_pemesan_tiket', 'ord.tgl_beli_order as tgl_beli_order', 'ord.status_order as status_order')
-            ->selectRaw('count(kd_order) as tiket')
-            ->groupBy('kd_order')
+        $order = DB::table('order')
+            ->select('nama_penumpang', 'umur_penumpang', 'no_kursi_penumpang')
+            ->where('kd_order', $id)
             ->get();
-        //dd($order);        
-        return view('backend.view_order', compact('order'));
+        $order1 = DB::table('order as ord')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
+            ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->select('ord.kd_order as kd_order', 'ord.kd_tiket as kd_tiket', 'ord.nama_pemesan_tiket as nama_pemesan', 't.kota_tujuan as tujuan', 'a.kota_asal as asal', 'ord.status_order as status')
+            ->where('kd_order', $id)
+            ->groupBy('kd_order')
+            ->first();
+        $total = DB::table('order as ord')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
+            ->where('kd_order', $id)
+            ->sum('j.harga');
+        //dd($order1);        
+        return view('backend.view_order', compact('order', 'order1', 'total'));
+    }
+
+    public function update_order(Request $request)
+    {
+        $order = DB::table('order')
+        ->where('kd_order', $request->kd_order)
+        ->update([
+            'kd_order' => $request->input('kd_order'),
+        ]);
+        // if request kd_order == 2
+        // input ke table tiket
+        return redirect('daftarorder');
     }
 
     public function list_confirm()

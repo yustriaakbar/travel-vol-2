@@ -7,9 +7,6 @@
       <!-- DataTales Example -->
       <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <a href="{{url('/tambah-bank')}}" class="btn btn-primary pull-right" >
-          Tambah Bank
-          </a>
         </div>
         <div class="card-body">
           <div class="table-responsive">

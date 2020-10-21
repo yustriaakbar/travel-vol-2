@@ -76,6 +76,7 @@ Route::get('/delete_bank/{id}', 'BackendController@delete_bank');
 //BACKEND ORDER
 Route::get('/daftarorder', 'BackendController@list_order');
 Route::get('/vieworder/{id}', 'BackendController@view_order');
+Route::post('/update-order/{id}', 'BackendController@update_order');
 //BACKEND USER
 Route::get('/pelanggan', 'BackendController@list_pelanggan');
 Route::get('/admin', 'BackendController@list_admin');

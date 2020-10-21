@@ -7,137 +7,64 @@
       <!-- Basic Card Example -->
       <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">KODE Order  </h6>
+          <h6 class="m-0 font-weight-bold text-primary">KODE Order {{ $order1->kd_order}}</h6>
         </div>
         <div class="card-body">
-          <form action="" method="post" enctype="multipart/form-data">
-             
+          <form action="{{url('update-order/'.$order1->kd_order)}}" method="post" enctype="multipart/form-data">
+            {{ csrf_field() }}
+              <div class="row">
+                <div class="col-sm-6">
+                  <label >Kode Tiket        :<b> {{ $order1->kd_tiket}}</b></label><br>
+                  <label >Nama Pemesan      :<b> {{ $order1->nama_pemesan}}</b></label><br>
+                  <label >Asal dan Tujuan   :<b> {{ $order1->asal}} - {{ $order1->tujuan}}</b></label><br>
+                  <label >Total Harga Tiket :<b> @currency($total)</b></label><br>
+                  <a class="btn btn-primary" href="">Lihat Konfirmasi Pembayaran</a> 
+              </div>
+              </div>
+          
+             <hr>
+            
             <div class="card-body">
               <div class="row">
-                
-                <input type="hidden" class="form-control" name="kd_pelanggan" value="" readonly>
-                <input type="hidden" class="form-control" name="kd_order" value="" readonly>
-                <input type="hidden" class="form-control" name="asal_beli" value="" readonly>
-                <input type="hidden" class="form-control" name="kd_tiket[]" value="" readonly>
+                @foreach($order as $ord => $value)
                 <div class="col-sm-6">
-                  <label >Kode Tiket <b>TORD00001J0004TJ002201904254</b></label>
-                  <p>Nama Pemesan <b>Yustria Akbar</b></p>
-                  <hr>
-                  <div class="row form-group">
-                    <label for="nama" class="col-sm-4 control-label">Kode Jadwal</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="kd_jadwal" value="" readonly>
-                    </div>
-                  </div>
                   <div class="row form-group">
                     <label for="nama" class="col-sm-4 control-label">Nama Penumpang</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="nama[]" value="" readonly>
+                      <input type="text" class="form-control" name="nama" value="{{ $value->nama_penumpang}}" readonly>
                     </div>
                   </div>
                   <div class="row form-group">
                     <label for="" class="col-sm-4 control-label">Nomor Kursi</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="no_kursi[]" value="" readonly>
+                      <input type="text" class="form-control" name="kursi" value="{{ $value->no_kursi_penumpang}}" readonly>
                     </div>
                   </div>
                   <div class="row form-group">
                     <label for="" class="col-sm-4 control-label">Umur Penumpang</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="umur_kursi[]>" value=" Tahun" readonly>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <label for="" class="col-sm-4 control-label">Harga Tiket</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="harga" value="" readonly>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <label for="" class="col-sm-4 control-label">Batas Pembayaran</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="tgl_beli" value="" readonly>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <label for="" class="col-sm-4 control-label">Cek Konfirmasi Pembayaran</label>
-                    <div class="col-sm-8">
-                      <a href="" class="btn btn-primary">Lihat</a>
+                      <input type="text" class="form-control" name="umur" value="{{ $value->umur_penumpang}} Tahun" readonly>
                     </div>
                   </div>
                 </div>
-                
-
+                @endforeach
                 <div class="col-sm-6">
-                  <label >Kode Tiket <b>TORD00001J0004TJ002201904254</b></label>
-                  <p>Nama Penumpang <b>Bahyu Sanciko</b></p>
-                  <hr>
                   <div class="row form-group">
-                    <label for="nama" class="col-sm-4 control-label">Kode Jadwal</label>
+                    <label for="nama" class="col-sm-4 control-label">Status</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="kd_jadwal" value="J0004" readonly>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <label for="nama" class="col-sm-4 control-label">Kode Jadwal</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="kd_jadwal" value="J0004" readonly>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <label for="nama" class="col-sm-4 control-label">Kode Jadwal</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="kd_jadwal" value="J0004" readonly>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <label for="nama" class="col-sm-4 control-label">Kode Jadwal</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="kd_jadwal" value="J0004" readonly>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <label for="nama" class="col-sm-4 control-label">Kode Jadwal</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="kd_jadwal" value="J0004" readonly>
-                    </div>
-                  </div>
-                  <div class="row form-group">
-                    <label for="" class="col-sm-4 control-label">Status</label>
-                    <div class="col-sm-8">
-                       
-                      <select class="form-control" name="status" required>
-                          <option value='' selected disabled>Belum Bayar</option>
-                          <option value='2'>Sudah Bayar</option>
-                          <option value='3'>Hapus Order</option>
-                           </select>
-                        <!--  
-                            <p class="btn "><b class="btn btn-default">Sudah Bayar</b> <a href="" class="btn btn-danger">Refund Tiket</a></p> -->
-
-                        
-                     
-                    </div>
-                  </div>
-
-                  <div class="row form-group">
-                    <label for="" class="col-sm-4 control-label">Total Pembayaran</label>
-                    <div class="col-sm-8">
-                      <p><b></b></p>
+                      <select class="form-control" name="status">
+                        <option {{old('status',$order1->status)=="1"? 'selected':''}}  value="1">Belum Bayar</option>
+                        <option {{old('status',$order1->status)=="2"? 'selected':''}}  value="2">Sudah Bayar</option>
+                        <option value="3">Hapus Order</option>
                       </select>
                     </div>
                   </div>
-                </div>
-              </div>
-              <hr><a class="btn btn-secondary" href=""> Kembali</a>
-              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-info">Proses</button>
-            <!--
-              <a class="btn btn-success" href=""> Cetak Eticket</a>
-              <a class="btn btn-success" href=""> Kirim Eticket</a>
-             -->           
+                  <hr><a class="btn btn-secondary mr-3" href="{{url('/daftarorder')}}"> Kembali</a>
+                  <button type="submit" class="btn btn-success">Proses</button>
+              </div>      
             </div>
-            </form>
           </div>
+          </form>
       </div>
     </div>
 

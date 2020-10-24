@@ -17,7 +17,7 @@
 								<ul>
 									<li>► Jurusan <b>{{ $value->kota_asal }} - {{ $value->kota_tujuan }}</b></li>
 									<li>► Armada  <b>{{ $value->nama_mobil }}</b></li>
-									<li>► Plat BUS  <b>{{ $value->plat_mobil }}</b></li>
+									<li>► Plat Mobil  <b>{{ $value->plat_mobil }}</b></li>
 									<li>► Berangkat dari <b>{{ $value->kota_asal }} - {{ $value->nama_jalan }}</b></li>
 									<li>► Turun di <b>{{ $value->kota_tujuan }}</b></li>
 									<li>► Harga tiket: <b>@currency($value->harga)</b></li>

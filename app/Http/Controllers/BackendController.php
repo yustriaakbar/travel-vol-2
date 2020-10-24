@@ -396,4 +396,15 @@ class BackendController extends Controller
         return view('backend.daftar_admin', compact('admin'));
     }
 
+    public function view_jadwal($id)
+    {
+        $jadwal = DB::table('jadwal as jdw')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'jdw.kd_tujuan')
+            ->join('asal as a', 'a.kd_asal', '=', 'jdw.kd_asal')
+            ->join('mobil as m', 'm.kd_mobil', '=', 'jdw.kd_mobil')
+            ->where('kd_jadwal', $id)
+            ->get();                
+        return view('backend.view_jadwal', compact('jadwal'));
+    }
+
 }

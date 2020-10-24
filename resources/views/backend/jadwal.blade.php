@@ -77,7 +77,7 @@
                   <td>{{ $value->harga }}</td>
                   <td><a href="{{url('edit-jadwal/'.$value->kd_jadwal)}}" class="btn btn-secondary">Edit</a>
                     <button delete-id="{{$value->kd_jadwal}}" class="btn btn-danger btn-hapus">Hapus</button>
-                    <a href="" class="btn btn-primary">View</a></td>
+                    <a href="{{url('viewjadwal/'.$value->kd_jadwal)}}" class="btn btn-primary">View</a></td>
                 </td>
               </tr>
                 @endforeach

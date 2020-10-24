@@ -29,7 +29,7 @@ Route::get('/payment/{id}', 'FrontendController@pay');
 Route::get('/konfirmasi/{id}', 'FrontendController@confirm');
 Route::post('/create_confirm', 'FrontendController@create_cfrm');
 Route::get('/daftartiket', 'FrontendController@tiket');
-Route::get('/etiket', 'FrontendController@cetak');
+Route::get('/etiket/{id}', 'FrontendController@cetak');
 Route::get('/profile', 'FrontendController@profil');
 Route::get('/ganti-password', 'FrontendController@change_password');
 Route::get('/edit-profile', 'FrontendController@change_account');
@@ -39,6 +39,7 @@ Route::group(['middleware' => ['admin']], function () {
 //BACKEND
 Route::get('/dashboard', 'BackendController@index');
 Route::get('/daftarkonfirmasi', 'BackendController@list_confirm');
+Route::get('/daftartiket', 'BackendController@list_tiket');
 //BACKEND JADWAL
 Route::get('/jadwal', 'BackendController@jadwal');
 Route::get('/tambah-jadwal', 'BackendController@tambah_jdwl');
@@ -81,4 +82,7 @@ Route::get('/viewjadwal/{id}', 'BackendController@view_jadwal');
 //BACKEND USER
 Route::get('/pelanggan', 'BackendController@list_pelanggan');
 Route::get('/admin', 'BackendController@list_admin');
+Route::get('/tambah-admin', 'BackendController@tambah_admin');
+Route::post('/buat_admin', 'BackendController@create_admin');
+Route::get('/delete_pelanggan/{id}', 'BackendController@delete_pelanggan');
 });

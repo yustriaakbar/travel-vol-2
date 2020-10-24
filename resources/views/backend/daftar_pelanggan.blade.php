@@ -31,10 +31,7 @@
                   <td>{{ $value->alamat }}</td>
                   <td>{{ $value->email }}</td>
                   <td>{{ $value->tlp }}</td>
-                  <td><a href="{{url('edit-pelanggan/'.$value->id)}}" class="btn btn-secondary">Edit</a>
-                    <button delete-id="{{$value->id}}" class="btn btn-danger btn-hapus">Hapus</button>
-                  </td>
-                </td>
+                  <td><button delete-id="{{$value->id}}" class="btn btn-danger btn-hapus">Hapus</button></td>
               </tr>
                 @endforeach
             </tbody>
@@ -54,7 +51,7 @@
         {{--    $('.btn-hapus').click(function (e) {--}}
         {{--        e.preventDefault();--}}
         {{--        var id = $(this).attr('delete-id');--}}
-        {{--        var url = "{{ url('delete_bank') }}" + '/' + id;--}}
+        {{--        var url = "{{ url('delete_pelanggan') }}" + '/' + id;--}}
         {{--        $('#modal-notification').find('form').attr('action', url);--}}
 
         {{--        $('#modal-notification').modal();--}}
@@ -71,7 +68,7 @@
 
                 if(r== true)
                 {
-                    window.location.href = "{{ url('delete_bank') }}" + '/' + id;
+                    window.location.href = "{{ url('delete_pelanggan') }}" + '/' + id;
                 } else{
 
                 }

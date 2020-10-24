@@ -6,14 +6,14 @@
             <pre>
                 <b><span style='font-size:15px'>Detail Pesanan </span></b>
                 </br>
-                Kode Order : 1234567</br>
-                Kode Jadwal : 12345678</br>
-                Beli : 20 Oktober 2020</br>
-                Nama Pemesan : Yustria Akbar</br>
-                Jadwal : Sabtu, 30 Oktober 2020 <br>
-                Jam Berangkat : pukul 08:00:00 WIB
-                Berangkat Dari : Nganjuk - Jl. A. Yani no. 10</br>
-                Tujuan Ke : Surabaya Kota
+                Kode Order : {{ $info_tiket->kd_order }}</br>
+                Kode Jadwal : {{ $info_tiket->kd_jadwal }}</br>
+                Beli : {{ $info_tiket->tgl_beli_order }}</br>
+                Nama Pemesan : {{ $info_tiket->nama_pemesan_tiket }}</br>
+                Jadwal : {{\Carbon\Carbon::parse($info_tiket->tgl_berangkat_order)->isoFormat('dddd, D MMMM Y') }}<br>
+                Jam Berangkat : pukul {{ $info_tiket->jam_berangkat }} WIB
+                Berangkat Dari : {{ $info_tiket->kota_asal }} - {{ $info_tiket->nama_jalan }}</br>
+                Tujuan Ke : {{ $info_tiket->kota_tujuan }}
             </pre>
         </td>
     </tr>
@@ -30,15 +30,15 @@
       </tr>
     </thead>
     <tbody>
-      
+      @foreach($tiket as $tk => $value)
         <tr>
-           <td scope="row">12345678</td>
-           <td align="left">Yustria Akbar</td>
-           <td align="center">20 Tahun</td>
-            <td align="center">4 </td>
-           <td align="left">Rp. 100.000</td>
+           <td scope="row">{{ $value->kd_tiket }}</td>
+           <td align="left">{{ $value->nama_tiket }}</td>
+           <td align="center">{{ $value->umur_tiket }}</td>
+            <td align="center">{{ $value->kursi_tiket }}</td>
+           <td align="left">{{ $value->harga_tiket }}</td>
         <tr>
-        
+      @endforeach
     </tbody>
     <tfoot>
         <tr>

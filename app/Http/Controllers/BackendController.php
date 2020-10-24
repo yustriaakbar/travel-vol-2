@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use File;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class BackendController extends Controller
 {
@@ -410,12 +412,49 @@ class BackendController extends Controller
         return view('backend.daftar_pelanggan', compact('pelanggan'));
     }
 
+    public function delete_pelanggan($id)
+    {        
+        DB::table('users')
+        ->where('id', $id)
+        ->delete();
+        //session()->flash('berhasil', "Berhasil Hapus User Pelanggan");
+        return redirect('pelanggan');
+    }
+
     public function list_admin()
     {
         $admin = DB::table('users')
             ->where('role', 'admin')
             ->get();   
         return view('backend.daftar_admin', compact('admin'));
+    }
+
+    public function tambah_admin()
+    {     
+        return view('backend.tambah_admin');
+    }
+
+    public function create_admin(Request $request)
+    {
+        $validator = Validator::make(request()->all(), [
+            'name'  => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+        if ($validator->fails()) {
+            return redirect('tambah-admin')
+                ->withErrors($validator->errors());
+        }
+        $password = Hash::make($request->input('password'));
+        DB::table('users')
+        ->insert([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $password,
+            'role' => $request->input('role'),
+        ]);
+        //session()->flash('berhasil', "Berhasil Tambah Admin");
+        return redirect('admin');
     }
 
     public function view_jadwal($id)
@@ -427,6 +466,16 @@ class BackendController extends Controller
             ->where('kd_jadwal', $id)
             ->get();                
         return view('backend.view_jadwal', compact('jadwal'));
+    }
+
+    public function list_tiket()
+    {
+        $tiket = DB::table('tiket as tk')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->leftjoin('order as o', 'o.kd_order', '=', 'tk.kd_order')
+            ->get();                
+        return view('backend.daftar_tiket', compact('tiket'));
     }
 
 }

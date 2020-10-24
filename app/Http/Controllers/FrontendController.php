@@ -210,11 +210,21 @@ class FrontendController extends Controller
         }
     }
 
-    public function cetak(Request $request)
+    public function cetak($id)
     { 
         if (Auth::user()){
-        //dd($request->all());
-        return view('frontend.e_tiket');
+        $tiket = DB::table('tiket as tk')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->leftjoin('order as o', 'o.kd_order', '=', 'tk.kd_order')
+            ->get();
+        $info_tiket = DB::table('tiket as tk')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
+            ->leftjoin('order as o', 'o.kd_order', '=', 'tk.kd_order')
+            ->first(); 
+        return view('frontend.e_tiket', compact('tiket', 'info_tiket'));
         }else{
         return view('auth.login');
         }

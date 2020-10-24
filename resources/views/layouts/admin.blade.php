@@ -70,9 +70,9 @@
         <a class="nav-link" href="{{ url('/daftarorder') }}">
           <i class="fas fa-list-alt"></i>
           <span>Daftar Order</span></a>
- <!--       <a class="nav-link" href="{{ url('/daftartiket') }}">
+        <a class="nav-link" href="{{ url('/daftartiket') }}">
           <i class="fas fa-qrcode"></i>
-          <span>List Tiket</span></a>-->
+          <span>Daftar Tiket</span></a>
         <a class="nav-link" href="{{ url('/daftarkonfirmasi') }}">
           <i class="fa fa-mouse-pointer"></i>
           <span>Daftar Konfirmasi</span></a>          

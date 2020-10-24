@@ -57,7 +57,7 @@ class BackendController extends Controller
             'jam_tiba' => $request->input('jam_tiba'),
             'harga' => $request->input('harga'),
         ]);
-        //session()->flash('berhasil', "Berhasil Tambah Jadwal");
+        session()->flash('berhasil', "Berhasil Tambah Jadwal");
         return redirect('jadwal');
     }
 
@@ -83,7 +83,7 @@ class BackendController extends Controller
             'harga' => $request->input('harga'),
         ]);
         //dd($request->all());
-        //session()->flash('berhasil', "Berhasil Update Jadwal");
+        session()->flash('berhasil', "Berhasil Update Jadwal");
         return redirect('jadwal');
     }
 
@@ -92,7 +92,7 @@ class BackendController extends Controller
         $delete_jadwal = DB::table('jadwal')
         ->where('kd_jadwal', $id)
         ->delete();
-        //session()->flash('berhasil', "Berhasil Hapus Jadwal");
+        session()->flash('berhasil', "Berhasil Hapus Jadwal");
         return redirect('jadwal');
     }
 
@@ -116,7 +116,7 @@ class BackendController extends Controller
             'kota_asal' => $request->input('kota_asal'),
             'nama_jalan' => $request->input('nama_jalan'),
         ]);
-        //session()->flash('berhasil', "Berhasil Tambah Asal");
+        session()->flash('berhasil', "Berhasil Tambah Asal");
         return redirect('asal-tujuan');
     }
 
@@ -134,7 +134,7 @@ class BackendController extends Controller
             'kota_asal' => $request->input('kota_asal'),
             'nama_jalan' => $request->input('nama_jalan'),
         ]);
-        //session()->flash('berhasil', "Berhasil Update Asal");
+        session()->flash('berhasil', "Berhasil Update Asal");
         return redirect('asal-tujuan');
     }
 
@@ -143,7 +143,7 @@ class BackendController extends Controller
         $delete_asal = DB::table('asal')
         ->where('kd_asal', $id)
         ->delete();
-        //session()->flash('berhasil', "Berhasil Hapus Asal");
+        session()->flash('berhasil', "Berhasil Hapus Asal");
         return redirect('asal-tujuan');
     }
 
@@ -160,7 +160,7 @@ class BackendController extends Controller
             'kota_tujuan' => $request->input('kota_tujuan'),
             'nama_jalan' => $request->input('nama_jalan'),
         ]);
-        //session()->flash('berhasil', "Berhasil Tambah Tujuan");
+        session()->flash('berhasil', "Berhasil Tambah Tujuan");
         return redirect('asal-tujuan');
     }
 
@@ -178,7 +178,7 @@ class BackendController extends Controller
             'kota_tujuan' => $request->input('kota_tujuan'),
             'nama_jalan' => $request->input('nama_jalan'),
         ]);
-        //session()->flash('berhasil', "Berhasil Update Tujuan");
+        session()->flash('berhasil', "Berhasil Update Tujuan");
         return redirect('asal-tujuan');
     }
 
@@ -187,7 +187,7 @@ class BackendController extends Controller
         $delete_asal = DB::table('tujuan')
         ->where('kd_tujuan', $id)
         ->delete();
-        //session()->flash('berhasil', "Berhasil Hapus Tujuan");
+        session()->flash('berhasil', "Berhasil Hapus Tujuan");
         return redirect('asal-tujuan');
     }
 
@@ -212,7 +212,7 @@ class BackendController extends Controller
             'kapasitas_mobil' => $request->input('kapasitas_mobil'),
             'status' => $request->input('status'),
         ]);
-        //session()->flash('berhasil', "Berhasil Tambah Mobil");
+        session()->flash('berhasil', "Berhasil Tambah Mobil");
         return redirect('mobil');
     }
 
@@ -232,7 +232,7 @@ class BackendController extends Controller
             'kapasitas_mobil' => $request->input('kapasitas_mobil'),
             'status' => $request->input('status'),
         ]);
-        //session()->flash('berhasil', "Berhasil Update Mobil");
+        session()->flash('berhasil', "Berhasil Update Mobil");
         return redirect('mobil');
     }
 
@@ -241,7 +241,7 @@ class BackendController extends Controller
         $mobil = DB::table('mobil')
         ->where('kd_mobil', $id)
         ->delete();
-        //session()->flash('berhasil', "Berhasil Hapus Mobil");
+        session()->flash('berhasil', "Berhasil Hapus Mobil");
         return redirect('mobil');
     }
 
@@ -269,7 +269,7 @@ class BackendController extends Controller
             'rekening_bank' => $request->input('rekening'),
             'photo' => $tujuan_upload . '/' . $nama_file,
         ]);
-        //session()->flash('berhasil', "Berhasil Tambah Rekening Bank");
+        session()->flash('berhasil', "Berhasil Tambah Rekening Bank");
         return redirect('daftarbank');
     }
 
@@ -308,7 +308,7 @@ class BackendController extends Controller
                 'rekening_bank' => $request->input('rekening'),
             ]);
         }        
-        //session()->flash('berhasil', "Berhasil Update Rekening Bank");
+        session()->flash('berhasil', "Berhasil Update Rekening Bank");
         return redirect('daftarbank');
     }
 
@@ -321,7 +321,7 @@ class BackendController extends Controller
         $bank = DB::table('bank')
         ->where('kd_bank', $id)
         ->delete();
-        //session()->flash('berhasil', "Berhasil Hapus Rekening Bank");
+        session()->flash('berhasil', "Berhasil Hapus Rekening Bank");
         return redirect('daftarbank');
     }
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
 use File;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class BackendController extends Controller
 {
@@ -347,7 +349,7 @@ class BackendController extends Controller
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
             ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
             ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
-            ->select('ord.kd_order as kd_order', 'ord.kd_tiket as kd_tiket', 'ord.nama_pemesan_tiket as nama_pemesan', 't.kota_tujuan as tujuan', 'a.kota_asal as asal', 'ord.status_order as status')
+            ->select('ord.kd_order as kd_order', 'ord.kd_tiket as kd_tiket', 'ord.nama_pemesan_tiket as nama_pemesan', 't.kota_tujuan as tujuan', 'a.kota_asal as asal', 'ord.status_order as status', 'j.kd_jadwal as kd_jadwal')
             ->where('kd_order', $id)
             ->groupBy('kd_order')
             ->first();
@@ -364,10 +366,30 @@ class BackendController extends Controller
         $order = DB::table('order')
         ->where('kd_order', $request->kd_order)
         ->update([
-            'kd_order' => $request->input('kd_order'),
+            'status_order' => $request->input('status'),
         ]);
-        // if request kd_order == 2
-        // input ke table tiket
+        $admin = Auth::user()->name;
+        $data=$request->all();
+        if ($request->status == 2){
+            if(count($request->nama) > 0){
+            foreach($request->nama as $item=>$v){
+            $data2=array(
+                'kd_order' => $request->input('kd_order'),
+                'kd_tiket' => $request->input('kd_tiket'),
+                'kd_jadwal' => $request->input('kd_jadwal'),
+                'nama_tiket' => $request->nama[$item],
+                'kursi_tiket' => $request->umur[$item],
+                'umur_tiket' => $request->kursi[$item],
+                'harga_tiket' => $request->input('harga'),
+                //'photo_tiket' => $request->input('photo'),
+                'status_tiket' => $request->input('status'),
+                'create_tgl_tiket' => Carbon::now(),
+                'create_admin' => $admin,
+            );
+             DB::table('tiket')->insert($data2);
+                }
+            }
+        }
         return redirect('daftarorder');
     }
 

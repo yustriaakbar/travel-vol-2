@@ -12,6 +12,10 @@
         <div class="card-body">
           <form action="{{url('update-order/'.$order1->kd_order)}}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
+            <input type="hidden" name="kd_order" value="{{ $order1->kd_order}}">
+            <input type="hidden" name="kd_tiket" value="{{ $order1->kd_tiket}}">
+            <input type="hidden" name="kd_jadwal" value="{{ $order1->kd_jadwal}}">
+            <input type="hidden" name="harga" value="@currency($total)">
               <div class="row">
                 <div class="col-sm-6">
                   <label >Kode Tiket        :<b> {{ $order1->kd_tiket}}</b></label><br>
@@ -31,19 +35,19 @@
                   <div class="row form-group">
                     <label for="nama" class="col-sm-4 control-label">Nama Penumpang</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="nama" value="{{ $value->nama_penumpang}}" readonly>
+                      <input type="text" class="form-control" name="nama[]" value="{{ $value->nama_penumpang}}" readonly>
                     </div>
                   </div>
                   <div class="row form-group">
                     <label for="" class="col-sm-4 control-label">Nomor Kursi</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="kursi" value="{{ $value->no_kursi_penumpang}}" readonly>
+                      <input type="text" class="form-control" name="kursi[]" value="{{ $value->no_kursi_penumpang}}" readonly>
                     </div>
                   </div>
                   <div class="row form-group">
                     <label for="" class="col-sm-4 control-label">Umur Penumpang</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="umur" value="{{ $value->umur_penumpang}} Tahun" readonly>
+                      <input type="text" class="form-control" name="umur[]" value="{{ $value->umur_penumpang}} Tahun" readonly>
                     </div>
                   </div>
                 </div>

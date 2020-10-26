@@ -24,7 +24,7 @@
 									@else($value->status_order =='2')
 									<i class='btn-success'>Lunas bayar</i>
 									<hr>
-									<a href="" class="btn btn-success pull-right" download>Cetak Tiket</a>
+									<a href="{{url('etiket/'.$value->kd_tiket)}}" class="btn btn-success pull-right" download>Cetak Tiket</a>
 									@endif
 								</div>
 							</div>

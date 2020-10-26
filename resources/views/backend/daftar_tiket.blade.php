@@ -33,7 +33,7 @@
                   <td>{{\Carbon\Carbon::parse($value->tgl_beli_order)->isoFormat('dddd, D MMMM Y') }}</td>
                   <td>{{ $value->nama_pemesan_tiket }}</td>
                   <td>{{\Carbon\Carbon::parse($value->tgl_berangkat_order)->isoFormat('dddd, D MMMM Y') }}</td>
-                  <td><a class="btn btn-success" href="{{url('etiket/'.$value->kd_tiket)}}">Cetak Tiket</a></td>
+                  <td><a class="btn btn-success" href="{{url('admin/etiket/'.$value->kd_tiket)}}">Cetak Tiket</a></td>
               </tr>
                 @endforeach
             </tbody>

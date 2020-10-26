@@ -28,7 +28,7 @@ Route::post('/checkout', 'FrontendController@order');
 Route::get('/payment/{id}', 'FrontendController@pay');
 Route::get('/konfirmasi/{id}', 'FrontendController@confirm');
 Route::post('/create_confirm', 'FrontendController@create_cfrm');
-Route::get('/daftartiket', 'FrontendController@tiket');
+Route::get('/tiket', 'FrontendController@tiket');
 Route::get('/etiket/{id}', 'FrontendController@cetak');
 Route::get('/profile', 'FrontendController@profil');
 Route::get('/ganti-password', 'FrontendController@change_password');
@@ -40,6 +40,7 @@ Route::group(['middleware' => ['admin']], function () {
 Route::get('/dashboard', 'BackendController@index');
 Route::get('/daftarkonfirmasi', 'BackendController@list_confirm');
 Route::get('/daftartiket', 'BackendController@list_tiket');
+Route::get('/admin/etiket/{id}', 'BackendController@cetak_admin');
 //BACKEND JADWAL
 Route::get('/jadwal', 'BackendController@jadwal');
 Route::get('/tambah-jadwal', 'BackendController@tambah_jdwl');

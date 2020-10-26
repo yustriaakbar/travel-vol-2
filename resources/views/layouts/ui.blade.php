@@ -93,7 +93,7 @@
 				      		<a href="">Hai, {{ Auth::user()->name }}</a>
 						<ul>
 							<li><a href="{{ url('/profile') }}"><i class="fa fa-id-card"></i> Profile Saya</a></li>
-							<li><a href="{{ url('/daftartiket') }}"><i class="fa fa-ticket"></i> Tiket Saya</a></li>
+							<li><a href="{{ url('/tiket') }}"><i class="fa fa-ticket"></i> Tiket Saya</a></li>
 							<li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                            document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i> Keluar</a></li>
                            

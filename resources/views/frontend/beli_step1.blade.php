@@ -43,10 +43,10 @@
 									<tr>
 										<td class='btn-group' width='139'>
 											<label class='btn btn-default'>
-												<input name='kursi[]' value='1' id='1' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;1
+												<input name='kursi[]' value='1' id='1' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("1",$kursi)?"disabled checked":""}}>&nbsp;1
 											</label>
 											<label class='btn btn-default'>
-												<input name='kursi[]' value='2' id='2' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;2
+												<input name='kursi[]' value='2' id='2' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("2",$kursi)?"disabled checked":""}}>&nbsp;2
 											</label>
 										</td>
 										<td class='btn-group' width='139'>
@@ -58,60 +58,60 @@
 									<tr>
 										<td class='btn-group' width='139'>
 											<label class='btn btn-default'>
-												<input name='kursi[]' value='3' id='3' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;3
+												<input name='kursi[]' value='3' id='3' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("3",$kursi)?"disabled checked":""}}>&nbsp;3
 												</label>
 												<label class='btn btn-default'>
-													<input name='kursi[]' value='4' id='4' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;4
+													<input name='kursi[]' value='4' id='4' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("4",$kursi)?"disabled checked":""}}>&nbsp;4
 												</label>
 											</td>
 											<td class='btn-group' width='139'>
 												<label class='btn btn-default'>
-													<input name='kursi[]' value='5' id='5' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;5
+													<input name='kursi[]' value='5' id='5' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("5",$kursi)?"disabled checked":""}}>&nbsp;5
 												</label>
 											</td>
 										</tr>
 										<tr>
 											<td class='btn-group' width='139'>
 												<label class='btn btn-default'>
-													<input name='kursi[]' value='6' id='6' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;6
+													<input name='kursi[]' value='6' id='6' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("6",$kursi)?"disabled checked":""}}>&nbsp;6
 													</label>
 													<label class='btn btn-default'>
-														<input name='kursi[]' value='7' id='7' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;7
+														<input name='kursi[]' value='7' id='7' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("7",$kursi)?"disabled checked":""}}>&nbsp;7
 													</label>
 												</td>
 												<td class='btn-group' width='139'>
 													<label class='btn btn-default'>
-														<input name='kursi[]' value='8' id='8' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;8
+														<input name='kursi[]' value='8' id='8' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("8",$kursi)?"disabled checked":""}}>&nbsp;8
 													</label>
 												</td>
 											</tr>
 											<tr>
 												<td class='btn-group' width='139'>
 													<label class='btn btn-default'>
-														<input name='kursi[]' value='9' id='9' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;9
+														<input name='kursi[]' value='9' id='9' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("9",$kursi)?"disabled checked":""}}>&nbsp;9
 														</label>
 														<label class='btn btn-default'>
-															<input name='kursi[]' value='10' id='10' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;10
+															<input name='kursi[]' value='10' id='10' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("10",$kursi)?"disabled checked":""}}>&nbsp;10
 														</label>
 													</td>
 													<td class='btn-group' width='139'>
 														<label class='btn btn-default'>
-															<input name='kursi[]' value='11' id='11' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;11
+															<input name='kursi[]' value='11' id='11' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("11",$kursi)?"disabled checked":""}}>&nbsp;11
 														</label>
 													</td>
 												</tr>
 												<tr>
 													<td class='btn-group' width='139'>
 														<label class='btn btn-default'>
-															<input name='kursi[]' value='12' id='12' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;12
+															<input name='kursi[]' value='12' id='12' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("12",$kursi)?"disabled checked":""}}>&nbsp;12
 															</label>
 															<label class='btn btn-default'>
-																<input name='kursi[]' value='13' id='13' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;13
+																<input name='kursi[]' value='13' id='13' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("13",$kursi)?"disabled checked":""}}>&nbsp;13
 															</label>
 														</td>
 														<td class='btn-group' width='139'>
 															<label class='btn btn-default'>
-																<input name='kursi[]' value='14' id='14' onclick='cer(this)' autocomplete='off' type='checkbox'>&nbsp;14
+																<input name='kursi[]' value='14' id='14' onclick='cer(this)' autocomplete='off' type='checkbox' {{in_array("14",$kursi)?"disabled checked":""}}>&nbsp;14
 															</label>
 														</td>
 													</tr>

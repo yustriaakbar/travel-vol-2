@@ -86,7 +86,6 @@ class BackendController extends Controller
             'jam_tiba' => $request->input('jam_tiba'),
             'harga' => $request->input('harga'),
         ]);
-        //dd($request->all());
         session()->flash('berhasil', "Berhasil Update Jadwal");
         return redirect('jadwal');
     }
@@ -476,6 +475,24 @@ class BackendController extends Controller
             ->leftjoin('order as o', 'o.kd_order', '=', 'tk.kd_order')
             ->get();                
         return view('backend.daftar_tiket', compact('tiket'));
+    }
+
+    public function cetak_admin($id)
+    { 
+        $tiket = DB::table('tiket as tk')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
+            ->get();
+        $info_tiket = DB::table('tiket as tk')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
+            ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
+            ->first();
+        //if info_tiket == null
+        // return message "maaf tiket anda tidak ditemukan"
+        return view('frontend.e_tiket', compact('tiket', 'info_tiket'));
     }
 
 }

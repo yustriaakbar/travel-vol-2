@@ -29,7 +29,14 @@ class BackendController extends Controller
 
     public function index()
     {
-        return view('backend.dashboard');
+        $pending = DB::table('order')
+                ->where('status_order', 1)
+                ->count();
+        $total = DB::table('tiket')
+                ->count();
+        $konfirmasi = DB::table('konfirmasi')
+                ->count();
+        return view('backend.dashboard', compact('pending', 'total', 'konfirmasi'));
     }
         
     public function jadwal()
@@ -493,6 +500,16 @@ class BackendController extends Controller
         //if info_tiket == null
         // return message "maaf tiket anda tidak ditemukan"
         return view('frontend.e_tiket', compact('tiket', 'info_tiket'));
+    }
+
+    public function manajemen_laporan()
+    {
+        $laporan = DB::table('tiket as tk')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
+            ->get();       
+        return view('backend.laporan', compact('laporan'));
     }
 
 }

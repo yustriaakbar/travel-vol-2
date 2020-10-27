@@ -1,7 +1,5 @@
 @extends('layouts.ui')
 @section('judul','Cek Jadwal')
-@section('css')
-@endsection
 @section('content')
 @foreach($jadwal as $jdw => $value)
 		<section class="service-area section-gap relative">
@@ -29,6 +27,9 @@
 									</thead>
 									<tbody>
 										<tr>
+											@if($kursi_tersedia == '0')
+											<td>Maaf, jadwal tidak ditemukan atau kursi sudah penuh</td>
+											@else
 											<td>{{ $value->kota_asal }} - {{ $value->nama_jalan }}</td>
 											<td>{{ $value->kota_tujuan }}</td>
 											<td>{{\Carbon\Carbon::parse($date)->isoFormat('dddd, D MMMM Y') }} [{{ $value->jam_berangkat }}] </td>
@@ -38,6 +39,7 @@
 											<input type="hidden" name="jadwal" value="{{ $value->kd_jadwal }}">
 											<input type="hidden" name="tanggal" value="{{ $date }}">
 											<td><button type="submit" class=" btn btn-primary">Pilih</button></td>
+											@endif
 											</form>
 										</tr>
 									</tbody>
@@ -51,6 +53,4 @@
 					</div>
 		</section>
 @endforeach
-@endsection
-@section('js')
 @endsection

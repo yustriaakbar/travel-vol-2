@@ -63,29 +63,103 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
+      @if(Request::is('dashboard'))
+      <li class="nav-item active">
+        @else
+        <li class="nav-item">
+          @endif
         <a class="nav-link" href="{{ url('/dashboard') }}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard </span></a>
+      </li>
+
+      @if(Request::is('daftarorder'))
+      <li class="nav-item active">
+        @else
+        <li class="nav-item">
+          @endif
         <a class="nav-link" href="{{ url('/daftarorder') }}">
           <i class="fas fa-list-alt"></i>
           <span>Daftar Order</span></a>
+      </li>
+
+      @if(Request::is('daftartiket'))
+      <li class="nav-item active">
+        @else
+        <li class="nav-item">
+          @endif
         <a class="nav-link" href="{{ url('/daftartiket') }}">
           <i class="fas fa-qrcode"></i>
           <span>Daftar Tiket</span></a>
+      </li>
+
+      @if(Request::is('daftarkonfirmasi'))
+      <li class="nav-item active">
+        @else
+        <li class="nav-item">
+          @endif
         <a class="nav-link" href="{{ url('/daftarkonfirmasi') }}">
           <i class="fa fa-mouse-pointer"></i>
-          <span>Daftar Konfirmasi</span></a>          
+          <span>Daftar Konfirmasi</span></a>
+      </li>
+
+      @if(Request::is('mobil'))
+      <li class="nav-item active">
+        @else
+        <li class="nav-item">
+          @endif         
         <a class="nav-link" href="{{ url('/mobil') }}">
           <i class="fas fa fa-bus"></i>
           <span>Mobil Travel</span></a>
+      </li>
+
+      @if(Request::is('daftarbank'))
+      <li class="nav-item active">
+        @else
+        <li class="nav-item">
+          @endif
         <a class="nav-link" href="{{ url('/daftarbank') }}">
           <i class="fas fa fa-link"></i>
           <span>Daftar Bank</span></a>
-   <!--     <a class="nav-link" href="{{ url('/laporan') }}">
+      </li>
+   
+      @if(Request::is('laporan'))
+      <li class="nav-item active">
+        @else
+        <li class="nav-item">
+          @endif
+        <a class="nav-link" href="{{ url('/laporan') }}">
           <i class="fa fa fa-file"></i>
-          <span>Laporan</span></a>-->
+          <span>Manajemen Laporan</span></a>
+      </li>  
 
+            @if(Request::is('asal-tujuan'))
+            <li class="nav-item active">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+              <i class="fas fa-fw fa-users"></i>
+              <span>Manajemen Jadwal</span>
+            </a>
+            <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item active" href="{{ url('/asal-tujuan') }}">Asal dan Tujuan</a>
+                <a class="collapse-item" href="{{ url('/jadwal') }}">Jadwal Travel</a>
+              </div>
+            </div>
+          </li>
+            @elseif(Request::is('jadwal'))
+            <li class="nav-item active">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+              <i class="fas fa-fw fa-users"></i>
+              <span>Manajemen Jadwal</span>
+            </a>
+            <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ url('/asal-tujuan') }}">Asal dan Tujuan</a>
+                <a class="collapse-item active" href="{{ url('/jadwal') }}">Jadwal Travel</a>
+              </div>
+            </div>
+          </li>
+          @else
           <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
               <i class="fas fa-fw fa-users"></i>
@@ -98,7 +172,35 @@
               </div>
             </div>
           </li>
+          @endif
 
+          @if(Request::is('pelanggan'))
+          <li class="nav-item active">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user" aria-expanded="true" aria-controls="collapseTwo">
+              <i class="fas fa-fw fa-users"></i>
+              <span>Management User</span>
+            </a>
+            <div id="user" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item active" href="{{ url('/pelanggan') }}">Daftar Pelanggan</a>
+                <a class="collapse-item" href="{{ url('/admin') }}">Daftar Admin</a>
+              </div>
+            </div>
+          </li>
+          @elseif(Request::is('admin'))
+          <li class="nav-item active">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user" aria-expanded="true" aria-controls="collapseTwo">
+              <i class="fas fa-fw fa-users"></i>
+              <span>Management User</span>
+            </a>
+            <div id="user" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ url('/pelanggan') }}">Daftar Pelanggan</a>
+                <a class="collapse-item active" href="{{ url('/admin') }}">Daftar Admin</a>
+              </div>
+            </div>
+          </li>
+          @else
           <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user" aria-expanded="true" aria-controls="collapseTwo">
               <i class="fas fa-fw fa-users"></i>
@@ -111,8 +213,9 @@
               </div>
             </div>
           </li>
+          @endif
+
         
-      </li>
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 

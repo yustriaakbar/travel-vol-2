@@ -42,6 +42,8 @@ Route::get('/daftarkonfirmasi', 'BackendController@list_confirm');
 Route::get('/daftartiket', 'BackendController@list_tiket');
 Route::get('/admin/etiket/{id}', 'BackendController@cetak_admin');
 Route::get('/laporan', 'BackendController@manajemen_laporan');
+Route::get('/laporan/filter', 'BackendController@manajemen_laporan_filter');
+Route::get('/laporan/download', 'BackendController@download_laporan');
 //BACKEND JADWAL
 Route::get('/jadwal', 'BackendController@jadwal');
 Route::get('/tambah-jadwal', 'BackendController@tambah_jdwl');

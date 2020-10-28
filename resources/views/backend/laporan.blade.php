@@ -4,32 +4,28 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
       <h1 class="h3 mb-2 text-gray-800">Manajemen Laporan</h1>
-        <form action="" method="get">
+        <form action="{{url('/laporan/filter')}}" method="get">
         <div class="row mb-4">
             <div class="col-md-3">
                 <label>Tanggal Awal Laporan</label>
-                <input type="date" name="start_date" class="form-control">
+                <input type="date" name="start_date" class="form-control" required>
             </div>
             <div class="col-md-3">
                 <label>Tanggal Akhir Laporan</label>
-                <input type="date" name="end_date" class="form-control">
+                <input type="date" name="end_date" class="form-control" required>
             </div>
             <div class="col-md-2">
                 <label>Tujuan</label>
-                <select id="daftar_tr" name="tr" class="form-control">
-                    <option value="semuaTR">Semua Tujuan</option>
-  
-                    <option value="">Surabaya</option>
-                    
+                <select name="tujuan" class="form-control" required>
+                    <option value="" selected disabled="">Pilih Tujuan</option>
+                    @foreach($tujuan as $tj => $value)
+                    <option value="{{ $value->kd_tujuan }}">{{ $value->kota_tujuan }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-2">
               <label><br></label>
                 <input type="submit" class="form-control btn btn-primary" value="Filter Laporan">
-            </div>
-            <div class="col-md-2">
-              <label><br></label>
-                <input type="submit" class="form-control btn btn-success" value="Download Excel">
             </div>
         </div>
         </form>
@@ -37,6 +33,12 @@
       <!-- DataTales Example -->
       <div class="card shadow mb-4">
         <div class="card-header py-3">
+          <form action="{{url('/laporan/download')}}" method="get">
+            <input type="hidden" name="start_date" value="{{ $tanggal_awal }}">
+            <input type="hidden" name="end_date" value="{{ $tanggal_akhir }}">
+            <input type="hidden" name="tujuan" value="{{ $kota_tujuan }}">
+            <input type="submit" class="btn btn-success pull-right" value="Download Excel">
+          </form>
         </div>
         <div class="card-body">
           <div class="table-responsive">

@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class BackendController extends Controller
 {
@@ -386,8 +387,8 @@ class BackendController extends Controller
                 'kd_tiket' => $request->input('kd_tiket'),
                 'kd_jadwal' => $request->input('kd_jadwal'),
                 'nama_tiket' => $request->nama[$item],
-                'kursi_tiket' => $request->umur[$item],
-                'umur_tiket' => $request->kursi[$item],
+                'kursi_tiket' => $request->kursi[$item],
+                'umur_tiket' => $request->umur[$item],
                 'harga_tiket' => $request->input('harga'),
                 //'photo_tiket' => $request->input('photo'),
                 'status_tiket' => $request->input('status'),
@@ -508,8 +509,69 @@ class BackendController extends Controller
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
             ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
             ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
-            ->get();       
-        return view('backend.laporan', compact('laporan'));
+            ->get();
+        $tanggal_awal = new Carbon('first day of January 1970');
+        $tanggal_akhir = Carbon::now();
+        $kota_tujuan = "semua_tujuan";
+        $tujuan = DB::table('tujuan')->get();   
+        return view('backend.laporan', compact('laporan', 'tujuan', 'tanggal_awal', 'tanggal_akhir', 'kota_tujuan'));
+    }
+
+    public function manajemen_laporan_filter(Request $request)
+    {
+        $tujuan = DB::table('tujuan')->get();
+        $tanggal_awal = $request->get('start_date');
+        $tanggal_akhir = $request->get('end_date');
+        $kota_tujuan = $request->get('tujuan');
+        if ($tanggal_awal != null && $tanggal_akhir != null && $kota_tujuan != null) 
+        {
+            $laporan = DB::table('tiket as tk')
+                ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
+                ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+                ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
+                ->whereBetween('tk.create_tgl_tiket', [$tanggal_awal, $tanggal_akhir])
+                ->where('j.kd_tujuan', $kota_tujuan)
+                ->get();           
+        } 
+        return view('backend.laporan', compact('laporan', 'tujuan', 'tanggal_awal', 'tanggal_akhir', 'kota_tujuan'));
+    }
+
+    public function download_laporan(Request $request)
+    {
+        $tanggal_awal = $request->get('start_date');
+        $tanggal_akhir = $request->get('end_date');
+        $kota_tujuan = $request->get('tujuan');
+        if ($tanggal_awal != null && $tanggal_akhir != null && $kota_tujuan != null) 
+        {
+            $laporan = DB::table('tiket as tk')
+                ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
+                ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+                ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
+                ->whereBetween('tk.create_tgl_tiket', [$tanggal_awal, $tanggal_akhir])
+                ->where('j.kd_tujuan', $kota_tujuan)
+                ->get();           
+        }elseif($tanggal_awal != null && $tanggal_akhir != null)
+        {
+            $laporan = DB::table('tiket as tk')
+                ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
+                ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+                ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
+                ->whereBetween('tk.create_tgl_tiket', [$tanggal_awal, $tanggal_akhir])
+                ->get();
+        }
+
+        return (new FastExcel($laporan))->download('DataLaporanTiketTravel.xlsx', function ($laporan){
+            return [
+                'Kode Order' => $laporan->kd_order,
+                'Kode Tiket' => $laporan->kd_tiket,
+                'Nama Pemesan' => $laporan->nama_tiket,
+                'Tanggal Pesan' => $laporan->tgl_beli_order,
+                'Nama Penumpang' => $laporan->nama_tiket,
+                'Umur Penumpang' => $laporan->umur_tiket,
+                'Nomor Kursi' => $laporan->kursi_tiket,
+                'Tujuan' => $laporan->kota_tujuan,
+            ];
+        });
     }
 
 }

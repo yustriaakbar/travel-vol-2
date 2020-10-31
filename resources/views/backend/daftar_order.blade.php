@@ -15,7 +15,7 @@
                 <tr>
                   <th>No</th>
                   <th>Kode Order</th>
-                  <th>Kode Jadwal</th>
+                  <th>Tujuan</th>
                   <th>Tanggal Berangkat</th>
                   <th>Nama Pemesan</th>
                   <th>Tanggal Beli</th>
@@ -29,7 +29,7 @@
                 <tr>
                   <td>{{++$ord}}</td>
                   <td>{{ $value->kd_order }}</td>
-                  <td>{{ $value->kd_jadwal }}</td>
+                  <td>{{ $value->tujuan }}</td>
                   <td>{{\Carbon\Carbon::parse($value->tgl_berangkat_order)->isoFormat('dddd, D MMMM Y') }}, {{ $value->jam_berangkat }}</td>
                   <td>{{ $value->nama_pemesan_tiket }}</td>
                   <td>{{\Carbon\Carbon::parse($value->tgl_beli_order)->isoFormat('dddd, D MMMM Y') }}, {{\Carbon\Carbon::parse($value->tgl_beli_order)->toTimeString() }}</td>

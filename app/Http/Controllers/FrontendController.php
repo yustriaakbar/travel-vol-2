@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use PDF;
 
 class FrontendController extends Controller
 {
@@ -250,7 +251,8 @@ class FrontendController extends Controller
             ->first();
         //if info_tiket == null
         // return message "maaf tiket anda tidak ditemukan"
-        return view('frontend.e_tiket', compact('tiket', 'info_tiket'));
+        $pdf = PDF::loadview('frontend.e_tiket', compact('tiket', 'info_tiket'))->setPaper('A4','potrait');
+        return $pdf->stream();
         }else{
         return view('auth.login');
         }

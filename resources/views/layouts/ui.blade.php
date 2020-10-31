@@ -4,7 +4,7 @@
 		<!-- Mobile Specific Meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
-		<link rel="shortcut icon" href="img/elements/fav.png">
+		<link rel="shortcut icon" href="">
 		<!-- Author Meta -->
 		<meta name="author" content="colorlib">
 		<!-- Meta Description -->
@@ -84,9 +84,25 @@
 			      </div>
 			      <nav id="nav-menu-container">
 			        <ul class="nav-menu">
+			          
+			         @if(Request::is('/'))
 			          <li class="menu-active"><a href="{{ url('/') }}">Home</a></li>
-			          <li><a href="{{ url('/cektanggal') }}">Lokasi & Jadwal Tiket</a></li>
+			         @else
+			          <li class="menu"><a href="{{ url('/') }}">Home</a></li>
+			         @endif
+
+			         @if(Request::is('cektanggal'))
+			          <li class="menu-active"><a href="{{ url('/cektanggal') }}">Lokasi & Jadwal Tiket</a></li>
+			         @else
+			          <li class="menu"><a href="{{ url('/cektanggal') }}">Lokasi & Jadwal Tiket</a></li>
+					 @endif			          
+			          
+			         @if(Request::is('cektiket')) 
+			          <li class="menu-active"><a href="{{ url('/cektiket') }}">Cek Tiket</a></li>
+			         @else
 			          <li class="menu"><a href="{{ url('/cektiket') }}">Cek Tiket</a></li>
+			         @endif
+
 			          @if (Route::has('login'))
 				      	<li class="menu-has-children">
 				      		@auth
@@ -126,7 +142,10 @@
 							<div class="single-footer-widget">
 								<h4 class="text-white">Tiket TRAVEL</h4>
 								<p>
-									Tiket Travel adalah jasa pemesanan tiket bis secara online terbesar di dunia. Telah dipercaya lebih dari 8 juta pelanggan secara global. redBus menawarkan pemesanan tiket bis melalui website, iOS dan aplikasi android untuk rute-rute utama di Singapura, Malaysia, dan Indonesia.
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+									tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+									quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+									consequat.
 								</p>
 							</div>
 						</div>

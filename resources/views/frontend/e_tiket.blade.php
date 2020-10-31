@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>E-Tiket</title>
-
 <style type="text/css">
     * {
         font-family: Verdana, Arial, sans-serif;
@@ -11,15 +10,9 @@
     table{
         font-size: x-small;
     }
-    tfoot tr td{
-        font-weight: bold;
-        font-size: x-small;
-    }
     .gray {
         background-color: lightgray
     }
-</style>
-<style type="text/css">
 
     ::selection { background-color: #E13300; color: white; }
     ::-moz-selection { background-color: #E13300; color: white; }
@@ -78,19 +71,18 @@
     }
     
     img{float:left;padding-right:10px;}
-    </style>
+</style>
 </head>
 <body>
  <table width="100%">
     <tr>
-        <td valign="top"><img src="{{ asset('frontend/img/qr_code.png') }}" alt="" width="200"/></td>
+        <td valign="top"><img src="{{ public_path('frontend/img/qr_code.png') }}" alt="" width="200"/></td>
         <td align="right">
             <h1>E-TICKET</h1>
             <pre>
                 <b><span style='font-size:15px'>Detail Pesanan </span></b>
                 </br>
                 Kode Order : {{ $info_tiket->kd_order }}</br>
-                Kode Jadwal : {{ $info_tiket->kd_jadwal }}</br>
                 Beli : {{ $info_tiket->tgl_beli_order }}</br>
                 Nama Pemesan : {{ $info_tiket->nama_pemesan_tiket }}</br>
                 Jadwal : {{\Carbon\Carbon::parse($info_tiket->tgl_berangkat_order)->isoFormat('dddd, D MMMM Y') }}<br>
@@ -123,14 +115,8 @@
         <tr>
       @endforeach
     </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="3"></td>
-            <td align="right">Total Rp</td>
-            <td align="right" class="gray">Rp. 100.000</td>
-        </tr>
-    </tfoot>
   </table>
+  <br>
   <div id="container">
     <h1>Syarat dan ketentuan</h1>
 
@@ -139,36 +125,18 @@
           <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
           quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+          consequat.</li>
           <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
           quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+          consequat.</li>
            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-           consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-           cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+           consequat.</li>
             <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
            quis nostrud exercitation ullamco laboris nisi ut aliquip.</li>
-        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
-        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
         </ol>  
     </div>
 </div>

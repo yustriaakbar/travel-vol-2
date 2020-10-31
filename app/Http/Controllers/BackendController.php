@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Rap2hpoutre\FastExcel\FastExcel;
+use PDF;
 
 class BackendController extends Controller
 {
@@ -340,7 +341,8 @@ class BackendController extends Controller
     {
         $order = DB::table('order as ord')
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
-            ->select('ord.kd_order as kd_order', 'ord.kd_jadwal as kd_jadwal', 'ord.tgl_berangkat_order as tgl_berangkat_order', 'j.jam_berangkat as jam_berangkat', 'ord.nama_pemesan_tiket as nama_pemesan_tiket', 'ord.tgl_beli_order as tgl_beli_order', 'ord.status_order as status_order')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->select('ord.kd_order as kd_order', 'ord.kd_jadwal as kd_jadwal', 't.kota_tujuan as tujuan', 'ord.tgl_berangkat_order as tgl_berangkat_order', 'j.jam_berangkat as jam_berangkat', 'ord.nama_pemesan_tiket as nama_pemesan_tiket', 'ord.tgl_beli_order as tgl_beli_order', 'ord.status_order as status_order')
             ->selectRaw('count(kd_order) as tiket')
             ->groupBy('kd_order')
             ->get();
@@ -500,7 +502,8 @@ class BackendController extends Controller
             ->first();
         //if info_tiket == null
         // return message "maaf tiket anda tidak ditemukan"
-        return view('frontend.e_tiket', compact('tiket', 'info_tiket'));
+        $pdf = PDF::loadview('frontend.e_tiket', compact('tiket', 'info_tiket'))->setPaper('A4','potrait');
+        return $pdf->stream();
     }
 
     public function manajemen_laporan()

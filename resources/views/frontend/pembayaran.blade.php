@@ -144,7 +144,11 @@
 										</div>
 									</div>
 								</div>
+								@if($order1->expired_order >= $today)
 								<a href="{{ url('/konfirmasi/'.$order1->kd_order) }}" class="btn btn-primary pull-center">Konfirmasi Pembayaran </a>
+								@else
+								<button href="" class="btn btn-primary pull-center" disabled="">Konfirmasi Pembayaran </button>
+								@endif
 							</div>
 						</div>
 					</div>

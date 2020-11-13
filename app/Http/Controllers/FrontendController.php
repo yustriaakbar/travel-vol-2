@@ -29,6 +29,7 @@ class FrontendController extends Controller
     public function cekjadwal(Request $request)
     {
         $date = $request->get('tanggal');
+        $today = Carbon::now();
         $postsInRange = $request->has('asal')
         ? DB::table('jadwal')
         ->where('kd_asal', $request->asal)->get()
@@ -45,6 +46,7 @@ class FrontendController extends Controller
             ->where('tgl_berangkat_order', $date)
             ->where('kd_tujuan', $request->get('tujuan'))
             ->where('kd_asal', $request->get('asal'))
+            ->where('expired_order', '>=', $today)
             ->count();
         $kursi2 = DB::table('jadwal as jdw')//kapasitas mobil travel
             ->join('tujuan as t', 't.kd_tujuan', '=', 'jdw.kd_tujuan')
@@ -66,6 +68,7 @@ class FrontendController extends Controller
     {
         if (Auth::user()){
         $date = $request->get('tanggal');
+        $today = Carbon::now();
         $jadwal = DB::table('jadwal as jdw')
             ->join('tujuan as t', 't.kd_tujuan', '=', 'jdw.kd_tujuan')
             ->join('asal as a', 'a.kd_asal', '=', 'jdw.kd_asal')
@@ -77,6 +80,7 @@ class FrontendController extends Controller
             ->select('no_kursi_penumpang')
             ->where('ord.kd_jadwal', $request->get('jadwal'))
             ->where('ord.tgl_berangkat_order', $date)
+            ->where('ord.expired_order', '>=', $today)
             ->pluck('no_kursi_penumpang')
             ->toArray();
                
@@ -169,7 +173,8 @@ class FrontendController extends Controller
             ->sum('j.harga');
 
         //$today = Carbon::now()->isoFormat('dddd, D MMMM Y');
-        return view('frontend.pembayaran', compact('order', 'order1', 'total'));
+        $today = Carbon::now();
+        return view('frontend.pembayaran', compact('order', 'order1', 'total', 'today'));
         }else{
         return view('auth.login');
         }

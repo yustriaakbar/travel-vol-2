@@ -368,8 +368,12 @@ class BackendController extends Controller
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
             ->where('kd_order', $id)
             ->sum('j.harga');
+        $konfirmasi = DB::table('konfirmasi')
+            ->select('bukti_transfer')
+            ->where('kd_order', $id)
+            ->first();
         //dd($order1);        
-        return view('backend.view_order', compact('order', 'order1', 'total'));
+        return view('backend.view_order', compact('order', 'order1', 'total', 'konfirmasi'));
     }
 
     public function update_order(Request $request)

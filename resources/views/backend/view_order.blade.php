@@ -22,7 +22,31 @@
                   <label >Nama Pemesan      :<b> {{ $order1->nama_pemesan}}</b></label><br>
                   <label >Asal dan Tujuan   :<b> {{ $order1->asal}} - {{ $order1->tujuan}}</b></label><br>
                   <label >Total Harga Tiket :<b> @currency($total)</b></label><br>
-                  <a class="btn btn-primary" href="">Lihat Konfirmasi Pembayaran</a> 
+                  @if(empty($konfirmasi->bukti_transfer))
+                  <button class="btn btn-primary" disabled="">Belum Ada Konfirmasi Pembayaran</button>
+                  @else
+                  <a class="btn btn-primary" href="" data-toggle="modal" data-target="#konfirmasi">Lihat Konfirmasi Pembayaran</a>
+                      <!-- Modal -->
+                      <div class="modal fade" id="konfirmasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Bukti Transfer</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <img src="{{asset($konfirmasi->bukti_transfer)}}" width="1100">
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- End Modal -->
+                  @endif 
               </div>
               </div>
           

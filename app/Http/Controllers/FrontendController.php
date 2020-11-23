@@ -12,9 +12,15 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        return view('frontend.beranda');
+        $jadwal = DB::table('jadwal as jdw')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'jdw.kd_tujuan')
+            ->join('asal as a', 'a.kd_asal', '=', 'jdw.kd_asal')
+            ->select('jdw.kd_tujuan as kd_tujuan', 't.kota_tujuan as kota_tujuan', 'jdw.kd_asal as kd_asal', 'a.kota_asal as kota_asal', 'a.nama_jalan as jalan_asal')
+            ->get();
+        $asal = DB::table('asal')->get(); 
+        return view('frontend.beranda', compact('jadwal', 'asal'));
     }
-
+/*
     public function cektanggal()
     {
         $jadwal = DB::table('jadwal as jdw')
@@ -25,7 +31,7 @@ class FrontendController extends Controller
         $asal = DB::table('asal')->get();           
         return view('frontend.cek-tanggal', compact('jadwal', 'asal'));
     }
-
+*/
     public function cekjadwal(Request $request)
     {
         $date = $request->get('tanggal');
@@ -132,11 +138,8 @@ class FrontendController extends Controller
             'tgl_beli_order' => $request->input('tgl_beli'),
             'tgl_berangkat_order' => $request->input('tgl'),
                 'nama_penumpang'=>$request->nama[$item],
-                'umur_penumpang'=>$request->umur[$item],
+                'ktp_penumpang'=>$request->ktp[$item],
                 'no_kursi_penumpang'=>$request->kursi[$item],
-            'no_ktp_order' => $request->input('no_ktp'),
-            'no_tlp_order' => $request->input('hp'),
-            'alamat_order' => $request->input('alamat'),
             'expired_order' => $request->input('expired'),
             'status_order' => '1',
             );
@@ -226,12 +229,18 @@ class FrontendController extends Controller
         $id_user = Auth::id();
         $order = DB::table('order as ord')
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
-            ->leftjoin('tujuan as t', 't.kd_tujuan', '=', 'ord.kd_jadwal')
-            ->leftjoin('asal as a', 'a.kd_asal', '=', 'ord.kd_jadwal')
+            ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->select('ord.kd_order as kd_order', 'ord.kd_tiket as kd_tiket', 'ord.kd_jadwal as kd_jadwal', 't.kota_tujuan as tujuan', 'a.kota_asal as asal','ord.tgl_berangkat_order as tgl_berangkat_order', 'j.jam_berangkat as jam_berangkat', 'ord.nama_pemesan_tiket as nama_pemesan_tiket', 'ord.tgl_beli_order as tgl_beli_order', 'ord.status_order as status_order')
+            ->selectRaw('count(kd_order) as tiket')
             ->where('id_user', $id_user)
             ->groupBy('kd_order')
             ->get();
-        return view('frontend.tiketmu', compact('order'));
+        $cek_data = DB::table('order')
+            ->where('id_user', $id_user)
+            ->first();
+
+        return view('frontend.tiketmu', compact('order', 'cek_data'));
         }else{
         return view('auth.login');
         }
@@ -241,23 +250,18 @@ class FrontendController extends Controller
     { 
         if (Auth::user()){
         $id_user = Auth::id();
-        $tiket = DB::table('tiket as tk')
-            ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
-            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
-            ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
-            ->where('id_user', $id_user)
-            ->get();
-        $info_tiket = DB::table('tiket as tk')
-            ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
-            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+        $tiket = DB::table('order as ord')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
             ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
-            ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->where('kd_tiket', $id)
             ->where('id_user', $id_user)
-            ->first();
+            ->where('status_order', 2)
+            ->get();
+        
         //if info_tiket == null
         // return message "maaf tiket anda tidak ditemukan"
-        $pdf = PDF::loadview('frontend.e_tiket', compact('tiket', 'info_tiket'))->setPaper('A4','potrait');
-        return $pdf->stream();
+        return view('frontend.e_tiket', compact('tiket'));
         }else{
         return view('auth.login');
         }
@@ -276,7 +280,7 @@ class FrontendController extends Controller
         return view('auth.login');
         }
     }
-
+/*
     public function change_password()
     {
         if (Auth::user()){
@@ -303,7 +307,7 @@ class FrontendController extends Controller
         return view('auth.login');
         }
     }
-
+*/
     public function updateprofile(Request $request)
     {
         if (Auth::user()){

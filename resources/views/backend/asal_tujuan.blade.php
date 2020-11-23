@@ -42,9 +42,26 @@
             </div>
         </div>
 @endif
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Asal</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Asal Tujuan</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+<section class="content">
 <!-- Begin Page Content -->
 <div class="container-fluid">
-      <h1 class="h3 mb-2 text-gray-800">Asal</h1>
       <!-- DataTales Example -->
       <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -54,7 +71,7 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+            <table class="table table-bordered" id="example1" width="100%" cellspacing="0" style="text-align: center;">
               <thead>
                 <tr>
                   <th>No</th>
@@ -90,7 +107,7 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+            <table class="table table-bordered" id="example2" width="100%" cellspacing="0" style="text-align: center;">
               <thead>
                 <tr>
                   <th>No</th>
@@ -117,6 +134,7 @@
 
   </div>
   <!-- /.container-fluid -->
+</section>
 @endsection
 @section('js')
     <script type="text/javascript">

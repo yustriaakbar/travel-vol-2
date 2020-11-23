@@ -1,9 +1,19 @@
 @extends('layouts.admin')
 @section('judul','View Order')
 @section('content')
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Detail Order</h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+<section class="content">
     <div class="container-fluid">
-      <!-- Page Heading -->
-      <h1 class="h3 mb-4 text-gray-800">View Order</h1>
       <!-- Basic Card Example -->
       <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -69,9 +79,9 @@
                     </div>
                   </div>
                   <div class="row form-group">
-                    <label for="" class="col-sm-4 control-label">Umur Penumpang</label>
+                    <label for="" class="col-sm-4 control-label">Identitas Penumpang</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="umur[]" value="{{ $value->umur_penumpang}} Tahun" readonly>
+                      <input type="text" class="form-control" name="ktp[]" value="{{ $value->ktp_penumpang}}" readonly>
                     </div>
                   </div>
                 </div>
@@ -95,5 +105,5 @@
           </form>
       </div>
     </div>
-
+</section>
 @endsection

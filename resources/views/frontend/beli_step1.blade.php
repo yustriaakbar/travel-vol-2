@@ -1,35 +1,44 @@
 @extends('layouts.ui')
 @section('judul','Pilih Kursi')
+<style type="text/css">
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style: none
+        }
+        i {
+          margin-right: 5px;
+        }
+</style>
 @section('content')
 @foreach($jadwal as $jdw => $value)
-		<section class="service-area section-gap relative">
-			<div class="overlay overlay-bg"></div>
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-4">
-						<!-- Default Card Example -->
-						<div class="card mb-5">
-							<div class="card-header">
-								<i class="fa fa-info-circle"></i> Keterengan Tiket
-							</div>
-						
-							<div class="card-body">
-								<ul>
-									<li>► Jurusan <b>{{ $value->kota_asal }} - {{ $value->kota_tujuan }}</b></li>
-									<li>► Armada  <b>{{ $value->nama_mobil }}</b></li>
-									<li>► Plat Mobil  <b>{{ $value->plat_mobil }}</b></li>
-									<li>► Berangkat dari <b>{{ $value->kota_asal }} - {{ $value->nama_jalan }}</b></li>
-									<li>► Turun di <b>{{ $value->kota_tujuan }}</b></li>
-									<li>► Harga tiket: <b>@currency($value->harga)</b></li>
-									<li>► Berangkat hari <b>{{\Carbon\Carbon::parse($date)->isoFormat('dddd, D MMMM Y') }}</b></li>
-									<li>► Jam keberangkatan <b>pukul {{ $value->jam_berangkat }}</b></li>
-									<li>► Jam Tiba <b>pukul {{ $value->jam_tiba }}</b></li>
-								</ul>
-							</div>
-							
-						</div>
-					</div>
-					<div class="col-lg-4">
+<!-- Section -->
+<div class="container">
+        <div class="row ">
+          <div class="col-lg-5">
+            <!-- Default Card Example -->
+            <div class="card mb-5 mt-5">
+              <div class="card-header">
+                <i class="fa fa-info-circle"></i> Keterengan Tiket
+              </div>
+            
+              <div class="card-body">
+				<ul>
+					<li>► Jurusan {{ $value->kota_asal }} - {{ $value->kota_tujuan }}</li>
+					<li>► Armada  {{ $value->nama_mobil }}</li>
+					<li>► Plat Mobil  {{ $value->plat_mobil }}</li>
+					<li>► Berangkat dari {{ $value->kota_asal }} - {{ $value->nama_jalan }}</li>
+					<li>► Turun di {{ $value->kota_tujuan }}</li>
+					<li>► Harga tiket: @currency($value->harga)</li>
+					<li>► Berangkat hari {{\Carbon\Carbon::parse($date)->isoFormat('dddd, D MMMM Y') }}</li>
+					<li>► Jam keberangkatan pukul {{ $value->jam_berangkat }}</li>
+					<li>► Jam Tiba pukul {{ $value->jam_tiba }}</li>
+				</ul>
+              </div>
+              
+            </div>
+          </div>
+          <div class="col-lg-4 mt-5">
 						<form action="{{url('after-order')}}" method="get">
 							<input type="hidden" name="jadwal" value="{{ $value->kd_jadwal }}">
 							<input type="hidden" name="tanggal" value="{{ $date }}">
@@ -118,25 +127,27 @@
 													</table>
 													</center>
 												</div>
-											</div>
-											<div class="col-lg-4">
-												<!-- Default Card Example -->
-												<div class="card mb-5">
-													<div class="card-header">
-														<i class="fa fa-user"></i> Konfirmasi Pemesanan
-													</div>
-													<div class="alert alert-primary" role="alert">
-														<p>Setelah memilih kursi, silahkan klik tombol 'selanjutnya' dibawah ini !</p>
-														<div class='btn-group'>
-															<a href="" class='btn btn-default'>Kembali</a>
-															<input class="btn btn-primary pull-right" disabled="disabled" type="submit" value="Selanjutnya">
-															
-														</div>
-													</div>
-													<form>
-													</div>
-												</div>
-											</section>
+          </div>
+                      <div class="col-lg-3 mt-5">
+                        <!-- Default Card Example -->
+                        <div class="card mb-5">
+                          <div class="card-header">
+                            <i class="fa fa-user"></i> Konfirmasi Pemesanan
+                          </div>
+                          <div class="alert alert-primary" role="alert">
+                            <p>Setelah memilih kursi, silahkan klik tombol 'selanjutnya' dibawah ini !</p>
+                            <div class='btn-group'>
+                              <a href="" class='btn btn-default'>Kembali</a>
+                              <input class="btn btn-primary pull-right" disabled="disabled" type="submit" value="Selanjutnya">
+                              
+                            </div>
+                          </div>
+                          <form>
+                          </div>
+                        </div>
+                    </div>
+    </div>
+<!-- End Section -->
 @endforeach
 @endsection
 @section('js')
@@ -162,7 +173,7 @@
 	count = count + 1;
 	if (count>4) {
 	count = 4;
-	swal("Maaf", "Maaf anda hanya boleh memilih 4 kursi !", "error");
+	alert("Maaf anda hanya boleh memilih 4 kursi !");
 	elem.checked = false;
 	}
 	}else{

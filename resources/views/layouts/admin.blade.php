@@ -1,484 +1,475 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>@yield('judul')</title>
 
-<!-- Custom fonts for this template-->
-  <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template-->
-  <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
-  <!-- Custom styles for this page -->
-  <link href="{{ asset('backend/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-  <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
-  <link rel="stylesheet" type="text/css" href="{{ asset('datepicker/dist/css/bootstrap-datepicker.min.css') }}">
-  <style type="text/css">
-    .preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 9999;
-      background-color: #fff;
-    }
-    .preloader .loading {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
-      font: 14px arial;
-    }
-  </style>
+  <link rel="shortcut icon" href="{{ asset('frontend/img/icon.png') }}">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="{{ asset('admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{{ asset('admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="{{ asset('admin/plugins/jqvmap/jqvmap.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css') }}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{ asset('admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{{ asset('admin/plugins/daterangepicker/daterangepicker.css') }}">
+  <!-- summernote -->
+  <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
   @yield('css')
-
 </head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
 
-<body id="page-top">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="index3.html" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Contact</a>
+      </li>
+    </ul>
 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+    <!-- SEARCH FORM -->
+    <form class="form-inline ml-3">
+      <div class="input-group input-group-sm">
+        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Notifications Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-bell"></i>
+          <span class="badge badge-warning navbar-badge">15</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-envelope mr-2"></i> 4 new messages
+            <span class="float-right text-muted text-sm">3 mins</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-users mr-2"></i> 8 friend requests
+            <span class="float-right text-muted text-sm">12 hours</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-file mr-2"></i> 3 new reports
+            <span class="float-right text-muted text-sm">2 days</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+          <i class="fas fa-th-large"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="{{ asset('frontend/img/logo.png') }}" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
+      <span class="brand-text font-weight-light"><br></span>
+    </a>
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-bus"></i>
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{{ asset('admin/dist/img/default.png') }}" class="img-circle elevation-2" alt="User Image">
         </div>
-        <div class="sidebar-brand-text mx-3">TRAVEL</div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      @if(Request::is('dashboard'))
-      <li class="nav-item active">
-        @else
-        <li class="nav-item">
-          @endif
-        <a class="nav-link" href="{{ url('/dashboard') }}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard </span></a>
-      </li>
-
-      @if(Request::is('daftarorder'))
-      <li class="nav-item active">
-        @else
-        <li class="nav-item">
-          @endif
-        <a class="nav-link" href="{{ url('/daftarorder') }}">
-          <i class="fas fa-list-alt"></i>
-          <span>Daftar Order</span></a>
-      </li>
-
-      @if(Request::is('daftartiket'))
-      <li class="nav-item active">
-        @else
-        <li class="nav-item">
-          @endif
-        <a class="nav-link" href="{{ url('/daftartiket') }}">
-          <i class="fas fa-qrcode"></i>
-          <span>Daftar Tiket</span></a>
-      </li>
-
-      @if(Request::is('daftarkonfirmasi'))
-      <li class="nav-item active">
-        @else
-        <li class="nav-item">
-          @endif
-        <a class="nav-link" href="{{ url('/daftarkonfirmasi') }}">
-          <i class="fa fa-mouse-pointer"></i>
-          <span>Daftar Konfirmasi</span></a>
-      </li>
-
-      @if(Request::is('mobil'))
-      <li class="nav-item active">
-        @else
-        <li class="nav-item">
-          @endif         
-        <a class="nav-link" href="{{ url('/mobil') }}">
-          <i class="fas fa fa-bus"></i>
-          <span>Mobil Travel</span></a>
-      </li>
-
-      @if(Request::is('daftarbank'))
-      <li class="nav-item active">
-        @else
-        <li class="nav-item">
-          @endif
-        <a class="nav-link" href="{{ url('/daftarbank') }}">
-          <i class="fas fa fa-link"></i>
-          <span>Daftar Bank</span></a>
-      </li>
-   
-      @if(Request::is('laporan'))
-      <li class="nav-item active">
-        @else
-        <li class="nav-item">
-          @endif
-        <a class="nav-link" href="{{ url('/laporan') }}">
-          <i class="fa fa fa-file"></i>
-          <span>Manajemen Laporan</span></a>
-      </li>  
-
-            @if(Request::is('asal-tujuan'))
-            <li class="nav-item active">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-fw fa-users"></i>
-              <span>Manajemen Jadwal</span>
-            </a>
-            <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item active" href="{{ url('/asal-tujuan') }}">Asal dan Tujuan</a>
-                <a class="collapse-item" href="{{ url('/jadwal') }}">Jadwal Travel</a>
-              </div>
-            </div>
-          </li>
-            @elseif(Request::is('jadwal'))
-            <li class="nav-item active">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-fw fa-users"></i>
-              <span>Manajemen Jadwal</span>
-            </a>
-            <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ url('/asal-tujuan') }}">Asal dan Tujuan</a>
-                <a class="collapse-item active" href="{{ url('/jadwal') }}">Jadwal Travel</a>
-              </div>
-            </div>
-          </li>
-          @else
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-fw fa-users"></i>
-              <span>Manajemen Jadwal</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ url('/asal-tujuan') }}">Asal dan Tujuan</a>
-                <a class="collapse-item" href="{{ url('/jadwal') }}">Jadwal Travel</a>
-              </div>
-            </div>
-          </li>
-          @endif
-
-          @if(Request::is('pelanggan'))
-          <li class="nav-item active">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user" aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-fw fa-users"></i>
-              <span>Management User</span>
-            </a>
-            <div id="user" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item active" href="{{ url('/pelanggan') }}">Daftar Pelanggan</a>
-                <a class="collapse-item" href="{{ url('/admin') }}">Daftar Admin</a>
-              </div>
-            </div>
-          </li>
-          @elseif(Request::is('admin'))
-          <li class="nav-item active">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user" aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-fw fa-users"></i>
-              <span>Management User</span>
-            </a>
-            <div id="user" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ url('/pelanggan') }}">Daftar Pelanggan</a>
-                <a class="collapse-item active" href="{{ url('/admin') }}">Daftar Admin</a>
-              </div>
-            </div>
-          </li>
-          @else
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user" aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-fw fa-users"></i>
-              <span>Management User</span>
-            </a>
-            <div id="user" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ url('/pelanggan') }}">Daftar Pelanggan</a>
-                <a class="collapse-item" href="{{ url('/admin') }}">Daftar Admin</a>
-              </div>
-            </div>
-          </li>
-          @endif
-
-        
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        <div class="info">
+          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+        </div>
       </div>
 
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-      <!-- Main Content -->
-      <div id="content">
-
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="" method="GET">
-            <div class="input-group">
-              <input type="text" name="order" class="form-control bg-light border-0 small" placeholder="Cari Order" aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" >
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
-
-            <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
-              </a>
-              <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li>
-            <div class="topbar-divider d-none d-sm-block"></div>
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
-                <img class="img-profile rounded-circle" src="{{ asset('backend/img/default.png') }}">
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">
-                  <i class="fas fa-info-circle fa-sm fa-fw mr-2 text-gray-400"></i>
-                  About Apps
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
-            </li>
-
-          </ul>
-
-        </nav>
-        <!-- End of Topbar -->
-
-        @yield('content')
-
-      </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright &copy; Your Website 2020</span>
-            </div>
-          </div>
-        </footer>
-        </div>
-        <!-- End of Content Wrapper -->
-        </div>
-        <!-- End of Page Wrapper -->
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-        </a>
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
+      <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
             </button>
           </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();">Logout</a>
-            
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item">
+      @if(Request::is('dashboard'))
+        <a class="nav-link active" href="{{ url('/dashboard') }}">
+        @else
+        <a class="nav-link" href="{{ url('/dashboard') }}">
+          @endif
+          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <p> Dashboard </p></a>
+      </li>
+
+      <li class="nav-item">
+      @if(Request::is('daftarorder'))
+        <a class="nav-link active" href="{{ url('/daftarorder') }}">
+        @else
+        <a class="nav-link" href="{{ url('/daftarorder') }}">
+          @endif
+          <i class="nav-icon fas fa-list-alt"></i>
+          <p>Daftar Order</p></a>
+      </li>
+
+      <li class="nav-item">
+      @if(Request::is('daftartiket'))
+        <a class="nav-link active" href="{{ url('/daftartiket') }}">
+        @else
+        <a class="nav-link" href="{{ url('/daftartiket') }}">
+          @endif
+          <i class="nav-icon fas fa-ticket-alt"></i>
+          <p>Daftar Tiket</p></a>
+      </li>
+
+      <li class="nav-item">
+      @if(Request::is('daftarkonfirmasi'))
+        <a class="nav-link active" href="{{ url('/daftarkonfirmasi') }}">
+        @else
+        <a class="nav-link" href="{{ url('/daftarkonfirmasi') }}">
+          @endif
+          <i class="nav-icon fa fa-check-circle"></i>
+          <p>Daftar Konfirmasi</p></a>
+      </li>
+
+      <li class="nav-item">
+      @if(Request::is('mobil'))
+        <a class="nav-link active" href="{{ url('/mobil') }}">
+        @else
+        <a class="nav-link" href="{{ url('/mobil') }}">
+          @endif         
+          <i class="nav-icon fas fa fa-bus"></i>
+          <p>Mobil Travel</p></a>
+      </li>
+
+      <li class="nav-item">
+      @if(Request::is('daftarbank'))
+        <a class="nav-link active" href="{{ url('/daftarbank') }}">
+        @else
+        <a class="nav-link" href="{{ url('/daftarbank') }}">
+          @endif
+          <i class="nav-icon fas fa fa-link"></i>
+          <p>Daftar Bank</p></a>
+      </li>
+   
+      <li class="nav-item">
+      @if(Request::is('laporan'))
+        <a class="nav-link active" href="{{ url('/laporan') }}">
+        @else
+        <a class="nav-link" href="{{ url('/laporan') }}">
+          @endif
+          <i class="nav-icon fas fa-table"></i>
+          <p>Manajemen Laporan</p></a>
+      </li>  
+
+      @if(Request::is('asal-tujuan'))
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-calendar-check"></i>
+              <p>
+                Manajemen Jadwal
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/asal-tujuan') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Asal dan Tujuan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/jadwal') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Jadwal Travel</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+      @elseif(Request::is('jadwal'))
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-calendar-check"></i>
+              <p>
+                Manajemen Jadwal
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/asal-tujuan') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Asal dan Tujuan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/jadwal') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Jadwal Travel</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+      @else
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-calendar-check"></i>
+              <p>
+                Manajemen Jadwal
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/asal-tujuan') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Asal dan Tujuan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/jadwal') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Jadwal Travel</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+      @endif
+
+      @if(Request::is('pelanggan'))
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Manajemen Jadwal
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/pelanggan') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Pelanggan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/listadmin') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Admin</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+      @elseif(Request::is('listadmin'))
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Manajemen User
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/pelanggan') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Pelanggan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/listadmin') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Admin</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+      @else
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Manajemen User
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/pelanggan') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Pelanggan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/listadmin') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Admin</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+      @endif
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+              document.getElementById('logout-form').submit();">
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
             </form>
-            
-          </div>
-        </div>
-        </div>
-        </div>
-        <div class="preloader">
-              <div class="loading">
-                <img src="{{ asset('frontend/img/preloader.gif') }}" width="80">
-                <p>Harap Tunggu</p>
-              </div>
-            </div>
-      <!-- End of Footer -->
+          <i class="nav-icon fas fa fa-power-off"></i>
+          <p>Logout</p></a>
+      </li>
 
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- /.sidebar -->
+  </aside>
 
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Main content -->
+
+    @yield('content')
+    
+    <!-- /.content -->
   </div>
-  <!-- End of Page Wrapper -->
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.1.0-pre
+    </div>
+  </footer>
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
 
-
-      <!-- Bootstrap core JavaScript-->
-        <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-        <!-- Core plugin JavaScript-->
-        <script src="{{ asset('backend/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-        <!-- Custom scripts for all pages-->
-        <script src="{{ asset('backend/js/sb-admin-2.min.js') }}"></script>
-        
-        <!-- Page level plugins -->
-        <script src="{{ asset('backend/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('backend/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <!-- Page level custom scripts -->
-        <script src="{{ asset('backend/js/demo/datatables-demo.js') }}"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="{{ asset('datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-        
-        <!--Start of Tawk.to Script-->
-        <!-- <script type="text/javascript">
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-        (function(){
-        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-        s1.async=true;
-        s1.src='https://embed.tawk.to/5c78e8c23341d22d9ce6c142/default';
-        s1.charset='UTF-8';
-        s1.setAttribute('crossorigin','*');
-        s0.parentNode.insertBefore(s1,s0);
-        })();
-        </script> -->
-        <script type="text/javascript">
-          $(document).ready(function(){
-            $(".preloader").fadeOut();
-          })
-        </script>
-        @yield('js')
-        <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Tentang TRAVEL</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua.
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
+<!-- jQuery -->
+<script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{ asset('admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- ChartJS -->
+<script src="{{ asset('admin/plugins/chart.js/Chart.min.js') }}"></script>
+<!-- Sparkline -->
+<script src="{{ asset('admin/plugins/sparklines/sparkline.js') }}"></script>
+<!-- JQVMap -->
+<script src="{{ asset('admin/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{{ asset('admin/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+<!-- daterangepicker -->
+<script src="{{ asset('admin/plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ asset('admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<!-- Summernote -->
+<script src="{{ asset('admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
+<!-- overlayScrollbars -->
+<script src="{{ asset('admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('admin/dist/js/adminlte.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('admin/dist/js/demo.js') }}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{ asset('admin/dist/js/pages/dashboard.js') }}"></script>
+<!-- DataTables -->
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+    });
+    $("#example2").DataTable({
+    });
+    $('#example3').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+@yield('js')
 </body>
-
 </html>

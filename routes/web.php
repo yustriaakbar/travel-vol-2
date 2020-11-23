@@ -19,7 +19,7 @@ Auth::routes();
 
 //FRONTEND
 Route::get('/', 'FrontendController@index');
-Route::get('/cektanggal', 'FrontendController@cektanggal');
+//Route::get('/cektanggal', 'FrontendController@cektanggal');
 Route::get('/cektiket', 'FrontendController@cektiket');
 Route::get('/cekjadwal', 'FrontendController@cekjadwal');
 Route::get('/before-order', 'FrontendController@before_order');
@@ -28,11 +28,11 @@ Route::post('/checkout', 'FrontendController@order');
 Route::get('/payment/{id}', 'FrontendController@pay');
 Route::get('/konfirmasi/{id}', 'FrontendController@confirm');
 Route::post('/create_confirm', 'FrontendController@create_cfrm');
-Route::get('/tiket', 'FrontendController@tiket');
+Route::get('/order', 'FrontendController@tiket');
 Route::get('/etiket/{id}', 'FrontendController@cetak');
 Route::get('/profile', 'FrontendController@profil');
-Route::get('/ganti-password', 'FrontendController@change_password');
-Route::get('/edit-profile', 'FrontendController@change_account');
+//Route::get('/ganti-password', 'FrontendController@change_password');
+//Route::get('/edit-profile', 'FrontendController@change_account');
 Route::post('/update_profile', 'FrontendController@updateprofile');
 
 Route::group(['middleware' => ['admin']], function () {
@@ -85,7 +85,7 @@ Route::post('/update-order/{id}', 'BackendController@update_order');
 Route::get('/viewjadwal/{id}', 'BackendController@view_jadwal');
 //BACKEND USER
 Route::get('/pelanggan', 'BackendController@list_pelanggan');
-Route::get('/admin', 'BackendController@list_admin');
+Route::get('/listadmin', 'BackendController@list_admin');
 Route::get('/tambah-admin', 'BackendController@tambah_admin');
 Route::post('/buat_admin', 'BackendController@create_admin');
 Route::get('/delete_pelanggan/{id}', 'BackendController@delete_pelanggan');

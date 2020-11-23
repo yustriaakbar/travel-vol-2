@@ -20,7 +20,7 @@ class CreateKonfirmasiTable extends Migration
             $table->string('nama_bank');
             $table->string('rekening');
             $table->string('total');
-            $table->string('photo');
+            $table->string('bukti_transfer');
         });
     }
 

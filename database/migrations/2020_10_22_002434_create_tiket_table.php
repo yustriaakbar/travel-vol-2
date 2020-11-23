@@ -21,7 +21,7 @@ class CreateTiketTable extends Migration
             $table->foreign('kd_jadwal')->references('kd_jadwal')->on('jadwal');
             $table->string('nama_tiket');
             $table->string('kursi_tiket');
-            $table->string('umur_tiket');
+            $table->string('ktp_penumpang');
             $table->string('harga_tiket');
             $table->string('photo_tiket');
             $table->string('status_tiket');

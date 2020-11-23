@@ -1,14 +1,12 @@
 @extends('layouts.ui')
 @section('judul','Pembayaran')
 @section('content')
-
-		<section class="service-area section-gap relative">
-			<div class="overlay overlay-bg"></div>
-			<div class="container">
+<!-- Section -->
+<div class="container">
 				<div class="row d-flex justify-content-center">
-					<div class="col-lg-8">
+					<div class="col-lg-8 mt-5">
 						<!-- Default Card Example -->
-						<div class="card mb-5">
+						<div class="card mb-4">
 							<div class="card-header" align="center">
 								<b><i class="fa fa-ticket"></i> KODE ORDER {{ $order1->kd_order }}</b>
 							</div>
@@ -49,6 +47,7 @@
 								<i class="fa fa-ticket"></i> Proses Pembayaran
 							</div>
 							<div class="card-body" align="center">
+								@if($order1->expired_order >= $today)
 								<h4>Segera Menyelesaikan Pembayaran Anda</h4><br>
 								<p>Batas waktu pembayaran Anda akan berakhir pada</p>
 								<h1><p id="expired">
@@ -78,6 +77,10 @@
 								</script>									
 								</p></h1>
 								<p>Sebelum {{\Carbon\Carbon::parse($order1->expired_order)->isoFormat('dddd, D MMMM Y') }}, {{\Carbon\Carbon::parse($order1->expired_order)->toTimeString() }} </p>
+								@else
+								<h1><p>Waktu Pembayaran Selesai</p></h1>
+								<br>
+								@endif
 								<hr>
 								<div class="medium-title col-12 mb-20">
 									<h4><p>Silahkan transfer pembayaran ke nomor rekening berikut ini</p></h4>
@@ -150,18 +153,10 @@
 								<button href="" class="btn btn-primary pull-center" disabled="">Konfirmasi Pembayaran </button>
 								@endif
 							</div>
-						</div>
 					</div>
-				</section>
-	
-@endsection
-@section('js')
-				<script>
-				function myFunction() {
-				var copyText = document.getElementById("myInput");
-				copyText.select();
-				document.execCommand("copy");
-				swal("Copy", "Berhasil Copy Nomo Rekening", "info");
-				}
-				</script>
+  				<div class="mb-5"></div>        
+  				</div>
+  			</div>
+</div>        
+<!-- End Section -->
 @endsection

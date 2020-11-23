@@ -1,0 +1,50 @@
+  .navbar-brand, .nav-link {
+    color: black !important;
+  }
+  .nav-link:hover::after{
+    content: '';
+    display: block;
+    border-bottom: 3px solid #0B63DC;
+    width: 50%;
+    margin: auto;
+    padding-bottom: 5px;
+    margin-bottom: -8px;
+  }
+  .active a{
+    color: blue !important;
+  }
+  .jumbotron {
+    background: #005eff;
+    height: 440px;
+  }
+  input.transparent-input{
+    background-color:rgba(0,0,0,0) !important;
+    border:none !important;
+  }
+  select.transparent-input{
+    background-color:rgba(0,0,0,0) !important;
+    border:none !important;
+  }
+  .tombol {
+    border-radius: 40px;
+    color: #005eff;
+  }
+  body{
+    font-family: 'Roboto',sans-serif;
+  }
+  .vertical-align {
+    display: flex;
+    align-items: center;
+  }
+  footer{
+    margin-top: 70px;
+  }
+  .carousel-indicators li {
+    width: 10px!important;
+    height: 10px!important;
+    border-radius: 50%;
+  }
+  #sticky-sidebar {
+   position: absolute;
+   max-width: 20%;
+  }

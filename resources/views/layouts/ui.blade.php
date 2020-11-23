@@ -1,248 +1,156 @@
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
-	<head>
-		<!-- Mobile Specific Meta -->
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<!-- Favicon-->
-		<link rel="shortcut icon" href="">
-		<!-- Author Meta -->
-		<meta name="author" content="colorlib">
-		<!-- Meta Description -->
-		<meta name="description" content="">
-		<!-- Meta Keyword -->
-		<meta name="keywords" content="">
-		<!-- meta character set -->
-		<meta charset="UTF-8">
-		<!-- Site Title -->
-		<title>@yield('judul')</title>
-		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-		<!--
-		CSS
-		============================================= -->
-		<style type="text/css">
-		.combined {
-		-webkit-text-stroke: 1px black;
-		color: white;
-		text-shadow:
-		2px  2px 0 #000,
-		-1px -1px 0 #000,
-		1px -1px 0 #000,
-		-1px  1px 0 #000,
-		1px  1px 0 #000;
-		}
-		.border-black{
-		  color: blue;
-		  /*border white with light shadow*/
-		  text-shadow: 
-		     2px   0  0   #000, 
-		    -2px   0  0   #000, 
-		     0    2px 0   #000, 
-		     0   -2px 0   #000, 
-		     1px  1px 0   #000, 
-		    -1px -1px 0   #000, 
-		     1px -1px 0   #000, 
-		    -1px  1px 0   #000,
-		     1px  1px 5px #000;
-		}
-		</style>
-		<link rel="stylesheet" href="{{ asset('frontend/css/linearicons.css') }}">
-		<link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.css') }}">
-		<link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}">
-		<link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}">
-		<link rel="stylesheet" href="{{ asset('frontend/css/magnific-popup.css') }}">
-		<link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.css') }}">
-		<link rel="stylesheet" href="{{ asset('frontend/css/main.css') }}">
-		<link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
-		<link rel="stylesheet" type="text/css" href="{{ asset('datepicker/dist/css/bootstrap-datepicker.min.css') }}">
-		<link href="{{ asset('frontend/select2/css/select2.min.css') }}" rel="stylesheet" />
-		  <style type="text/css">
-  	.preloader {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			z-index: 9999;
-			background-color: #fff;
-		}
-		.preloader .loading {
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%,-50%);
-			font: 14px arial;
-		}
-  </style>
-  		@yield('css')
-	</head>
-	<body>
-		<header id="header" id="home">
-		    <div class="container">
-		    	<div class="row align-items-center justify-content-between d-flex">
-			      <div id="logo">
-			        <a href=""><h3><b>Tiket Travel</b></h3></a>
-			      </div>
-			      <nav id="nav-menu-container">
-			        <ul class="nav-menu">
-			          
-			         @if(Request::is('/'))
-			          <li class="menu-active"><a href="{{ url('/') }}">Home</a></li>
-			         @else
-			          <li class="menu"><a href="{{ url('/') }}">Home</a></li>
-			         @endif
+<html>
+<head>
+  <title>@yield('judul')</title>
+    <link rel="shortcut icon" href="{{ asset('frontend/img/icon.png') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style.css') }}">
 
-			         @if(Request::is('cektanggal'))
-			          <li class="menu-active"><a href="{{ url('/cektanggal') }}">Lokasi & Jadwal Tiket</a></li>
-			         @else
-			          <li class="menu"><a href="{{ url('/cektanggal') }}">Lokasi & Jadwal Tiket</a></li>
-					 @endif			          
-			          
-			         @if(Request::is('cektiket')) 
-			          <li class="menu-active"><a href="{{ url('/cektiket') }}">Cek Tiket</a></li>
-			         @else
-			          <li class="menu"><a href="{{ url('/cektiket') }}">Cek Tiket</a></li>
-			         @endif
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ asset('frontend/datepicker/js/bootstrap-datepicker.js') }}"></script>
+    <style type="text/css">
+        .info-panel {
+          box-shadow: 0 3px 20px rgba(0,0,0,0.5);
+          border-radius: 12px;
+          margin-top: -100px;
+          background-color: white;
+          padding: 30px;
+        }
+        footer {
+          margin-top: 0!important;
+        }
 
-			          @if (Route::has('login'))
-				      	<li class="menu-has-children">
-				      		@auth
-				      		<a href="">Hai, {{ Auth::user()->name }}</a>
-						<ul>
-							<li><a href="{{ url('/profile') }}"><i class="fa fa-id-card"></i> Profile Saya</a></li>
-							<li><a href="{{ url('/tiket') }}"><i class="fa fa-ticket"></i> Tiket Saya</a></li>
-							<li><a href="{{ route('logout') }}" onclick="event.preventDefault();
-                           document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i> Keluar</a></li>
-                           
-                           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                           </form>
-						</ul>
-						</li>
-				      		@else
-				      <li><a href="{{ route('login') }}">Login</a></li>
-				      			@if (Route::has('register'))
-				  	  <li class="menu wobble animated"><a href="{{ route('register') }}">Daftar</a>
-				  	  			@endif
-				  	  </li>
-				  	  		@endauth
-				  	  
-			        </ul>
-			        @endif
-			      </nav><!-- #nav-menu-container -->		    		
-		    	</div>
-		    </div>
-		  </header><!-- #header -->
+    </style>
+    @yield('css')
+</head>
+<body>
 
-		  @yield('content')
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="{{ asset('frontend/img/logo.png') }}" width="160">
+      </a>
 
-			<footer class="footer-area section-gap">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-3  col-md-6 col-sm-6">
-							<div class="single-footer-widget">
-								<h4 class="text-white">Tiket TRAVEL</h4>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-									tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-									quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-									consequat.
-								</p>
-							</div>
-						</div>
-						<div class="col-lg-4  col-md-6 col-sm-6">
-							<div class="single-footer-widget">
-								<h4 class="text-white">Contact Us</h4>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.
-								</p>
-								<p class="number">
-									012-6532-568-9746 <br>
-									012-6532-569-9748
-								</p>
-							</div>
-						</div>						
-						<div class="col-lg-5  col-md-6 col-sm-6">
-							<div class="single-footer-widget">
-								<h4 class="text-white">Newsletter</h4>
-								<p>You can trust us. we only send  offers, not a single spam.</p>
-								<div class="d-flex flex-row" id="mc_embed_signup">
-										<form class="navbar-form" novalidate="true" action="" method="post">
-									    <div class="input-group add-on">
-									      	<input class="form-control" placeholder="Email address"  type="email">
-											<div style="position: absolute; left: -5000px;">
-												<input name="" tabindex="-1" value="" type="text">
-											</div>
-									      <div class="input-group-btn">
-									        <button class="genric-btn primary circle arrow"><span class="lnr lnr-arrow-right"></span></button>
-									      </div>
-									    </div>
-									      <div class="info mt-20"></div>									    
-									  </form>
+      <div class="collapse navbar-collapse font-weight-bold" id="navbarNav">
+        <ul class="navbar-nav ml-auto mr-5">
 
-								</div>
-							</div>
-						</div>						
-					</div>
-					<div class="footer-bottom d-flex justify-content-between align-items-center flex-wrap">
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            <p class="footer-text m-0">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						<div class="footer-social d-flex align-items-center">
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-dribbble"></i></a>
-							<a href="#"><i class="fa fa-behance"></i></a>
-						</div>
-					</div>
-				</div>
-			</footer>
-			<div class="preloader">
-			<div class="loading">
-				<img src="{{ asset('frontend/img/preloader.gif') }}" width="80">
-				<p>Harap Tunggu</p>
-			</div>
-		</div>	
-			<!-- End footer Area -->
+          @if(Request::is('/'))     
+          <li class="nav-item active mr-2">
+            <h6><a class="nav-link" href="{{ url('/') }}">Tiket Travel</a></h6>
+          </li>
+          @else
+          <li class="nav-item mr-2">
+            <h6><a class="nav-link" href="{{ url('/') }}">Tiket Travel</a></h6>
+          </li>
+          @endif
 
-  <script src="{{ asset('frontend/js/vendor/jquery-2.2.4.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="{{ asset('frontend/js/vendor/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-<script src="{{ asset('frontend/js/easing.min.js') }}"></script>
-<script src="{{ asset('frontend/js/hoverIntent.js') }}"></script>
-<script src="{{ asset('frontend/js/superfish.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.ajaxchimp.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.magnific-popup.min.js') }}"></script>
-<script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.sticky.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.nice-select.min.js') }}"></script>
-<script src="{{ asset('frontend/js/parallax.min.js') }}"></script>
-<script src="{{ asset('frontend/js/waypoints.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.counterup.min.js') }}"></script>
-<script src="{{ asset('frontend/js/mail-script.js') }}"></script>
-<script src="{{ asset('frontend/js/main.js') }}"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="{{ asset('frontend/select2/js/select2.min.js') }}"></script>
-<script src="{{ asset('datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+          @if(Request::is('cektiket'))     
+          <li class="nav-item active mr-2">
+            <h6><a class="nav-link" href="{{ url('/cektiket') }}">Cek Order</a></h6>
+          </li>
+          @else
+          <li class="nav-item mr-2">
+            <h6><a class="nav-link" href="{{ url('/cektiket') }}">Cek Order</a></h6>
+          </li>
+          @endif
 
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/5c78e8c23341d22d9ce6c142/default';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
- <script type="text/javascript">
-    $(document).ready(function(){
-      $(".preloader").fadeOut();
-    })
-  </script>
-  @yield('js')
-<!--End of Tawk.to Script-->
-	</body>
+          @if(Request::is('order'))     
+          <li class="nav-item active mr-2">
+            <h6><a class="nav-link" href="{{ url('/order') }}">My Order</a></h6>
+          </li>
+          @else
+          <li class="nav-item mr-2">
+            <h6><a class="nav-link" href="{{ url('/order') }}">My Order</a></h6>
+          </li>
+          @endif
+
+          @if (Route::has('login'))
+          <li class="nav-item mr-2">
+            @auth
+            <!--<h6><a class="nav-link" href="{{ url('/profile') }}">Hai, {{ Auth::user()->name }}</a></h6>-->
+          <div class="dropdown btn-group">
+              <a class="navbar-brand dropdown-toggle" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle fa-lg"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{ url('/profile') }}" class="text-dark ml-3">My Profile</a><hr></li>
+                <li>
+                    <a class="text-dark ml-3" href="{{ route('logout') }}"onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                    </form>
+              </li>
+              </ul>
+          </div>
+          </li>
+          @else
+          <li class="nav-item mr-2">
+            <h6><a class="nav-link" href="{{ url('/login') }}">Login</a></h6>
+          </li>
+          @if (Route::has('register'))
+          <li class="nav-item mr-2">
+            <h6><a class="nav-link" href="{{ url('/register') }}">Daftar</a></h6>
+          @endif
+          </li>
+            @endauth
+          @endif
+
+        </ul>
+      </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+
+<div style="background-color: #E0E0E0;">
+@yield('content')
+</div>
+
+<!-- Footer -->
+            <footer class="page-footer" style="background-color:#50A0ff;  border-top : 2px solid #294AF9;">
+                <div class="container text-center text-md-left">
+                <div class="row text-center text-md-left pb-3">
+                    <div class="col-md-4 " style="color: #424242; text-align:left;">
+                    <br><br>
+                    <p><div style="font-size:12pt; font-weight: bold; margin-top: -7%;" >Tiket Travel</div><hr></p>
+                    <p>
+                        <i class="fa fa-home mr-1"></i> Jl. Jend. Basuki Rachmat No. 01 Nganjuk</p>
+                    <p>
+                        <i class="fa fa-envelope mr-1"></i>admin@travel.com</p>
+                    <p>
+                        <i class="fa fa-phone mr-1"></i>082145672873
+                    </p>
+                    </div>
+
+                    <!-- Grid column -->
+                    <div class="col-md-8">
+                        <br><br>
+                    <div class="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253083.43912298148!2d111.88053073109214!3d-7.636956864313375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7848eb63464de5%3A0xe1759fc633be1ec2!2sLintas%20Buana%20Tour%20%26%20Travel!5e0!3m2!1sid!2sid!4v1605382448804!5m2!1sid!2sid" width="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                    </div>
+                    </div>
+                </div>
+                <hr>
+
+                <!-- Grid row -->
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-12" style="color: #424242; ">
+                    <p class="text-center">Copyright © 2020 Tiket Travel
+                        <strong style="color: #424242; "></strong>
+                    </p>
+                    </div>
+                </div>
+                <br>
+            </footer>
+<!-- End Footer -->
+</body>
+
+@yield('js')
+
 </html>

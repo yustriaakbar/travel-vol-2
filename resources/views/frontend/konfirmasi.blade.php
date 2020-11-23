@@ -1,11 +1,9 @@
 @extends('layouts.ui')
 @section('judul','Konfirmasi Pembayaran')
 @section('content')
-		<section class="service-area section-gap relative">
-			<div class="overlay overlay-bg"></div>
 			<div class="container">
 				<div class="row d-flex justify-content-center">
-					<div class="col-lg-4">
+					<div class="col-lg-4 mt-5">
 						<!-- Default Card Example -->
 						<div class="card wobble animated">
 					  <div class="card-header">
@@ -40,13 +38,16 @@
 										<input type="text" class="form-control" name="total" value="@currency($total)" readonly>
 									</div>
 									<div class="form-group">
-										<label for="exampleInputEmail1">Upload Poto Transaksi</label>
+										<label for="exampleInputEmail1">Upload Bukti Transfer</label>
 										<input type="file" class="form-control" name="photo" required="">
 									</div>
 									<button type="submit" class="btn btn-primary pull-right">Konfirmasi </button>
 								</form>
 					  </div>
+
 					</div>
-					</div>
-			</section>
+					<div class="mb-5"></div>
+				</div>
+			</div>
+	</div>
 @endsection

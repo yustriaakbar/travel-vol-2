@@ -353,7 +353,7 @@ class BackendController extends Controller
     public function view_order($id)
     {
         $order = DB::table('order')
-            ->select('nama_penumpang', 'umur_penumpang', 'no_kursi_penumpang')
+            ->select('nama_penumpang', 'ktp_penumpang', 'no_kursi_penumpang')
             ->where('kd_order', $id)
             ->get();
         $order1 = DB::table('order as ord')
@@ -394,7 +394,7 @@ class BackendController extends Controller
                 'kd_jadwal' => $request->input('kd_jadwal'),
                 'nama_tiket' => $request->nama[$item],
                 'kursi_tiket' => $request->kursi[$item],
-                'umur_tiket' => $request->umur[$item],
+                'ktp_penumpang' => $request->ktp[$item],
                 'harga_tiket' => $request->input('harga'),
                 //'photo_tiket' => $request->input('photo'),
                 'status_tiket' => $request->input('status'),
@@ -486,28 +486,27 @@ class BackendController extends Controller
         $tiket = DB::table('tiket as tk')
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
             ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
-            ->leftjoin('order as o', 'o.kd_order', '=', 'tk.kd_order')
-            ->get();                
+            ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
+            ->groupBy('o.kd_order')
+            ->get();
+               
         return view('backend.daftar_tiket', compact('tiket'));
     }
 
     public function cetak_admin($id)
     { 
-        $tiket = DB::table('tiket as tk')
-            ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
-            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
-            ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
-            ->get();
-        $info_tiket = DB::table('tiket as tk')
-            ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
-            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+        $tiket = DB::table('order as ord')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
             ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
-            ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
-            ->first();
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->where('kd_tiket', $id)
+            ->where('status_order', 2)
+            ->get();
         //if info_tiket == null
         // return message "maaf tiket anda tidak ditemukan"
-        $pdf = PDF::loadview('frontend.e_tiket', compact('tiket', 'info_tiket'))->setPaper('A4','potrait');
-        return $pdf->stream();
+        //$pdf = PDF::loadview('frontend.e_tiket', compact('tiket', 'info_tiket'))->setPaper('A4','potrait');
+        //return $pdf->stream();
+        return view('frontend.e_tiket', compact('tiket'));
     }
 
     public function manajemen_laporan()
@@ -515,7 +514,6 @@ class BackendController extends Controller
         $laporan = DB::table('tiket as tk')
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
             ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
-            ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
             ->get();
         $tanggal_awal = new Carbon('first day of January 1970');
         $tanggal_akhir = Carbon::now();
@@ -535,7 +533,6 @@ class BackendController extends Controller
             $laporan = DB::table('tiket as tk')
                 ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
                 ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
-                ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
                 ->whereBetween('tk.create_tgl_tiket', [$tanggal_awal, $tanggal_akhir])
                 ->where('j.kd_tujuan', $kota_tujuan)
                 ->get();           
@@ -548,22 +545,20 @@ class BackendController extends Controller
         $tanggal_awal = $request->get('start_date');
         $tanggal_akhir = $request->get('end_date');
         $kota_tujuan = $request->get('tujuan');
-        if ($tanggal_awal != null && $tanggal_akhir != null && $kota_tujuan != null) 
+        if ($tanggal_awal != null && $tanggal_akhir != null && $kota_tujuan == "semua_tujuan") 
         {
             $laporan = DB::table('tiket as tk')
                 ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
                 ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
-                ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
+                ->whereBetween('tk.create_tgl_tiket', [$tanggal_awal, $tanggal_akhir])
+                ->get();           
+        }else if($tanggal_awal != null && $tanggal_akhir != null && $kota_tujuan != null)
+        {
+            $laporan = DB::table('tiket as tk')
+                ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
+                ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
                 ->whereBetween('tk.create_tgl_tiket', [$tanggal_awal, $tanggal_akhir])
                 ->where('j.kd_tujuan', $kota_tujuan)
-                ->get();           
-        }elseif($tanggal_awal != null && $tanggal_akhir != null)
-        {
-            $laporan = DB::table('tiket as tk')
-                ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
-                ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
-                ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
-                ->whereBetween('tk.create_tgl_tiket', [$tanggal_awal, $tanggal_akhir])
                 ->get();
         }
 
@@ -571,10 +566,10 @@ class BackendController extends Controller
             return [
                 'Kode Order' => $laporan->kd_order,
                 'Kode Tiket' => $laporan->kd_tiket,
-                'Nama Pemesan' => $laporan->nama_tiket,
-                'Tanggal Pesan' => $laporan->tgl_beli_order,
+                //'Nama Pemesan' => $laporan->nama_tiket,
+                'Tanggal Konfirmasi Tiket' => $laporan->create_tgl_tiket,
                 'Nama Penumpang' => $laporan->nama_tiket,
-                'Umur Penumpang' => $laporan->umur_tiket,
+                'Identitas Penumpang' => $laporan->ktp_penumpang,
                 'Nomor Kursi' => $laporan->kursi_tiket,
                 'Tujuan' => $laporan->kota_tujuan,
             ];

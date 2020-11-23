@@ -1,9 +1,26 @@
 @extends('layouts.admin')
 @section('judul','Manajemen Laporan')
 @section('content')
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Manajemen Laporan</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Manajemen Laporan</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+<section class="content">
 <!-- Begin Page Content -->
 <div class="container-fluid">
-      <h1 class="h3 mb-2 text-gray-800">Manajemen Laporan</h1>
         <form action="{{url('/laporan/filter')}}" method="get">
         <div class="row mb-4">
             <div class="col-md-3">
@@ -42,16 +59,15 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+            <table class="table table-bordered" id="example1" width="100%" cellspacing="0" style="text-align: center;">
               <thead>
                 <tr>
                   <th>No</th>
                   <th>Kode Order</th>
                   <th>Kode Tiket</th>
-                  <th>Nama Pemesan</th>
-                  <th>Tanggal Pesan</th>
+                  <th>Tanggal Konfirmasi Admin</th>
                   <th>Nama Penumpang</th>
-                  <th>Umur</th>
+                  <th>Identias Penumpang</th>
                   <th>Kursi</th>
                   <th>Tujuan</th>
                 </tr>
@@ -62,10 +78,9 @@
                   <td>{{++$l}}</td>
                   <td>{{ $value->kd_order }}</td>
                   <td>{{ $value->kd_tiket }}</td>
+                  <td>{{\Carbon\Carbon::parse($value->create_tgl_tiket)->isoFormat('dddd, D MMMM Y') }}</td>
                   <td>{{ $value->nama_tiket }}</td>
-                  <td>{{\Carbon\Carbon::parse($value->tgl_beli_order)->isoFormat('dddd, D MMMM Y') }}</td>
-                  <td>{{ $value->nama_tiket }}</td>
-                  <td>{{ $value->umur_tiket }}</td>
+                  <td>{{ $value->ktp_penumpang }}</td>
                   <td>{{ $value->kursi_tiket }}</td>
                   <td>{{ $value->kota_tujuan }}</td>
               </tr>
@@ -78,4 +93,5 @@
     <!-- /.container-fluid -->
   </div>
   <!-- /.container-fluid -->
+</section>
 @endsection

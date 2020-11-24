@@ -51,8 +51,12 @@
                   <td>{{ $value->tiket }}</td>
                   @if($value->status_order =='1')
                   <td class="btn-danger">Belum Bayar</td>
-                  @else($value->status_order =='2')
+                  @elseif($value->status_order =='2')
                   <td class="btn-success">Sudah Bayar</td>
+                  @elseif($value->status_order =='3')
+                  <td class="btn-primary">Menunggu Konfirmasi</td>
+                  @elseif($value->status_order =='4')
+                  <td class="btn-danger">Pembayaran Ditolak</td>
                   @endif
                   <td><a class="btn btn-primary" href="{{url('vieworder/'.$value->kd_order)}}">View</a>
                   </td>

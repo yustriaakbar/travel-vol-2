@@ -14,7 +14,8 @@
 					    	{{ csrf_field() }} 
 									<div class="form-group">
 										<label for="exampleInputEmail1">Kode Order</label>
-										<input type="text" id="" class="form-control" id="" name="kd_order" value="{{ $order->kd_order }}" readonly>
+										<input type="hidden" class="form-control" name="kd_order" value="{{ $order->kd_order }}">
+										<input type="text" class="form-control" name="kd_order" value="{{ $order->kd_order }}" readonly>
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1">Nama BANK</label>

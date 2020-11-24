@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use PDF;
+use Illuminate\Support\Facades\Redirect;
 
 class FrontendController extends Controller
 {
@@ -196,7 +197,11 @@ class FrontendController extends Controller
             ->where('kd_order', $id)
             ->where('id_user', $id_user)
             ->first();
-        $bank = DB::table('bank')->get();        
+        $bank = DB::table('bank')->get();
+            if($order->status_order == '3'){
+                session()->flash('gagal', "Anda sudah konfirmasi pembayaran");
+                return Redirect::back();
+            }
         //dd($request->all());
         return view('frontend.konfirmasi', compact('total', 'order', 'bank'));
         }else{
@@ -210,7 +215,8 @@ class FrontendController extends Controller
         $nama_file = time()."_".$file->getClientOriginalName();
         $tujuan_upload = 'frontend/img/bukti_transfer';
         $file->move($tujuan_upload,$nama_file);
-        $create_bank = DB::table('konfirmasi')
+        
+        DB::table('konfirmasi')
         ->insert([
             'kd_order' => $request->input('kd_order'),
             'nama_pengirim' => $request->input('nama'),
@@ -219,8 +225,14 @@ class FrontendController extends Controller
             'total' => $request->input('total'),
             'bukti_transfer' => $tujuan_upload . '/' . $nama_file,
         ]);
+        
+        DB::table('order')
+        ->where('kd_order', $request->kd_order)
+        ->update([
+            'status_order' => '3',
+        ]);
         //session()->flash('berhasil', "Berhasil Tambah Rekening Bank");
-        return redirect('daftartiket');
+        return redirect('order');
     }
 
     public function tiket()

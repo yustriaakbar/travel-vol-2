@@ -1,6 +1,40 @@
 @extends('layouts.ui')
 @section('judul','Pembayaran')
+@section('css')
+    <link rel="stylesheet" href="{{asset('css/homepage.css')}}">
+@endsection
 @section('content')
+@if(session()->has('gagal'))
+        <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog"
+             aria-labelledby="modal-notification" aria-hidden="true">
+            <div class="modal-dialog modal-gradient-danger  modal-dialog-centered modal-"
+                 role="document">
+                <div class="modal-content bg-gradient-danger">
+
+                    <div class="modal-body">
+
+                        <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;"><span
+                                class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span
+                                    class="swal2-x-mark-line-right"></span></span></div>
+
+
+                        <div class="py-3 text-center">
+                            <h4 class="heading">{{session('gagal')}}</h4>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">
+                            Close
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+@endif
 <!-- Section -->
 <div class="container">
 				<div class="row d-flex justify-content-center">
@@ -83,7 +117,7 @@
 								@endif
 								<hr>
 								<div class="medium-title col-12 mb-20">
-									<h4><p>Silahkan transfer pembayaran ke nomor rekening berikut ini</p></h4>
+									<h5><p>Silahkan transfer pembayaran ke nomor rekening berikut ini</p></h5>
 								</div>
 								<div class="offset-lg-1 col-lg-10 offset-sm-0 col-sm-12">
 									<div class="row">
@@ -121,16 +155,13 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-12 medium-title regular-text mt-20">
-									<h4><b> <p>Sebesar</p></b></h4>
-								</div>
-								<div class="col-12 bigger-title text-orange">
-									<h3 ><p >@currency($total)</p></h3>
+								<div class="col-12 mb-20">
+									<h5><p>Sebesar @currency($total)</p></h5>
 								</div>
 								<div class="col-14 mt-15 mb-15">
 									<hr>
 									<div class="col-md-8 mt-sm-30">
-										<h3 class="mb-20">PANDUAN PEMBAYARAN</h3>
+										<h4 class="mb-20">PANDUAN PEMBAYARAN</h4>
 										<div class="">
 											<ol class="ordered-list" align="left">
 												<li>Masukkan Kartu ATM Anda</li>
@@ -159,4 +190,11 @@
   			</div>
 </div>        
 <!-- End Section -->
+@endsection
+@section('js')
+    <script type="text/javascript">
+        $(window).on('load', function () {
+            $('#modal-notification').modal('show');
+        });
+    </script>
 @endsection

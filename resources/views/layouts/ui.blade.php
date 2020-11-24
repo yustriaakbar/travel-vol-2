@@ -76,7 +76,7 @@
           <li class="nav-item mr-2">
             @auth
             <!--<h6><a class="nav-link" href="{{ url('/profile') }}">Hai, {{ Auth::user()->name }}</a></h6>-->
-          <div class="dropdown btn-group">
+          <div class="btn-group">
               <a class="navbar-brand dropdown-toggle" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle fa-lg"></i></a>
               <ul class="dropdown-menu">
                 <li><a href="{{ url('/profile') }}" class="text-dark ml-3">My Profile</a><hr></li>

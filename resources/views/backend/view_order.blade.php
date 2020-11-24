@@ -93,7 +93,8 @@
                       <select class="form-control" name="status">
                         <option {{old('status',$order1->status)=="1"? 'selected':''}}  value="1">Belum Bayar</option>
                         <option {{old('status',$order1->status)=="2"? 'selected':''}}  value="2">Sudah Bayar</option>
-                        <option value="3">Hapus Order</option>
+                        <option {{old('status',$order1->status)=="3"? 'selected':''}}  value="3">Menunggu Konfirmasi</option>
+                        <option {{old('status',$order1->status)=="4"? 'selected':''}}  value="4">Pembayaran Ditolak</option>
                       </select>
                     </div>
                   </div>

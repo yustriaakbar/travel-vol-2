@@ -22,6 +22,7 @@
         <div class="card-body">
           <form action="{{url('update-order/'.$order1->kd_order)}}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
+            <input type="hidden" name="email" value="{{ $order1->email}}">
             <input type="hidden" name="kd_order" value="{{ $order1->kd_order}}">
             <input type="hidden" name="kd_tiket" value="{{ $order1->kd_tiket}}">
             <input type="hidden" name="kd_jadwal" value="{{ $order1->kd_jadwal}}">

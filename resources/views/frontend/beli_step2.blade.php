@@ -59,12 +59,14 @@
                         </div>
                         <div class="card-body">
                           <ul>
-                            <li>► <b>NGK - SBY</b></li>
-                            <li>► Plat Mobil <b>AG 1026 TRL</b></li>
-                            <li>► Berangkat hari <b>Sabtu, 28 Nov 2020</b></li>
-                            <li>► Jam keberangkatan pukul <b>08:30:00</b></li>
-                            <li>► Perkiraan Tiba pukul <b>13:00:00</b></li>
-                            <li>► Total Pembayaran <b>Rp. 100.000</b></li>
+                            @foreach($jadwal as $j => $value)
+                            <input type="hidden" name="kd_jadwal" value="{{ $value->kd_jadwal }}">
+                            <li>► {{ $value->kota_asal }} - {{ $value->kota_tujuan }}</li>
+                            <li>► Plat Mobil {{ $value->plat_mobil }}</li>
+                            <li>► Berangkat {{\Carbon\Carbon::parse($date)->isoFormat('dddd, D MMMM Y') }}</li>
+                            <li>► Jam keberangkatan pukul {{ $value->jam_berangkat }}</li>
+                            <li>► Perkiraan Tiba pukul {{ $value->jam_tiba }}</li>
+                            @endforeach
                           </ul>
                           </div>
                       </div>
@@ -82,9 +84,6 @@
 						<input type="hidden" name="tgl" value="{{ $date }}">
 						<input type="hidden" name="expired" value="{{date('Y-m-d H:i:s', strtotime('+1 day'))}}">
 						<input type="hidden" name="tgl_beli" value="{{ date('Y-m-d H:i:s') }}">
-						@foreach($jadwal as $j => $value)
-						<input type="hidden" name="kd_jadwal" value="{{ $value->kd_jadwal }}">
-						@endforeach
                 <div class="row card-body">
                 @foreach($kursi as $k)
                       <div class="form-group col-md-12">

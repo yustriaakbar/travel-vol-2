@@ -66,7 +66,7 @@
                 <label for="exampleFormControlSelect1">Tujuan</label>
                 <select name="tujuan" class="form-control transparent-input" id="exampleFormControlSelect1" required="">
 					<option value="" selected disabled="">Pilih Tujuan</option>
-					@foreach($jadwal as $jdwl => $value)
+					@foreach($tujuan as $tj => $value)
 					<option value="{{ $value->kd_tujuan }}">{{ $value->kota_tujuan }}</option>
 					@endforeach
                 </select>

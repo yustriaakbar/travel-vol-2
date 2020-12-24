@@ -13,13 +13,9 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        $jadwal = DB::table('jadwal as jdw')
-            ->join('tujuan as t', 't.kd_tujuan', '=', 'jdw.kd_tujuan')
-            ->join('asal as a', 'a.kd_asal', '=', 'jdw.kd_asal')
-            ->select('jdw.kd_tujuan as kd_tujuan', 't.kota_tujuan as kota_tujuan', 'jdw.kd_asal as kd_asal', 'a.kota_asal as kota_asal', 'a.nama_jalan as jalan_asal')
-            ->get();
-        $asal = DB::table('asal')->get(); 
-        return view('frontend.beranda', compact('jadwal', 'asal'));
+        $asal = DB::table('asal')->get();
+        $tujuan = DB::table('tujuan')->get(); 
+        return view('frontend.beranda', compact('tujuan', 'asal'));
     }
 /*
     public function cektanggal()
@@ -37,17 +33,14 @@ class FrontendController extends Controller
     {
         $date = $request->get('tanggal');
         $today = Carbon::now();
-        $postsInRange = $request->has('asal')
-        ? DB::table('jadwal')
-        ->where('kd_asal', $request->asal)->get()
-        : [];
-        $postsInRange1 = $request->has('tujuan')
-        ? DB::table('jadwal as jdw')
-        ->join('tujuan as t', 't.kd_tujuan', '=', 'jdw.kd_tujuan')
-        ->join('asal as a', 'a.kd_asal', '=', 'jdw.kd_asal')
-        ->join('mobil as m', 'm.kd_mobil', '=', 'jdw.kd_mobil')
-        ->where('t.kd_tujuan', $request->tujuan)->get()
-        : [];
+
+        $jadwal = DB::table('jadwal as jdw')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'jdw.kd_tujuan')
+            ->join('asal as a', 'a.kd_asal', '=', 'jdw.kd_asal')
+            ->join('mobil as m', 'm.kd_mobil', '=', 'jdw.kd_mobil')
+            ->where('t.kd_tujuan', $request->tujuan)
+            ->where('a.kd_asal', $request->asal)
+            ->get();
         $kursi1 = DB::table('order as ord')//kursi yang sudah di order
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
             ->where('tgl_berangkat_order', $date)
@@ -60,10 +53,11 @@ class FrontendController extends Controller
             ->join('asal as a', 'a.kd_asal', '=', 'jdw.kd_asal')
             ->join('mobil as m', 'm.kd_mobil', '=', 'jdw.kd_mobil')
             ->where('t.kd_tujuan', $request->tujuan)
+            ->where('a.kd_asal', $request->asal)
             ->sum('kapasitas_mobil');
         $kursi_tersedia = $kursi2 - $kursi1;// kursi yang tersedia
-        
-        return view('frontend.cek-jadwal', ['jadwal' => $postsInRange, 'jadwal' => $postsInRange1,], compact('date', 'kursi_tersedia'));
+
+        return view('frontend.cek-jadwal', compact('date', 'kursi_tersedia', 'jadwal'));
     }
 
     public function cektiket()
@@ -101,7 +95,10 @@ class FrontendController extends Controller
     { 
         if (Auth::user()){
         $date = $request->get('tanggal');
-        $jadwal = DB::table('jadwal')
+        $jadwal = DB::table('jadwal as jdw')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'jdw.kd_tujuan')
+            ->join('asal as a', 'a.kd_asal', '=', 'jdw.kd_asal')
+            ->join('mobil as m', 'm.kd_mobil', '=', 'jdw.kd_mobil')
             ->where('kd_jadwal', $request->jadwal)
             ->get();        
         $id = Auth::id();

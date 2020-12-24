@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>@yield('judul')</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
     <link rel="shortcut icon" href="{{ asset('frontend/img/icon.png') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/datepicker/dist/css/bootstrap-datepicker.min.css') }}">
@@ -36,10 +38,13 @@
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
       <a class="navbar-brand" href="#">
-        <img src="{{ asset('frontend/img/logo.png') }}" width="160">
+        <img src="{{ asset('frontend/img/logo-travel.jpg') }}" width="200">
       </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
 
-      <div class="collapse navbar-collapse font-weight-bold" id="navbarNav">
+      <div class="collapse navbar-collapse font-weight-bold" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto mr-5">
 
           @if(Request::is('/'))     
@@ -75,8 +80,8 @@
           @if (Route::has('login'))
           <li class="nav-item mr-2">
             @auth
-            <!--<h6><a class="nav-link" href="{{ url('/profile') }}">Hai, {{ Auth::user()->name }}</a></h6>-->
-          <div class="btn-group">
+            <h6><a class="nav-link" href="{{ url('/profile') }}">Hai, {{ Auth::user()->name }}</a></h6>
+          <!--<div class="btn-group">
               <a class="navbar-brand dropdown-toggle" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle fa-lg"></i></a>
               <ul class="dropdown-menu">
                 <li><a href="{{ url('/profile') }}" class="text-dark ml-3">My Profile</a><hr></li>
@@ -88,7 +93,7 @@
                     </form>
               </li>
               </ul>
-          </div>
+          </div>-->
           </li>
           @else
           <li class="nav-item mr-2">

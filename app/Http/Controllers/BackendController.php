@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Rap2hpoutre\FastExcel\FastExcel;
 use PDF;
+use Illuminate\Support\Facades\Mail;
 
 class BackendController extends Controller
 {
@@ -38,7 +39,25 @@ class BackendController extends Controller
                 ->count();
         $konfirmasi = DB::table('konfirmasi')
                 ->count();
+            $data2=array(
+                'kd_order' => "234",
+                'kd_tiket' => "123",
+            );
         return view('backend.dashboard', compact('pending', 'total', 'konfirmasi'));
+    }
+    
+    public function tesmail($id)
+    {
+        $tiket = DB::table('order as ord')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
+            ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->where('kd_tiket', $id)
+            ->where('status_order', 2)
+            ->get();
+        $pdf = PDF::loadview('tesmail', compact('tiket'))->setPaper('A4','potrait');
+        return $pdf->stream();
+        //return view('tesmail');
     }
         
     public function jadwal()
@@ -360,7 +379,8 @@ class BackendController extends Controller
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
             ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
             ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
-            ->select('ord.kd_order as kd_order', 'ord.kd_tiket as kd_tiket', 'ord.nama_pemesan_tiket as nama_pemesan', 't.kota_tujuan as tujuan', 'a.kota_asal as asal', 'ord.status_order as status', 'j.kd_jadwal as kd_jadwal')
+            ->join('users as u', 'u.id', '=', 'ord.id_user')
+            ->select('ord.kd_order as kd_order', 'ord.kd_tiket as kd_tiket', 'ord.nama_pemesan_tiket as nama_pemesan', 't.kota_tujuan as tujuan', 'a.kota_asal as asal', 'ord.status_order as status', 'j.kd_jadwal as kd_jadwal', 'u.email as email')
             ->where('kd_order', $id)
             ->groupBy('kd_order')
             ->first();
@@ -405,6 +425,19 @@ class BackendController extends Controller
                 }
             }
         }
+
+        $pdf = PDF::loadView('tesmail');
+        $email = $request->email;
+        $data = array(
+                'kd_tiket' => $request->kd_tiket,
+            );
+        // Kirim Email
+        Mail::send('email_template', $data, function($mail) use($email, $pdf) {
+            $mail->to($email, 'no-reply')
+                    ->subject("Tiket Travel")
+                    ->attachData($pdf->output(), "report.pdf");
+            $mail->from('lintastravel@gmail.com', 'Tiket Travel');
+        });
         return redirect('daftarorder');
     }
 
@@ -486,6 +519,7 @@ class BackendController extends Controller
         $tiket = DB::table('tiket as tk')
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
             ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
             ->join('order as o', 'o.kd_order', '=', 'tk.kd_order')
             ->groupBy('o.kd_order')
             ->get();
@@ -514,6 +548,7 @@ class BackendController extends Controller
         $laporan = DB::table('tiket as tk')
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
             ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
             ->get();
         $tanggal_awal = new Carbon('first day of January 1970');
         $tanggal_akhir = Carbon::now();
@@ -533,6 +568,7 @@ class BackendController extends Controller
             $laporan = DB::table('tiket as tk')
                 ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
                 ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+                ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
                 ->whereBetween('tk.create_tgl_tiket', [$tanggal_awal, $tanggal_akhir])
                 ->where('j.kd_tujuan', $kota_tujuan)
                 ->get();           
@@ -550,6 +586,7 @@ class BackendController extends Controller
             $laporan = DB::table('tiket as tk')
                 ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
                 ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+                ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
                 ->whereBetween('tk.create_tgl_tiket', [$tanggal_awal, $tanggal_akhir])
                 ->get();           
         }else if($tanggal_awal != null && $tanggal_akhir != null && $kota_tujuan != null)
@@ -557,6 +594,7 @@ class BackendController extends Controller
             $laporan = DB::table('tiket as tk')
                 ->join('jadwal as j', 'j.kd_jadwal', '=', 'tk.kd_jadwal')
                 ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+                ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
                 ->whereBetween('tk.create_tgl_tiket', [$tanggal_awal, $tanggal_akhir])
                 ->where('j.kd_tujuan', $kota_tujuan)
                 ->get();
@@ -571,6 +609,7 @@ class BackendController extends Controller
                 'Nama Penumpang' => $laporan->nama_tiket,
                 'Identitas Penumpang' => $laporan->ktp_penumpang,
                 'Nomor Kursi' => $laporan->kursi_tiket,
+                'Asal' => $laporan->kota_asal,
                 'Tujuan' => $laporan->kota_tujuan,
             ];
         });

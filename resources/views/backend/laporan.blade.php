@@ -69,7 +69,7 @@
                   <th>Nama Penumpang</th>
                   <th>Identias Penumpang</th>
                   <th>Kursi</th>
-                  <th>Tujuan</th>
+                  <th>Asal - Tujuan</th>
                 </tr>
               </thead>
               <tbody>
@@ -82,7 +82,7 @@
                   <td>{{ $value->nama_tiket }}</td>
                   <td>{{ $value->ktp_penumpang }}</td>
                   <td>{{ $value->kursi_tiket }}</td>
-                  <td>{{ $value->kota_tujuan }}</td>
+                  <td>{{ $value->kota_asal }} - {{ $value->kota_tujuan }}</td>
               </tr>
                 @endforeach
             </tbody>

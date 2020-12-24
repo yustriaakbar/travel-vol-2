@@ -31,7 +31,7 @@
                   <th>No</th>
                   <th>Kode Order</th>
                   <th>Kode Tiket</th>
-                  <th>Tujuan</th>
+                  <th>Asal - Tujuan</th>
                   <th>Tanggal Beli Tiket</th>
                   <th>Nama Pemesan</th>
                   <th>Jadwal Berangkat</th>
@@ -44,11 +44,11 @@
                   <td>{{++$tk}}</td>
                   <td>{{ $value->kd_order }}</td>
                   <td>{{ $value->kd_tiket }}</td>
-                  <td>{{ $value->kota_tujuan }}</td>
+                  <td>{{ $value->kota_asal }} - {{ $value->kota_tujuan }}</td>
                   <td>{{\Carbon\Carbon::parse($value->tgl_beli_order)->isoFormat('dddd, D MMMM Y') }}</td>
                   <td>{{ $value->nama_pemesan_tiket }}</td>
                   <td>{{\Carbon\Carbon::parse($value->tgl_berangkat_order)->isoFormat('dddd, D MMMM Y') }}</td>
-                  <td><a class="btn btn-success" href="{{url('admin/etiket/'.$value->kd_tiket)}}">Cetak Tiket</a></td>
+                  <td><a class="btn btn-success" href="{{url('etiket/'.$value->kd_tiket)}}">Cetak Tiket</a></td>
               </tr>
                 @endforeach
             </tbody>

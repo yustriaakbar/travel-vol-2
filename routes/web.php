@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
-
+Route::get('/tesmail/{id}', 'BackendController@tesmail');
 //FRONTEND
 Route::get('/', 'FrontendController@index');
 //Route::get('/cektanggal', 'FrontendController@cektanggal');
@@ -40,7 +40,7 @@ Route::group(['middleware' => ['admin']], function () {
 Route::get('/dashboard', 'BackendController@index');
 Route::get('/daftarkonfirmasi', 'BackendController@list_confirm');
 Route::get('/daftartiket', 'BackendController@list_tiket');
-Route::get('/admin/etiket/{id}', 'BackendController@cetak_admin');
+Route::get('/etiket/{id}', 'BackendController@cetak_admin');
 Route::get('/laporan', 'BackendController@manajemen_laporan');
 Route::get('/laporan/filter', 'BackendController@manajemen_laporan_filter');
 Route::get('/laporan/download', 'BackendController@download_laporan');

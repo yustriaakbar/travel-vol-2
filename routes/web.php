@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
-Route::get('/tesmail/{id}', 'BackendController@tesmail');
+Route::get('/tesmail', 'BackendController@tesmail');
 //FRONTEND
 Route::get('/', 'FrontendController@index');
 //Route::get('/cektanggal', 'FrontendController@cektanggal');

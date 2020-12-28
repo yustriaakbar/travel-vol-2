@@ -39,25 +39,12 @@ class BackendController extends Controller
                 ->count();
         $konfirmasi = DB::table('konfirmasi')
                 ->count();
-            $data2=array(
-                'kd_order' => "234",
-                'kd_tiket' => "123",
-            );
         return view('backend.dashboard', compact('pending', 'total', 'konfirmasi'));
     }
     
-    public function tesmail($id)
+    public function tesmail()
     {
-        $tiket = DB::table('order as ord')
-            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
-            ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
-            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
-            ->where('kd_tiket', $id)
-            ->where('status_order', 2)
-            ->get();
-        $pdf = PDF::loadview('tesmail', compact('tiket'))->setPaper('A4','potrait');
-        return $pdf->stream();
-        //return view('tesmail');
+        return view('email_template');
     }
         
     public function jadwal()
@@ -426,16 +413,22 @@ class BackendController extends Controller
             }
         }
 
-        $pdf = PDF::loadView('tesmail');
+        $tiket = DB::table('order as ord')
+            ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
+            ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
+            ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->join('mobil as m', 'm.kd_mobil', '=', 'j.kd_mobil')
+            ->where('kd_tiket', $request->kd_tiket)
+            ->where('status_order', 2)
+            ->get();
+        $pdf = PDF::loadView('frontend.etiket', compact('tiket'));
         $email = $request->email;
-        $data = array(
-                'kd_tiket' => $request->kd_tiket,
-            );
+
         // Kirim Email
-        Mail::send('email_template', $data, function($mail) use($email, $pdf) {
+        Mail::send('email_template', $data2, function($mail) use($email, $pdf) {
             $mail->to($email, 'no-reply')
                     ->subject("Tiket Travel")
-                    ->attachData($pdf->output(), "report.pdf");
+                    ->attachData($pdf->output(), "tiket.pdf");
             $mail->from('lintastravel@gmail.com', 'Tiket Travel');
         });
         return redirect('daftarorder');
@@ -533,14 +526,15 @@ class BackendController extends Controller
             ->join('jadwal as j', 'j.kd_jadwal', '=', 'ord.kd_jadwal')
             ->join('asal as a', 'a.kd_asal', '=', 'j.kd_asal')
             ->join('tujuan as t', 't.kd_tujuan', '=', 'j.kd_tujuan')
+            ->join('mobil as m', 'm.kd_mobil', '=', 'j.kd_mobil')
             ->where('kd_tiket', $id)
             ->where('status_order', 2)
             ->get();
         //if info_tiket == null
         // return message "maaf tiket anda tidak ditemukan"
-        //$pdf = PDF::loadview('frontend.e_tiket', compact('tiket', 'info_tiket'))->setPaper('A4','potrait');
-        //return $pdf->stream();
-        return view('frontend.e_tiket', compact('tiket'));
+        $pdf = PDF::loadview('frontend.etiket', compact('tiket'))->setPaper('A4','potrait');
+        return $pdf->stream();
+        //return view('frontend.e_tiket', compact('tiket'));
     }
 
     public function manajemen_laporan()

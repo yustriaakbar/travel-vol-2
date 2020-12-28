@@ -350,18 +350,11 @@
                     <tr>
                       <td>
                         <p>Dear Customer,</p>
-                        <p>Kami informasikan bahwa tiket travel anda sudah dikonfirmasi oleh admin travel dengan rincian sebagai berikut :</p>
+                        <p>Terima Kasih telah memilih kami sebagai partner booking dan ticketing online anda. Sebelum memulai perjalanan dengan travel kami, cek terlebih dahulu tiket yang sudah kami lampirkan dibawah ini.</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
                             <tr>
                               <td align="left">
-                                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                                  <tbody>
-                                    <tr>
-                                      <td> <a href="http://localhost:8000/etiket/{{ $kd_tiket }}" target="_blank">Cek Tiket</a> </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
                               </td>
                             </tr>
                           </tbody>

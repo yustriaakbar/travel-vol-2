@@ -16,4 +16,12 @@
 5. Kemudian buat database di phpmyadmin sesuai dengan nama database pada file .env yang sudah dibuat
 5. php artisan migrate
 6. php artisan key:generate
-7. run project dengan cara php artisan serve atau php -S localhost:8000 -t public
+7. Tambahkan atau edit kode dibawah ini di file .env (dibawah MAIL_DRIVER=smtp):
+	MAIL_HOST=smtp.gmail.com
+	MAIL_PORT=587
+	MAIL_USERNAME=nama_email
+	MAIL_PASSWORD=password_email
+	MAIL_ENCRYPTION=tls
+8. run project dengan cara php artisan serve atau php -S localhost:8000 -t public
+
+nb : jika register sebagai pelanggan, gunakan email yang valid agar bisa menerima notifikasi email (berisi tiket pdf).

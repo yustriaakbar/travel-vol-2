@@ -80,7 +80,11 @@
           @if (Route::has('login'))
           <li class="nav-item mr-2">
             @auth
+            @if (Auth::user()->role == 'admin')
+            <h6><a class="nav-link" href="{{ url('/dashboard') }}">Hai, {{ Auth::user()->name }}</a></h6>
+            @else
             <h6><a class="nav-link" href="{{ url('/profile') }}">Hai, {{ Auth::user()->name }}</a></h6>
+            @endif
           <!--<div class="btn-group">
               <a class="navbar-brand dropdown-toggle" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle fa-lg"></i></a>
               <ul class="dropdown-menu">

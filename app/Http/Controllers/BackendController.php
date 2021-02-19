@@ -41,11 +41,6 @@ class BackendController extends Controller
                 ->count();
         return view('backend.dashboard', compact('pending', 'total', 'konfirmasi'));
     }
-    
-    public function tesmail()
-    {
-        return view('email_template');
-    }
         
     public function jadwal()
     {
